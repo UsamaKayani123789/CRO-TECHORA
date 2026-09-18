@@ -478,6 +478,14 @@
   object-fit: var(--techora-image-fit, cover);
 }
 
+.techora-listicle-v1 .techora-listicle-v1__image--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--techora-border, #d8dfda);
+  color: var(--techora-background, #faf9f6);
+}
+
 .techora-listicle-v1 .techora-listicle-v1__caption {
   margin: 12px 0 0;
   font-size: 0.82em;
