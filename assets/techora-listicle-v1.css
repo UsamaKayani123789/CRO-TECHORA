@@ -331,11 +331,23 @@
   }
 
   .techora-listicle-v1 .techora-listicle-v1__announcement-countdown-unit strong {
-    font-size: 1.5em;
+    font-size: 1.35em;
   }
 
   .techora-listicle-v1 .techora-listicle-v1__announcement-countdown-unit span {
-    font-size: 0.68em;
+    font-size: 0.72em;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__announcement-countdown-separator {
+    font-size: 1.05em;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__announcement-message {
+    font-size: 1.05em;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__announcement-support {
+    font-size: 0.95em;
   }
 }
 
