@@ -821,16 +821,18 @@
 
 .techora-listicle-v1 .techora-listicle-v1__cta-band-copy {
   min-width: 0;
-  max-width: 62ch;
+  max-width: 600px;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__cta-band-heading {
-  max-width: 26ch;
+  max-width: 600px;
   margin-inline: auto;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__cta-band-body {
+  max-width: 550px;
   margin-top: 14px;
+  margin-inline: auto;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__cta-band-note {
