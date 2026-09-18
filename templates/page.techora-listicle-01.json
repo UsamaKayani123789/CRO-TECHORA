@@ -401,7 +401,7 @@
           "type": "techora-offer-reassurance",
           "settings": {
             "label": "Sell-Out Risk:",
-            "text": "<span style=\"color: #c8202f;\">High</span>"
+            "text": "High"
           }
         },
         "techora_offer_reassurance_2": {
