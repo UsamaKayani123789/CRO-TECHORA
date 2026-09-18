@@ -5,6 +5,16 @@
 
 {{ 'techora-listicle-v1.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'techora-listicle-countdown-v1.js' | asset_url }}" defer></script>
+{% if template.suffix == 'techora-listicle-01' %}
+  {% style %}
+    .shopify-section-group-header-group,
+    .shopify-section-group-footer-group,
+    #shopify-section-header,
+    #shopify-section-footer {
+      display: none;
+    }
+  {% endstyle %}
+{% endif %}
 
 {% liquid
   assign has_link = false
