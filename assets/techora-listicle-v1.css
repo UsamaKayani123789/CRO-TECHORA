@@ -874,8 +874,61 @@
 }
 
 /* Offer foundation: product imagery and product-link content stay visually paired. */
-.techora-listicle-v1--offer {
-  border-top: 1px solid var(--techora-border, #d8dfda);
+
+.techora-listicle-v1 .techora-listicle-v1__offer-card-wrap {
+  position: relative;
+  max-width: var(--techora-content-width, 800px);
+  margin: 28px auto 0;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-card-badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  padding: 8px 18px;
+  border-radius: 999px;
+  background: var(--techora-button, #245c50);
+  color: var(--techora-button-text, #ffffff);
+  font-size: 0.85em;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-layout--card {
+  border: 1px dashed var(--techora-border, #d8dfda);
+  border-radius: calc(var(--techora-radius, 16px) + 8px);
+  padding: 32px 24px 24px;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-countdown {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 0.9em;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-countdown-label {
+  font-weight: 700;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-countdown-clock {
+  color: var(--techora-accent, #245c50);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-countdown-expired {
+  font-weight: 700;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-disclosure {
+  margin: 16px 0 0;
+  font-size: 0.82em;
+  line-height: 1.5;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__offer-layout {

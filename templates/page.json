@@ -381,30 +381,32 @@
     "techora_listicle_offer_v1_7RQYhU": {
       "type": "techora-listicle-offer-v1",
       "blocks": {
-        "techora_offer_benefit_edd4a4": {
-          "type": "techora-offer-benefit",
+        "techora_offer_reassurance_1": {
+          "type": "techora-offer-reassurance",
           "settings": {
-            "text": "Thoughtful details for everyday use"
+            "label": "Sell-Out Risk:",
+            "text": "High"
           }
         },
-        "techora_offer_benefit_GjTMxw": {
-          "type": "techora-offer-benefit",
+        "techora_offer_reassurance_2": {
+          "type": "techora-offer-reassurance",
           "settings": {
-            "text": "Clear information before you choose"
+            "label": "",
+            "text": "Free shipping"
           }
         }
       },
       "block_order": [
-        "techora_offer_benefit_edd4a4",
-        "techora_offer_benefit_GjTMxw"
+        "techora_offer_reassurance_1",
+        "techora_offer_reassurance_2"
       ],
       "name": "Techora product offer",
       "settings": {
         "offer_key": "primary",
         "product": "1-x-10yd-burgundy-velvet-ribbon-set-of-3",
-        "eyebrow": "A thoughtful choice",
-        "heading": "",
-        "body": "<p>Bring the details together with a product chosen for the way you live, work, or create.</p>",
+        "eyebrow": "🎁 Free gifts with your order",
+        "heading": "Up to 58% off for a limited time only!",
+        "body": "<p>This limited-time deal is in high demand and stock keeps selling out.</p>",
         "secondary_image_alt": "",
         "secondary_image_decorative": false,
         "secondary_image_presentation": "landscape",
@@ -416,16 +418,25 @@
         "image_fit": "cover",
         "image_radius": 16,
         "show_vendor": false,
-        "show_price": true,
+        "show_price": false,
         "show_compare_at": true,
         "show_savings": false,
         "savings_label": "Save",
         "show_badge": false,
         "badge_text": "Editor’s choice",
         "cta_enabled": true,
-        "cta_label": "View product details",
+        "cta_label": "Get 58% off",
         "destination_mode": "product",
         "cta_url": "",
+        "show_card": true,
+        "card_badge_text": "🍁 Fall Special ✨",
+        "disclosure_text": "Try it today with a 30-Day Money-Back Guarantee!",
+        "countdown_enabled": true,
+        "countdown_label": "Deal ending in:",
+        "countdown_hours": 2,
+        "countdown_minutes": 30,
+        "countdown_seconds": 0,
+        "countdown_expired_message": "This promotion has ended.",
         "content_width": 800,
         "heading_scale": 100,
         "body_scale": 100,

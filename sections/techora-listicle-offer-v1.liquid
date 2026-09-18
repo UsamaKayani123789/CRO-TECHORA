@@ -4,6 +4,7 @@
 {% endcomment %}
 
 {{ 'techora-listicle-v1.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'techora-listicle-countdown-v1.js' | asset_url }}" defer></script>
 
 {% liquid
   assign has_product = false
@@ -50,6 +51,14 @@
   if section.settings.secondary_image != blank
     assign has_secondary_image = true
   endif
+  assign countdown_duration_seconds = section.settings.countdown_hours | times: 3600
+  assign countdown_duration_minutes = section.settings.countdown_minutes | times: 60
+  assign countdown_duration_seconds = countdown_duration_seconds | plus: countdown_duration_minutes
+  assign countdown_duration_seconds = countdown_duration_seconds | plus: section.settings.countdown_seconds
+  assign has_countdown = false
+  if section.settings.countdown_enabled and countdown_duration_seconds > 0
+    assign has_countdown = true
+  endif
 %}
 
 {% if has_product or request.design_mode %}
@@ -82,7 +91,13 @@
   >
     <div class="techora-listicle-v1__container">
       {% if has_product %}
-        <div class="techora-listicle-v1__offer-layout{% if section.settings.media_side == 'right' %} techora-listicle-v1__offer-layout--right{% endif %}">
+        {% if section.settings.show_card %}
+          <div class="techora-listicle-v1__offer-card-wrap">
+            {% if section.settings.card_badge_text != blank %}
+              <span class="techora-listicle-v1__offer-card-badge">{{ section.settings.card_badge_text | escape }}</span>
+            {% endif %}
+        {% endif %}
+        <div class="techora-listicle-v1__offer-layout{% if section.settings.media_side == 'right' %} techora-listicle-v1__offer-layout--right{% endif %}{% if section.settings.show_card %} techora-listicle-v1__offer-layout--card{% endif %}">
           {% if offer_image != blank or has_secondary_image %}
             <div class="techora-listicle-v1__offer-media">
               {% if offer_image != blank %}
@@ -148,6 +163,29 @@
                 {% endfor %}
               </ul>
             {% endif %}
+            {% if has_cta %}
+              <a class="techora-listicle-v1__offer-cta techora-listicle-v1__button" href="{{ cta_url | escape }}">
+                {{ section.settings.cta_label | escape }}
+              </a>
+            {% endif %}
+            {% if has_countdown %}
+              <div
+                class="techora-listicle-v1__offer-countdown"
+                data-techora-countdown
+                data-techora-countdown-hours-duration="{{ section.settings.countdown_hours }}"
+                data-techora-countdown-minutes-duration="{{ section.settings.countdown_minutes }}"
+                data-techora-countdown-seconds-duration="{{ section.settings.countdown_seconds }}"
+                data-techora-countdown-expired-message="{{ section.settings.countdown_expired_message | escape }}"
+              >
+                {% if section.settings.countdown_label != blank %}
+                  <span class="techora-listicle-v1__offer-countdown-label">{{ section.settings.countdown_label | escape }}</span>
+                {% endif %}
+                <span class="techora-listicle-v1__offer-countdown-clock" data-techora-countdown-clock aria-label="Countdown" aria-live="off">
+                  <strong data-techora-countdown-hours>00</strong>:<strong data-techora-countdown-minutes>00</strong>:<strong data-techora-countdown-seconds>00</strong>
+                </span>
+                <span class="techora-listicle-v1__offer-countdown-expired" data-techora-countdown-expired hidden></span>
+              </div>
+            {% endif %}
             {% assign has_reassurances = false %}
             {% for block in section.blocks %}{% if block.type == 'techora-offer-reassurance' and block.settings.text != blank %}{% assign has_reassurances = true %}{% endif %}{% endfor %}
             {% if has_reassurances %}
@@ -157,13 +195,14 @@
                 {% endfor %}
               </ul>
             {% endif %}
-            {% if has_cta %}
-              <a class="techora-listicle-v1__offer-cta techora-listicle-v1__button" href="{{ cta_url | escape }}">
-                {{ section.settings.cta_label | escape }}
-              </a>
+            {% if section.settings.disclosure_text != blank %}
+              <p class="techora-listicle-v1__offer-disclosure">{{ section.settings.disclosure_text | escape }}</p>
             {% endif %}
           </div>
         </div>
+        {% if section.settings.show_card %}
+          </div>
+        {% endif %}
       {% elsif request.design_mode %}
         <p class="techora-listicle-v1__editor-note">Select a product to display the offer foundation. The section is hidden on the storefront until a product is selected.</p>
       {% endif %}
@@ -226,6 +265,17 @@
       { "value": "offer_anchor", "label": "This offer anchor" }
     ] },
     { "type": "url", "id": "cta_url", "label": "CTA URL", "info": "Used when Custom URL is selected." },
+    { "type": "header", "content": "Promotional card" },
+    { "type": "checkbox", "id": "show_card", "label": "Show bordered promotional card", "default": false, "info": "Wraps the offer in a dashed card with an optional badge and countdown, for time-limited promotions." },
+    { "type": "text", "id": "card_badge_text", "label": "Card badge text", "info": "Optional small pill shown above the card, such as a campaign name." },
+    { "type": "text", "id": "disclosure_text", "label": "Disclosure / fine print", "info": "Shown below the reassurance items, such as a guarantee statement." },
+    { "type": "header", "content": "Countdown" },
+    { "type": "checkbox", "id": "countdown_enabled", "label": "Show countdown", "default": false },
+    { "type": "text", "id": "countdown_label", "label": "Countdown label", "default": "Deal ending in:" },
+    { "type": "range", "id": "countdown_hours", "label": "Countdown hours", "min": 0, "max": 99, "step": 1, "default": 2 },
+    { "type": "range", "id": "countdown_minutes", "label": "Countdown minutes", "min": 0, "max": 59, "step": 1, "default": 30 },
+    { "type": "range", "id": "countdown_seconds", "label": "Countdown seconds", "min": 0, "max": 59, "step": 1, "default": 0 },
+    { "type": "text", "id": "countdown_expired_message", "label": "Expired message", "default": "This promotion has ended." },
     { "type": "header", "content": "Typography and layout" },
     { "type": "range", "id": "content_width", "label": "Maximum content width", "min": 640, "max": 1200, "step": 40, "unit": "px", "default": 800 },
     { "type": "range", "id": "heading_scale", "label": "Heading size", "min": 80, "max": 130, "step": 5, "unit": "%", "default": 100 },

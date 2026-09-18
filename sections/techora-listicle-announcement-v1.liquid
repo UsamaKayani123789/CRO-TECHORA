@@ -4,7 +4,7 @@
 {% endcomment %}
 
 {{ 'techora-listicle-v1.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'techora-listicle-announcement-v1.js' | asset_url }}" defer></script>
+<script src="{{ 'techora-listicle-countdown-v1.js' | asset_url }}" defer></script>
 
 {% liquid
   assign has_link = false
@@ -80,7 +80,7 @@
             data-techora-countdown-seconds-duration="{{ section.settings.countdown_seconds }}"
             data-techora-countdown-expired-message="{{ section.settings.expired_message | escape }}"
           >
-            <div class="techora-listicle-v1__announcement-countdown-clock" aria-label="Countdown" aria-live="off">
+            <div class="techora-listicle-v1__announcement-countdown-clock" data-techora-countdown-clock aria-label="Countdown" aria-live="off">
               <div class="techora-listicle-v1__announcement-countdown-unit"><strong data-techora-countdown-hours>00</strong><span>Hrs</span></div>
               <span class="techora-listicle-v1__announcement-countdown-separator" aria-hidden="true">:</span>
               <div class="techora-listicle-v1__announcement-countdown-unit"><strong data-techora-countdown-minutes>00</strong><span>Min</span></div>

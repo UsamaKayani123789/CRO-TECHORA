@@ -18,7 +18,7 @@
     var durationSeconds = parseInt(countdown.getAttribute('data-techora-countdown-seconds-duration') || '0', 10) || 0;
     var duration = (durationHours * 3600) + (durationMinutes * 60) + durationSeconds;
     var end = Date.now() + (duration * 1000);
-    var clock = countdown.querySelector('.techora-listicle-v1__announcement-countdown-clock');
+    var clock = countdown.querySelector('[data-techora-countdown-clock]');
     var expired = countdown.querySelector('[data-techora-countdown-expired]');
     var expiredMessage = countdown.getAttribute('data-techora-countdown-expired-message') || '';
     var hours = countdown.querySelector('[data-techora-countdown-hours]');
