@@ -161,7 +161,7 @@
                     {% if has_video %}
                       {{
                         block.settings.video
-                        | video_tag: image_size: '1600x', controls: true, preload: 'metadata', class: 'techora-listicle-v1__image'
+                        | video_tag: image_size: '1600x', controls: true, autoplay: true, muted: true, loop: true, preload: 'auto', class: 'techora-listicle-v1__image'
                       }}
                     {% elsif has_image %}
                       {% liquid assign first_image_rendered = true %}
