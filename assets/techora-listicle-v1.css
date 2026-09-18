@@ -15,6 +15,14 @@
   grid-column: 1 / -1;
 }
 
+/* Defend against host themes styling bare header/nav/figure tags for their own site chrome. */
+.techora-listicle-v1[class] header,
+.techora-listicle-v1[class] nav,
+.techora-listicle-v1[class] figure,
+.techora-listicle-v1[class] figcaption {
+  display: block;
+}
+
 .techora-listicle-v1,
 .techora-listicle-v1 *,
 .techora-listicle-v1 *::before,
