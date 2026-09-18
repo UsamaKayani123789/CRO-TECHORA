@@ -1132,7 +1132,7 @@
 
 .techora-listicle-v1 .techora-listicle-v1__reason-heading {
   max-width: 23ch;
-  font-size: calc(clamp(22px, 2.15vw, 29px) * var(--techora-heading-scale, 1));
+  font-size: var(--techora-reason-heading-size, 29px);
   line-height: 1.18;
 }
 
@@ -1177,6 +1177,10 @@
   min-width: 0;
   width: 100%;
   max-width: 68ch;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__reason-content > .techora-listicle-v1__richtext {
+  font-size: var(--techora-reason-body-size, 17px);
 }
 
 .techora-listicle-v1--align-center .techora-listicle-v1__reason-content {
@@ -1224,7 +1228,7 @@
 
   .techora-listicle-v1 .techora-listicle-v1__reason-layout--split {
     grid-template-columns: minmax(0, var(--techora-reason-media-width, var(--techora-media-width, 40%))) minmax(0, 1fr);
-    grid-template-rows: auto auto;
+    grid-template-rows: min-content min-content;
     grid-template-areas: "media heading" "media content";
     column-gap: clamp(28px, var(--techora-column-gap, 40px), 48px);
     align-items: start;

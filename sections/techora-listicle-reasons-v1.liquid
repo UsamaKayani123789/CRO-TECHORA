@@ -47,8 +47,8 @@
       --techora-padding-bottom: {{ section.settings.padding_bottom }}px;
       --techora-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
       --techora-mobile-padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
-      --techora-heading-scale: {{ section.settings.heading_scale | divided_by: 100.0 }};
-      --techora-body-scale: {{ section.settings.body_scale | divided_by: 100.0 }};
+      --techora-reason-heading-size: {{ section.settings.heading_scale }}px;
+      --techora-reason-body-size: {{ section.settings.body_scale }}px;
       --techora-column-gap: {{ section.settings.column_gap }}px;
       --techora-reason-gap: {{ section.settings.row_gap }}px;
       --techora-mobile-reason-gap: {{ section.settings.mobile_row_gap }}px;
@@ -262,8 +262,8 @@
     { "type": "checkbox", "id": "show_dividers", "label": "Show subtle dividers between reasons", "default": false },
     { "type": "header", "content": "Layout and typography" },
     { "type": "range", "id": "content_width", "label": "Maximum content width", "min": 640, "max": 1200, "step": 40, "unit": "px", "default": 800 },
-    { "type": "range", "id": "heading_scale", "label": "Heading size", "min": 80, "max": 130, "step": 5, "unit": "%", "default": 100 },
-    { "type": "range", "id": "body_scale", "label": "Body text size", "min": 90, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "heading_scale", "label": "Heading size", "min": 18, "max": 40, "step": 1, "unit": "px", "default": 29 },
+    { "type": "range", "id": "body_scale", "label": "Body text size", "min": 14, "max": 22, "step": 1, "unit": "px", "default": 17 },
     { "type": "select", "id": "text_alignment", "label": "Text alignment", "default": "left", "options": [
       { "value": "left", "label": "Left" },
       { "value": "center", "label": "Center" },
