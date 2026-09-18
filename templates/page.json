@@ -69,7 +69,7 @@
         "text_alignment": "left",
         "background_color": "#ffffff",
         "text_color": "#000000",
-        "accent_color": "#00237e",
+        "accent_color": "#000000",
         "border_color": "#ebebeb",
         "padding_top": 48,
         "padding_bottom": 16,
