@@ -1224,10 +1224,11 @@
 
   .techora-listicle-v1 .techora-listicle-v1__reason-layout--split {
     grid-template-columns: minmax(0, var(--techora-reason-media-width, var(--techora-media-width, 40%))) minmax(0, 1fr);
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto auto;
     grid-template-areas: "media heading" "media content";
     column-gap: clamp(28px, var(--techora-column-gap, 40px), 48px);
     align-items: start;
+    align-content: center;
   }
 
   .techora-listicle-v1 .techora-listicle-v1__reason-layout--right {
@@ -1238,6 +1239,7 @@
   .techora-listicle-v1 .techora-listicle-v1__reason-layout--split.techora-listicle-v1__reason-layout--no-heading {
     grid-template-rows: 1fr;
     grid-template-areas: "media content";
+    align-items: center;
   }
 
   .techora-listicle-v1 .techora-listicle-v1__reason-layout--right.techora-listicle-v1__reason-layout--no-heading {
@@ -1247,6 +1249,7 @@
   .techora-listicle-v1 .techora-listicle-v1__reason-layout--split.techora-listicle-v1__reason-layout--no-body {
     grid-template-rows: 1fr;
     grid-template-areas: "media heading";
+    align-items: center;
   }
 
   .techora-listicle-v1 .techora-listicle-v1__reason-layout--right.techora-listicle-v1__reason-layout--no-body {
