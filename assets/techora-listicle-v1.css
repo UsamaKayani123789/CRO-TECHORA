@@ -204,43 +204,66 @@
   max-width: 100%;
 }
 
-.techora-listicle-v1 .techora-listicle-v1__announcement-statuses {
+.techora-listicle-v1 .techora-listicle-v1__announcement-countdown {
   display: grid;
-  grid-template-columns: repeat(3, minmax(54px, 1fr));
-  min-width: 216px;
+  min-width: 220px;
   align-items: center;
+  justify-self: end;
+  padding: 5px 12px;
+  border-radius: 4px;
+  background: #fff;
+  color: #263238;
 }
 
-.techora-listicle-v1 .techora-listicle-v1__announcement-status {
+.techora-listicle-v1 .techora-listicle-v1__announcement-countdown-clock {
+  display: grid;
+  grid-template-columns: minmax(42px, 1fr) auto minmax(42px, 1fr) auto minmax(42px, 1fr);
+  align-items: center;
+  column-gap: 7px;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__announcement-countdown-unit {
   display: grid;
   min-width: 0;
-  padding-inline: 16px;
   text-align: center;
 }
 
-.techora-listicle-v1 .techora-listicle-v1__announcement-status + .techora-listicle-v1__announcement-status {
-  border-inline-start: 1px solid color-mix(in srgb, currentColor 42%, transparent);
-}
-
-.techora-listicle-v1 .techora-listicle-v1__announcement-status strong,
-.techora-listicle-v1 .techora-listicle-v1__announcement-status span {
+.techora-listicle-v1 .techora-listicle-v1__announcement-countdown-unit strong,
+.techora-listicle-v1 .techora-listicle-v1__announcement-countdown-unit span {
   display: block;
   overflow-wrap: anywhere;
 }
 
-.techora-listicle-v1 .techora-listicle-v1__announcement-status strong {
-  font-size: 0.88em;
+.techora-listicle-v1 .techora-listicle-v1__announcement-countdown-unit strong {
+  font-size: 1.45em;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  line-height: 1.1;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__announcement-countdown-unit span {
+  margin-top: 3px;
+  font-size: 0.68em;
+  font-weight: 600;
+  line-height: 1.15;
   text-transform: uppercase;
 }
 
-.techora-listicle-v1 .techora-listicle-v1__announcement-status span {
-  margin-top: 3px;
-  font-size: 0.72em;
-  font-weight: 600;
-  line-height: 1.15;
+.techora-listicle-v1 .techora-listicle-v1__announcement-countdown-separator {
+  align-self: start;
+  padding-top: 2px;
+  font-size: 1.15em;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__announcement-expired {
+  margin: 3px 0 0;
+  font-size: 0.75em;
+  font-weight: 650;
+  line-height: 1.25;
+  text-align: center;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-message,
@@ -281,13 +304,14 @@
     text-align: center;
   }
 
-  .techora-listicle-v1 .techora-listicle-v1__announcement-statuses {
-    width: min(100%, 320px);
+  .techora-listicle-v1 .techora-listicle-v1__announcement-countdown {
+    width: min(100%, 232px);
     min-width: 0;
+    justify-self: center;
   }
 
-  .techora-listicle-v1 .techora-listicle-v1__announcement-status {
-    padding-inline: 8px;
+  .techora-listicle-v1 .techora-listicle-v1__announcement-countdown-clock {
+    column-gap: 4px;
   }
 }
 

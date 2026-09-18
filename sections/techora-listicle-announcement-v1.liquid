@@ -4,6 +4,7 @@
 {% endcomment %}
 
 {{ 'techora-listicle-v1.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'techora-listicle-announcement-v1.js' | asset_url }}" defer></script>
 
 {% liquid
   assign has_link = false
@@ -11,7 +12,11 @@
     assign has_link = true
   endif
   assign has_content = false
-  if section.settings.message != blank or section.settings.supporting_text != blank or has_link or section.settings.status_1_value != blank or section.settings.status_2_value != blank or section.settings.status_3_value != blank
+  assign has_countdown = false
+  if section.settings.countdown_enabled and section.settings.countdown_end != blank
+    assign has_countdown = true
+  endif
+  if section.settings.message != blank or section.settings.supporting_text != blank or has_link or has_countdown
     assign has_content = true
   endif
 %}
@@ -61,26 +66,23 @@
             {% endif %}
           </div>
         {% endif %}
-        <div class="techora-listicle-v1__announcement-statuses" aria-label="Highlights">
-          {% if section.settings.status_1_value != blank or section.settings.status_1_label != blank %}
-            <div class="techora-listicle-v1__announcement-status">
-              <strong>{{ section.settings.status_1_value | escape }}</strong>
-              <span>{{ section.settings.status_1_label | escape }}</span>
+        {% if has_countdown %}
+          <div
+            class="techora-listicle-v1__announcement-countdown"
+            data-techora-countdown
+            data-techora-countdown-end="{{ section.settings.countdown_end | escape }}"
+            data-techora-countdown-expired-message="{{ section.settings.expired_message | escape }}"
+          >
+            <div class="techora-listicle-v1__announcement-countdown-clock" aria-label="Countdown" aria-live="off">
+              <div class="techora-listicle-v1__announcement-countdown-unit"><strong data-techora-countdown-hours>00</strong><span>Hrs</span></div>
+              <span class="techora-listicle-v1__announcement-countdown-separator" aria-hidden="true">:</span>
+              <div class="techora-listicle-v1__announcement-countdown-unit"><strong data-techora-countdown-minutes>00</strong><span>Min</span></div>
+              <span class="techora-listicle-v1__announcement-countdown-separator" aria-hidden="true">:</span>
+              <div class="techora-listicle-v1__announcement-countdown-unit"><strong data-techora-countdown-seconds>00</strong><span>Sec</span></div>
             </div>
-          {% endif %}
-          {% if section.settings.status_2_value != blank or section.settings.status_2_label != blank %}
-            <div class="techora-listicle-v1__announcement-status">
-              <strong>{{ section.settings.status_2_value | escape }}</strong>
-              <span>{{ section.settings.status_2_label | escape }}</span>
-            </div>
-          {% endif %}
-          {% if section.settings.status_3_value != blank or section.settings.status_3_label != blank %}
-            <div class="techora-listicle-v1__announcement-status">
-              <strong>{{ section.settings.status_3_value | escape }}</strong>
-              <span>{{ section.settings.status_3_label | escape }}</span>
-            </div>
-          {% endif %}
-        </div>
+            <p class="techora-listicle-v1__announcement-expired" data-techora-countdown-expired hidden></p>
+          </div>
+        {% endif %}
         {% if has_link %}
           <a class="techora-listicle-v1__announcement-link" href="{{ section.settings.link | escape }}">
             {{ section.settings.link_label | escape }}
@@ -109,13 +111,10 @@
     { "type": "header", "content": "Announcement" },
     { "type": "inline_richtext", "id": "message", "label": "Message", "default": "A considered approach to everyday choices" },
     { "type": "text", "id": "supporting_text", "label": "Supporting text" },
-    { "type": "header", "content": "Static highlights" },
-    { "type": "text", "id": "status_1_value", "label": "First value", "default": "RICH" },
-    { "type": "text", "id": "status_1_label", "label": "First label", "default": "Taste" },
-    { "type": "text", "id": "status_2_value", "label": "Second value", "default": "QUICK" },
-    { "type": "text", "id": "status_2_label", "label": "Second label", "default": "Prep" },
-    { "type": "text", "id": "status_3_value", "label": "Third value", "default": "EASY" },
-    { "type": "text", "id": "status_3_label", "label": "Third label", "default": "Daily" },
+    { "type": "header", "content": "Countdown" },
+    { "type": "checkbox", "id": "countdown_enabled", "label": "Enable countdown", "default": false },
+    { "type": "text", "id": "countdown_end", "label": "Countdown end date and time", "info": "Enter an ISO date and time, for example 2026-12-31T23:59:59Z. The countdown stops at zero after this deadline and never resets automatically." },
+    { "type": "text", "id": "expired_message", "label": "Expired message", "default": "This promotion has ended." },
     { "type": "select", "id": "destination_mode", "label": "Link destination", "default": "none", "options": [
       { "value": "none", "label": "No link" },
       { "value": "custom_url", "label": "Choose a URL" }
