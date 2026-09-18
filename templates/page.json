@@ -40,8 +40,8 @@
         "countdown_text_color": "#263238",
         "padding_top": 12,
         "padding_bottom": 12,
-        "mobile_padding_top": 12,
-        "mobile_padding_bottom": 12
+        "mobile_padding_top": 8,
+        "mobile_padding_bottom": 8
       }
     },
     "techora_listicle_article_header_v1_7ayA4m": {
