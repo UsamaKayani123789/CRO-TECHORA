@@ -8,6 +8,12 @@
 
     function update() {
       ticking = false;
+
+      if (!bar.isConnected) {
+        window.removeEventListener('scroll', onScroll);
+        return;
+      }
+
       var scrolled = window.scrollY || window.pageYOffset || 0;
       bar.classList.toggle('techora-listicle-v1__offer-sticky-cta--visible', scrolled >= offset);
     }
