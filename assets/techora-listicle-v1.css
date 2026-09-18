@@ -441,6 +441,12 @@
   }
 }
 
+/* Page-wide Techora typography adjustment. */
+.techora-listicle-v1,
+.techora-listicle-v1 * {
+  letter-spacing: -0.5px;
+}
+
 /* Structural enhancement: mixed editorial reasons and interstitial pacing units. */
 .techora-listicle-v1 .techora-listicle-v1__reason-figure--natural > .techora-listicle-v1__image,
 .techora-listicle-v1 .techora-listicle-v1__promo--media-natural .techora-listicle-v1__image { aspect-ratio: auto; }
