@@ -793,6 +793,10 @@
   line-height: 1.5;
 }
 
+.techora-listicle-v1__conclusion-content > .techora-listicle-v1__conclusion-disclosure:first-child {
+  margin-top: 0;
+}
+
 .techora-listicle-v1__conclusion-meta {
   display: flex;
   flex-wrap: wrap;
