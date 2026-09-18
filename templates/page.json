@@ -11,10 +11,248 @@
   "sections": {
     "main": {
       "type": "page",
+      "disabled": true,
       "settings": {}
+    },
+    "techora_listicle_announcement_v1_iR67Y6": {
+      "type": "techora-listicle-announcement-v1",
+      "name": "Techora announcement",
+      "settings": {
+        "message": "A considered approach to everyday choices",
+        "supporting_text": "",
+        "destination_mode": "none",
+        "link_label": "",
+        "link": "",
+        "sticky_enabled": false,
+        "sticky_top_offset": 0,
+        "content_width": 800,
+        "column_gap": 24,
+        "body_scale": 100,
+        "text_alignment": "center",
+        "background_color": "#183F3A",
+        "text_color": "#FFFFFF",
+        "accent_color": "#FFFFFF",
+        "padding_top": 12,
+        "padding_bottom": 12,
+        "mobile_padding_top": 12,
+        "mobile_padding_bottom": 12
+      }
+    },
+    "techora_listicle_article_header_v1_7ayA4m": {
+      "type": "techora-listicle-article-header-v1",
+      "name": "Techora article header",
+      "settings": {
+        "eyebrow": "The everyday edit",
+        "title": "Small details. More thoughtful everyday choices.",
+        "heading_level": "h1",
+        "disclosure": "",
+        "summary": "<p>Thoughtful choices start with a closer look. Explore the details that matter, consider what fits your routine, and find your own way forward.</p>",
+        "show_divider": true,
+        "show_author": false,
+        "author_label": "By",
+        "author_name": "",
+        "author_role": "",
+        "author_link": "",
+        "show_date": false,
+        "date_label": "Updated",
+        "date_iso": "",
+        "date_display": "",
+        "content_width": 800,
+        "heading_scale": 100,
+        "body_scale": 100,
+        "text_alignment": "left",
+        "background_color": "#FAF9F6",
+        "text_color": "#23312E",
+        "accent_color": "#245C50",
+        "border_color": "#D8DFDA",
+        "padding_top": 48,
+        "padding_bottom": 16,
+        "mobile_padding_top": 32,
+        "mobile_padding_bottom": 12
+      }
+    },
+    "techora_listicle_editorial_v1_btrMkF": {
+      "type": "techora-listicle-editorial-v1",
+      "name": "Techora editorial",
+      "settings": {
+        "heading": "Start with what matters to you",
+        "body": "<p>The best place to begin is your own routine. Consider the details you value, the questions you want answered, and the small changes that could make a difference.</p><p>Use this space to introduce your perspective and help readers make an informed choice.</p>",
+        "layout": "text",
+        "media_side": "left",
+        "image_alt": "",
+        "image_decorative": false,
+        "caption": "",
+        "image_ratio": "auto",
+        "image_fit": "cover",
+        "image_loading": "auto",
+        "cta_label": "",
+        "destination_mode": "none",
+        "link": "",
+        "product": "",
+        "content_width": 800,
+        "column_gap": 40,
+        "heading_scale": 100,
+        "body_scale": 100,
+        "corner_radius": 12,
+        "text_alignment": "left",
+        "background_color": "#FAF9F6",
+        "text_color": "#23312E",
+        "accent_color": "#245C50",
+        "button_color": "#245C50",
+        "button_text_color": "#FFFFFF",
+        "padding_top": 24,
+        "padding_bottom": 48,
+        "mobile_padding_top": 16,
+        "mobile_padding_bottom": 32
+      }
+    },
+    "techora_listicle_reasons_v1_FtERdD": {
+      "type": "techora-listicle-reasons-v1",
+      "blocks": {
+        "techora_reason_RRf6hU": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "Your starting point",
+            "heading": "Begin with your everyday routine",
+            "body": "<p>Think about the moments you want to make easier. A useful choice starts with understanding how you will use it, where it belongs, and what matters most to you.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit"
+          }
+        },
+        "techora_reason_wxygCT": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "A closer look",
+            "heading": "Look closely at the details",
+            "body": "<p>Materials, dimensions, and thoughtful features can help tell the full story. Take a moment to explore the details that are relevant to your needs.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit"
+          }
+        },
+        "techora_reason_bxnadR": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "",
+            "heading": "Consider how it fits your space",
+            "body": "<p>Whether it belongs at home, at work, or on the move, context matters. Picture how this choice would fit into the places and routines you already know.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit"
+          }
+        },
+        "techora_reason_iJ9gWE": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "",
+            "heading": "Get answers to the practical questions",
+            "body": "<p>Look for clear guidance on use, care, and what is included. Understanding these essentials can help you decide with more confidence.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit"
+          }
+        },
+        "techora_reason_pLnVX6": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "",
+            "heading": "Choose what works for you",
+            "body": "<p>Bring the details together and weigh them against your own priorities. The right next step is the one that makes sense for your needs.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "techora_reason_RRf6hU",
+        "techora_reason_wxygCT",
+        "techora_reason_bxnadR",
+        "techora_reason_iJ9gWE",
+        "techora_reason_pLnVX6"
+      ],
+      "name": "Techora listicle reasons",
+      "settings": {
+        "heading": "",
+        "show_numbers": true,
+        "start_number": 1,
+        "show_dividers": false,
+        "content_width": 800,
+        "heading_scale": 100,
+        "body_scale": 100,
+        "text_alignment": "left",
+        "desktop_media_side": "left",
+        "media_column_width": 40,
+        "column_gap": 40,
+        "image_ratio": "1 / 1",
+        "image_fit": "cover",
+        "corner_radius": 12,
+        "cta_style": "text",
+        "button_radius": 12,
+        "background_color": "#FAF9F6",
+        "text_color": "#23312E",
+        "accent_color": "#245C50",
+        "number_color": "#245C50",
+        "border_color": "#D8DFDA",
+        "button_color": "#245C50",
+        "button_text_color": "#FFFFFF",
+        "caption_background_color": "#E5ECE6",
+        "caption_text_color": "#23312E",
+        "row_gap": 64,
+        "mobile_row_gap": 48,
+        "padding_top": 24,
+        "padding_bottom": 48,
+        "mobile_padding_top": 16,
+        "mobile_padding_bottom": 32
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "techora_listicle_announcement_v1_iR67Y6",
+    "techora_listicle_article_header_v1_7ayA4m",
+    "techora_listicle_editorial_v1_btrMkF",
+    "techora_listicle_reasons_v1_FtERdD"
   ]
 }
