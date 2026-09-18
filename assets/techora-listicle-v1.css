@@ -1272,7 +1272,7 @@
 
   .techora-listicle-v1 .techora-listicle-v1__title {
     max-width: 100%;
-    font-size: calc(clamp(29px, 8vw, 35px) * var(--techora-heading-scale, 1));
+    font-size: calc(30px * var(--techora-heading-scale, 1));
     line-height: 1.08;
   }
 
@@ -1282,6 +1282,11 @@
 
   .techora-listicle-v1 .techora-listicle-v1__richtext {
     max-width: 66ch;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__summary {
+    font-size: 18px;
+    line-height: 1.3;
   }
 
   .techora-listicle-v1 .techora-listicle-v1__byline {
