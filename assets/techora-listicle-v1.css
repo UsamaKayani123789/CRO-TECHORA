@@ -905,8 +905,12 @@
 }
 
 .techora-listicle-v1 .techora-listicle-v1__offer-layout--card {
+  overflow: hidden;
   border: 1px dashed var(--techora-border, #d8dfda);
   border-radius: calc(var(--techora-radius, 16px) + 8px);
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-layout--card > .techora-listicle-v1__offer-content {
   padding: 32px 24px 24px;
 }
 
@@ -960,8 +964,6 @@
 
 .techora-listicle-v1 .techora-listicle-v1__offer-layout--card > .techora-listicle-v1__offer-media {
   height: 100%;
-  padding: 20px;
-  border-radius: var(--techora-radius, 16px);
   background: var(--techora-offer-card-media-background, #f3f5f1);
 }
 
@@ -973,6 +975,7 @@
   height: 100%;
   aspect-ratio: auto;
   object-fit: cover;
+  border-radius: 0;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__offer-image {
