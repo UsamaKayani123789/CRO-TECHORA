@@ -569,7 +569,7 @@
 .techora-listicle-v1 .techora-listicle-v1__offer-secondary-figure { margin-top: 20px; }
 .techora-listicle-v1 .techora-listicle-v1__offer-reassurances { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 20px 0 0; padding: 0; list-style: none; font-size: .9em; }
 .techora-listicle-v1 .techora-listicle-v1__offer-reassurances li { min-width: 0; }
-.techora-listicle-v1 .techora-listicle-v1__offer-reassurances span { margin-inline-start: 4px; }
+.techora-listicle-v1 .techora-listicle-v1__offer-reassurances span { margin-inline-start: 4px; font-weight: 700; }
 
 .techora-listicle-v1 .techora-listicle-v1__offer-layout--card .techora-listicle-v1__offer-reassurances {
   align-items: center;
@@ -994,6 +994,8 @@
 
 .techora-listicle-v1 .techora-listicle-v1__offer-heading {
   max-width: 20ch;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 900;
 }
 
 .techora-listicle-v1--align-center .techora-listicle-v1__offer-heading,
