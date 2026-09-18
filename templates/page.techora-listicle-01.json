@@ -23,7 +23,7 @@
         "destination_mode": "none",
         "link_label": "",
         "link": "",
-        "sticky_enabled": false,
+        "sticky_enabled": true,
         "sticky_top_offset": 0,
         "content_width": 800,
         "column_gap": 24,
