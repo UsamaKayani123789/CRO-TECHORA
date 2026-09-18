@@ -16,7 +16,15 @@
 }
 
 /* Defend against host themes styling bare header/nav/figure tags for their own site chrome. */
-.techora-listicle-v1[class] header,
+.techora-listicle-v1[class] header {
+  display: block;
+  position: static;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  overflow: visible;
+}
+
 .techora-listicle-v1[class] nav,
 .techora-listicle-v1[class] figure,
 .techora-listicle-v1[class] figcaption {
