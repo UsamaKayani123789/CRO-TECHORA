@@ -583,7 +583,7 @@
   border-inline-start: 1px solid var(--techora-border, #d8dfda);
 }
 .techora-listicle-v1 .techora-listicle-v1__conclusion-links ul { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 20px 0 0; padding: 0; list-style: none; }
-.techora-listicle-v1 .techora-listicle-v1__conclusion-links a { text-decoration: underline; }
+.techora-listicle-v1 .techora-listicle-v1__conclusion-links a { text-decoration: underline; font-size: 12px; }
 @media (max-width: 899px) {
   .techora-listicle-v1 .techora-listicle-v1__cta-band-inner--has-image { grid-template-columns: 1fr; }
   .techora-listicle-v1 .techora-listicle-v1__cta-band-inner--image-right > .techora-listicle-v1__cta-band-figure,
@@ -669,6 +669,15 @@
 .techora-listicle-v1__conclusion-content {
   min-width: 0;
   max-width: 68ch;
+}
+
+.techora-listicle-v1--align-center .techora-listicle-v1__conclusion-content {
+  margin-inline: auto;
+}
+
+.techora-listicle-v1--align-center .techora-listicle-v1__conclusion-meta,
+.techora-listicle-v1--align-center .techora-listicle-v1__conclusion-links ul {
+  justify-content: center;
 }
 
 .techora-listicle-v1__trust-badge {
@@ -780,8 +789,8 @@
 .techora-listicle-v1__conclusion-disclosure {
   margin-top: 28px;
   color: inherit;
-  font-size: 0.88em;
-  line-height: 1.55;
+  font-size: 10.4px;
+  line-height: 1.5;
 }
 
 .techora-listicle-v1__conclusion-meta {
@@ -789,8 +798,8 @@
   flex-wrap: wrap;
   gap: 8px 20px;
   margin-top: 20px;
-  color: var(--techora-accent, #245c50);
-  font-size: 0.88em;
+  color: inherit;
+  font-size: 12px;
   line-height: 1.5;
 }
 
