@@ -16,6 +16,18 @@
   if section.settings.image_override != blank
     assign offer_image = section.settings.image_override
   endif
+  assign has_image = false
+  if offer_image != blank
+    assign has_image = true
+  endif
+  assign has_custom_content = false
+  if section.settings.heading != blank or section.settings.image_override != blank
+    assign has_custom_content = true
+  endif
+  assign has_offer_content = false
+  if has_product or has_custom_content
+    assign has_offer_content = true
+  endif
   assign image_alt = section.settings.image_alt | strip
   if image_alt == blank and offer_image != blank
     assign image_alt = offer_image.alt | default: '' | strip
@@ -61,11 +73,11 @@
   endif
 %}
 
-{% if has_product or request.design_mode %}
+{% if has_offer_content or request.design_mode %}
   <section
     id="techora-offer-{{ offer_anchor_key }}"
     class="techora-listicle-v1 techora-listicle-v1--offer techora-listicle-v1--align-{{ section.settings.text_alignment }}"
-    {% if has_product %}aria-labelledby="techora-offer-title-{{ section.id }}"{% endif %}
+    {% if has_offer_content %}aria-labelledby="techora-offer-title-{{ section.id }}"{% endif %}
     style="
       --techora-content-width: {{ section.settings.content_width }}px;
       --techora-background: {{ section.settings.background_color }};
@@ -92,7 +104,7 @@
     "
   >
     <div class="techora-listicle-v1__container">
-      {% if has_product %}
+      {% if has_offer_content %}
         {% if section.settings.show_card %}
           <div class="techora-listicle-v1__offer-card-wrap">
             {% if section.settings.card_badge_text != blank %}
@@ -100,15 +112,20 @@
             {% endif %}
         {% endif %}
         <div class="techora-listicle-v1__offer-layout{% if section.settings.media_side == 'right' %} techora-listicle-v1__offer-layout--right{% endif %}{% if section.settings.show_card %} techora-listicle-v1__offer-layout--card{% endif %}">
-          {% if offer_image != blank or has_secondary_image %}
-            <div class="techora-listicle-v1__offer-media">
-              {% if offer_image != blank %}
+          <div class="techora-listicle-v1__offer-media">
+              {% if has_image %}
                 <figure class="techora-listicle-v1__figure techora-listicle-v1__offer-figure">
                   {{
                     offer_image
                     | image_url: width: 1600
                     | image_tag: widths: '240, 360, 480, 640, 800, 1000, 1200, 1600', sizes: '(min-width: 900px) 360px, calc(100vw - 32px)', alt: image_alt, class: 'techora-listicle-v1__image techora-listicle-v1__offer-image', loading: 'lazy'
                   }}
+                </figure>
+              {% else %}
+                <figure class="techora-listicle-v1__figure techora-listicle-v1__offer-figure">
+                  <span class="techora-listicle-v1__image techora-listicle-v1__offer-image techora-listicle-v1__image--placeholder" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" focusable="false"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.75"/><path d="m4 17 5-5 4 4 3-3 4 4"/></svg>
+                  </span>
                 </figure>
               {% endif %}
               {% if has_secondary_image %}
@@ -126,14 +143,13 @@
                 </figure>
               {% endif %}
             </div>
-          {% endif %}
           <div class="techora-listicle-v1__offer-content">
             {% if section.settings.eyebrow != blank %}
               <p class="techora-listicle-v1__eyebrow">{{ section.settings.eyebrow | escape }}</p>
             {% endif %}
             {% if section.settings.heading != blank %}
               <h2 id="techora-offer-title-{{ section.id }}" class="techora-listicle-v1__heading techora-listicle-v1__offer-heading">{{ section.settings.heading }}</h2>
-            {% else %}
+            {% elsif has_product %}
               <h2 id="techora-offer-title-{{ section.id }}" class="techora-listicle-v1__heading techora-listicle-v1__offer-heading">{{ section.settings.product.title | escape }}</h2>
             {% endif %}
             {% if section.settings.show_vendor and section.settings.product.vendor != blank %}
@@ -145,7 +161,7 @@
             {% if section.settings.show_badge and section.settings.badge_text != blank %}
               <p class="techora-listicle-v1__offer-badge">{{ section.settings.badge_text | escape }}</p>
             {% endif %}
-            {% if section.settings.show_price %}
+            {% if has_product and section.settings.show_price %}
               <div class="techora-listicle-v1__offer-price" aria-label="Price">
                 <span class="techora-listicle-v1__offer-price-current">{{ section.settings.product.price | money }}</span>
                 {% if section.settings.show_compare_at and has_compare_at %}
@@ -206,9 +222,9 @@
           </div>
         {% endif %}
       {% elsif request.design_mode %}
-        <p class="techora-listicle-v1__editor-note">Select a product to display the offer foundation. The section is hidden on the storefront until a product is selected.</p>
+        <p class="techora-listicle-v1__editor-note">Select a product, or enter a custom heading or image, to display the offer foundation. Without any of these, the section is hidden on the storefront.</p>
       {% endif %}
-      {% if request.design_mode and has_product and section.settings.cta_enabled and has_cta == false %}
+      {% if request.design_mode and has_offer_content and section.settings.cta_enabled and has_cta == false %}
         <p class="techora-listicle-v1__editor-note">Choose a CTA destination and enter CTA text to display the offer action.</p>
       {% endif %}
     </div>
