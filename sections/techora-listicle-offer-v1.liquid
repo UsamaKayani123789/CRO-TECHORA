@@ -75,6 +75,10 @@
   if section.settings.countdown_enabled and countdown_duration_seconds > 0
     assign has_countdown = true
   endif
+  assign show_sticky_cta = false
+  if section.settings.sticky_cta_enabled and has_cta
+    assign show_sticky_cta = true
+  endif
 %}
 
 {% if has_offer_content or request.design_mode %}
@@ -236,6 +240,20 @@
         {% endif %}
       {% endif %}
     </div>
+    {% if show_sticky_cta %}
+      <div class="techora-listicle-v1__offer-sticky-cta">
+        <a class="techora-listicle-v1__offer-sticky-cta-button" href="{{ cta_url | escape }}">
+          <span>{{ section.settings.sticky_cta_label | escape }}</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        {% if section.settings.sticky_cta_note != blank %}
+          <p class="techora-listicle-v1__offer-sticky-cta-note">
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+            {{ section.settings.sticky_cta_note | escape }}
+          </p>
+        {% endif %}
+      </div>
+    {% endif %}
   </section>
 {% endif %}
 
@@ -291,6 +309,10 @@
       { "value": "offer_anchor", "label": "This offer anchor" }
     ] },
     { "type": "url", "id": "cta_url", "label": "CTA URL", "info": "Used when Custom URL is selected." },
+    { "type": "header", "content": "Mobile sticky bar" },
+    { "type": "checkbox", "id": "sticky_cta_enabled", "label": "Show sticky bar on mobile", "default": false, "info": "Adds a bar fixed to the bottom of the screen on mobile only, using the same CTA destination configured above. Hidden on desktop." },
+    { "type": "text", "id": "sticky_cta_label", "label": "Sticky bar button text", "default": "Yes, get my discount" },
+    { "type": "text", "id": "sticky_cta_note", "label": "Sticky bar supporting text", "info": "Optional small line shown under the button, such as a promotion name." },
     { "type": "header", "content": "Promotional card" },
     { "type": "checkbox", "id": "show_card", "label": "Show bordered promotional card", "default": false, "info": "Wraps the offer in a dashed card with an optional badge and countdown, for time-limited promotions." },
     { "type": "text", "id": "card_badge_text", "label": "Card badge text", "info": "Optional small pill shown above the card, such as a campaign name." },
