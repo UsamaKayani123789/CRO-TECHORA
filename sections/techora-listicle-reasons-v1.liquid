@@ -145,20 +145,6 @@
               {{ block.shopify_attributes }}
             >
               <div class="techora-listicle-v1__reason-layout{% if split_layout %} techora-listicle-v1__reason-layout--split{% if media_side == 'right' %} techora-listicle-v1__reason-layout--right{% endif %}{% endif %}{% unless has_heading_area %} techora-listicle-v1__reason-layout--no-heading{% endunless %}{% unless has_body_area %} techora-listicle-v1__reason-layout--no-body{% endunless %}">
-                {% if has_heading_area %}
-                  <div class="techora-listicle-v1__reason-heading-group">
-                    {% if block.settings.eyebrow != blank %}
-                      <p class="techora-listicle-v1__eyebrow">{{ block.settings.eyebrow | escape }}</p>
-                    {% endif %}
-                    {% if block.settings.heading != blank %}
-                      <{{ reason_heading_tag }} id="techora-reason-title-{{ section.id }}-{{ block.id }}" class="techora-listicle-v1__heading techora-listicle-v1__reason-heading">
-                        {% if show_number %}<span class="techora-listicle-v1__reason-number" aria-hidden="true">{{ reason_number }}.</span> {% endif %}{{ block.settings.heading }}
-                      </{{ reason_heading_tag }}>
-                    {% elsif show_number %}
-                      <p class="techora-listicle-v1__reason-number techora-listicle-v1__reason-number--standalone" aria-hidden="true">{{ reason_number }}.</p>
-                    {% endif %}
-                  </div>
-                {% endif %}
                 {% if has_media %}
                   {% liquid
                     assign reason_image_sizes = image_sizes
@@ -184,16 +170,32 @@
                     {% endif %}
                   </figure>
                 {% endif %}
-                {% if has_body_area %}
-                  <div class="techora-listicle-v1__reason-content">
-                    {% if block.settings.body != blank %}
-                      <div class="techora-listicle-v1__richtext">{{ block.settings.body }}</div>
-                    {% endif %}
-                    {% if has_cta %}
-                      <a class="techora-listicle-v1__reason-cta{% if cta_style == 'button' %} techora-listicle-v1__button{% else %} techora-listicle-v1__reason-cta--text{% endif %}" href="{{ block.settings.cta_url | escape }}">{{ block.settings.cta_label | escape }}</a>
-                    {% endif %}
-                  </div>
-                {% endif %}
+                <div class="techora-listicle-v1__reason-text">
+                  {% if has_heading_area %}
+                    <div class="techora-listicle-v1__reason-heading-group">
+                      {% if block.settings.eyebrow != blank %}
+                        <p class="techora-listicle-v1__eyebrow">{{ block.settings.eyebrow | escape }}</p>
+                      {% endif %}
+                      {% if block.settings.heading != blank %}
+                        <{{ reason_heading_tag }} id="techora-reason-title-{{ section.id }}-{{ block.id }}" class="techora-listicle-v1__heading techora-listicle-v1__reason-heading">
+                          {% if show_number %}<span class="techora-listicle-v1__reason-number" aria-hidden="true">{{ reason_number }}.</span> {% endif %}{{ block.settings.heading }}
+                        </{{ reason_heading_tag }}>
+                      {% elsif show_number %}
+                        <p class="techora-listicle-v1__reason-number techora-listicle-v1__reason-number--standalone" aria-hidden="true">{{ reason_number }}.</p>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                  {% if has_body_area %}
+                    <div class="techora-listicle-v1__reason-content">
+                      {% if block.settings.body != blank %}
+                        <div class="techora-listicle-v1__richtext">{{ block.settings.body }}</div>
+                      {% endif %}
+                      {% if has_cta %}
+                        <a class="techora-listicle-v1__reason-cta{% if cta_style == 'button' %} techora-listicle-v1__button{% else %} techora-listicle-v1__reason-cta--text{% endif %}" href="{{ block.settings.cta_url | escape }}">{{ block.settings.cta_label | escape }}</a>
+                      {% endif %}
+                    </div>
+                  {% endif %}
+                </div>
               </div>
               {% if request.design_mode %}
                 {% if block.settings.heading == blank %}
