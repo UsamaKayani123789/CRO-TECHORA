@@ -37,6 +37,7 @@
         "background_color": "#3D348B",
         "text_color": "#ffffff",
         "accent_color": "#ffffff",
+        "countdown_text_color": "#263238",
         "padding_top": 12,
         "padding_bottom": 12,
         "mobile_padding_top": 12,

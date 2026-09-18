@@ -216,7 +216,7 @@
   padding: 5px 7px;
   border-radius: 4px;
   background: #fff;
-  color: #263238;
+  color: var(--techora-countdown-text, #263238);
 }
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-countdown-clock {
