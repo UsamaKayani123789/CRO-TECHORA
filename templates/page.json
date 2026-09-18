@@ -476,6 +476,63 @@
         "mobile_padding_top": 12,
         "mobile_padding_bottom": 36
       }
+    },
+    "techora_listicle_conclusion_v1_fT4x9k": {
+      "type": "techora-listicle-conclusion-v1",
+      "blocks": {
+        "techora_end_link_1": {
+          "type": "techora-end-link",
+          "settings": {
+            "label": "Terms of Service",
+            "url": ""
+          }
+        },
+        "techora_end_link_2": {
+          "type": "techora-end-link",
+          "settings": {
+            "label": "Privacy Policy",
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "techora_end_link_1",
+        "techora_end_link_2"
+      ],
+      "name": "Techora conclusion",
+      "settings": {
+        "eyebrow": "",
+        "heading": "",
+        "body": "",
+        "image_alt": "",
+        "image_decorative": false,
+        "image_position": "left",
+        "image_width": 40,
+        "image_radius": 12,
+        "cta_enabled": false,
+        "cta_label": "",
+        "destination_mode": "none",
+        "cta_url": "",
+        "product": "",
+        "disclosure": "<p>*Special sale discount is valid only on the first delivery of a new Javvy Coffee subscription created on https://try.javvycoffee.com/rs01 by 09/18/2026 at 11:59pm PST and includes the price of free gifts. Javvy Coffee subscription renews every 30 days at a discounted rate of the price listed at checkout. Max one offer per customer; cannot be combined with any other offers or sales.</p>",
+        "author_note": "© 2026 Javvy Coffee Company. All rights reserved.",
+        "last_updated": "",
+        "show_divider": true,
+        "content_width": 920,
+        "heading_scale": 100,
+        "body_scale": 100,
+        "text_alignment": "left",
+        "background_color": "#fdfde7",
+        "text_color": "#23312e",
+        "accent_color": "#245c50",
+        "border_color": "#d8dfda",
+        "button_color": "#245c50",
+        "button_text_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "mobile_padding_top": 28,
+        "mobile_padding_bottom": 32
+      }
     }
   },
   "order": [
@@ -484,6 +541,7 @@
     "techora_listicle_article_header_v1_7ayA4m",
     "techora_listicle_reasons_v1_FtERdD",
     "techora_listicle_cta_v1_dkLXJB",
-    "techora_listicle_offer_v1_7RQYhU"
+    "techora_listicle_offer_v1_7RQYhU",
+    "techora_listicle_conclusion_v1_fT4x9k"
   ]
 }
