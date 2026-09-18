@@ -355,6 +355,242 @@
   }
 }
 
+/* CTA band: a compact editorial transition with a clear navigation action. */
+.techora-listicle-v1--cta-band {
+  border-block: 1px solid var(--techora-border, #d8dfda);
+}
+
+.techora-listicle-v1 .techora-listicle-v1__cta-band-inner {
+  display: grid;
+  gap: 24px;
+  justify-items: center;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__cta-band-copy {
+  min-width: 0;
+  max-width: 62ch;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__cta-band-heading {
+  max-width: 26ch;
+  margin-inline: auto;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__cta-band-body {
+  margin-top: 14px;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__cta-band-note {
+  margin: 16px 0 0;
+  color: color-mix(in srgb, var(--techora-text, #23312e) 72%, transparent);
+  font-size: 0.86em;
+  line-height: 1.5;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__cta-band-action {
+  min-width: 0;
+  width: min(100%, 360px);
+}
+
+.techora-listicle-v1 .techora-listicle-v1__cta-band-link {
+  max-width: 100%;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__cta-band-link.techora-listicle-v1__button {
+  width: 100%;
+  margin-top: 0;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__cta-band-link--text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  max-width: 100%;
+  padding: 4px 0;
+  color: var(--techora-accent, #245c50);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+/* Offer foundation: product imagery and product-link content stay visually paired. */
+.techora-listicle-v1--offer {
+  border-top: 1px solid var(--techora-border, #d8dfda);
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 28px;
+  align-items: center;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-figure {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-image {
+  aspect-ratio: var(--techora-image-ratio, 1 / 1);
+  background: color-mix(in srgb, var(--techora-text, #23312e) 5%, transparent);
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-content {
+  min-width: 0;
+  max-width: 58ch;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-heading {
+  max-width: 20ch;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-vendor {
+  margin: 10px 0 0;
+  color: var(--techora-accent, #245c50);
+  font-size: 0.82em;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.4;
+  text-transform: uppercase;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-body {
+  margin-top: 18px;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  margin: 20px 0 0;
+  padding: 5px 10px;
+  border: 1px solid var(--techora-border, #d8dfda);
+  border-radius: 999px;
+  color: var(--techora-accent, #245c50);
+  font-size: 0.78em;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-price-current {
+  color: var(--techora-text, #23312e);
+  font-size: clamp(26px, 3vw, 34px);
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-price-compare {
+  color: color-mix(in srgb, var(--techora-text, #23312e) 58%, transparent);
+  font-size: 0.92em;
+  line-height: 1.4;
+  text-decoration: line-through;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-savings {
+  margin: 7px 0 0;
+  color: var(--techora-accent, #245c50);
+  font-size: 0.86em;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-benefits {
+  display: grid;
+  gap: 10px;
+  margin: 24px 0 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--techora-border, #d8dfda);
+  list-style: none;
+  text-align: start;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-benefits li {
+  position: relative;
+  margin: 0;
+  padding-inline-start: 24px;
+  line-height: 1.5;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-benefits li::before {
+  position: absolute;
+  top: 0.56em;
+  inset-inline-start: 2px;
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--techora-accent, #245c50);
+  border-radius: 50%;
+  content: "";
+  transform: translateY(-50%);
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-cta {
+  width: min(100%, 360px);
+  margin-top: 28px;
+}
+
+@media (min-width: 900px) {
+  .techora-listicle-v1 .techora-listicle-v1__cta-band-inner--inline {
+    grid-template-columns: minmax(0, 1fr) minmax(180px, 300px);
+    gap: clamp(28px, var(--techora-column-gap, 40px), 56px);
+    align-items: center;
+    justify-items: stretch;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__cta-band-inner--inline .techora-listicle-v1__cta-band-heading {
+    margin-inline: 0;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__cta-band-inner--inline .techora-listicle-v1__cta-band-action {
+    justify-self: end;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__offer-layout {
+    grid-template-columns: minmax(0, var(--techora-media-width, 45%)) minmax(0, 1fr);
+    column-gap: clamp(28px, var(--techora-column-gap, 48px), 56px);
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__offer-layout--right {
+    grid-template-columns: minmax(0, 1fr) minmax(0, var(--techora-media-width, 45%));
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__offer-layout--right > .techora-listicle-v1__offer-figure {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__offer-layout--right > .techora-listicle-v1__offer-content {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+@media (max-width: 599px) {
+  .techora-listicle-v1 .techora-listicle-v1__cta-band-action,
+  .techora-listicle-v1 .techora-listicle-v1__offer-cta {
+    width: 100%;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__offer-heading {
+    max-width: 24ch;
+  }
+}
+
 @media (min-width: 900px) {
   .techora-listicle-v1 {
     padding-top: var(--techora-padding-top, 32px);

@@ -1,0 +1,148 @@
+{% comment %}
+  Techora Phase 3. Static editorial CTA band.
+  Navigation only: no product form, offer state, or JavaScript dependency.
+{% endcomment %}
+
+{{ 'techora-listicle-v1.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign cta_url = ''
+  case section.settings.destination_mode
+    when 'custom_url'
+      assign cta_url = section.settings.cta_url
+    when 'offer_anchor'
+      assign offer_anchor_key = section.settings.offer_key | default: 'primary' | handleize
+      assign cta_url = '#techora-offer-' | append: offer_anchor_key
+    when 'product'
+      assign cta_url = section.settings.product.url
+  endcase
+  assign has_cta = false
+  if section.settings.cta_enabled and section.settings.cta_label != blank and cta_url != blank
+    assign has_cta = true
+  endif
+  assign has_content = false
+  if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.body != blank or has_cta or section.settings.supporting_note != blank
+    assign has_content = true
+  endif
+%}
+
+{% if has_content or request.design_mode %}
+  <section
+    class="techora-listicle-v1 techora-listicle-v1--cta-band techora-listicle-v1--align-{{ section.settings.text_alignment }}"
+    {% if section.settings.heading != blank %}aria-labelledby="techora-cta-title-{{ section.id }}"{% endif %}
+    style="
+      --techora-content-width: {{ section.settings.content_width }}px;
+      --techora-background: {{ section.settings.background_color }};
+      --techora-text: {{ section.settings.text_color }};
+      --techora-accent: {{ section.settings.accent_color }};
+      --techora-border: {{ section.settings.border_color }};
+      --techora-button: {{ section.settings.button_color }};
+      --techora-button-text: {{ section.settings.button_text_color }};
+      --techora-padding-top: {{ section.settings.padding_top }}px;
+      --techora-padding-bottom: {{ section.settings.padding_bottom }}px;
+      --techora-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
+      --techora-mobile-padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --techora-heading-scale: {{ section.settings.heading_scale | divided_by: 100.0 }};
+      --techora-body-scale: {{ section.settings.body_scale | divided_by: 100.0 }};
+      --techora-radius: {{ section.settings.corner_radius }}px;
+      --techora-alignment: {{ section.settings.text_alignment }};
+    "
+  >
+    <div class="techora-listicle-v1__container">
+      <div class="techora-listicle-v1__cta-band-inner{% if section.settings.layout == 'inline' %} techora-listicle-v1__cta-band-inner--inline{% endif %}">
+        <div class="techora-listicle-v1__cta-band-copy">
+          {% if section.settings.eyebrow != blank %}
+            <p class="techora-listicle-v1__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+          {% endif %}
+          {% if section.settings.heading != blank %}
+            <h2 id="techora-cta-title-{{ section.id }}" class="techora-listicle-v1__heading techora-listicle-v1__cta-band-heading">{{ section.settings.heading }}</h2>
+          {% endif %}
+          {% if section.settings.body != blank %}
+            <div class="techora-listicle-v1__richtext techora-listicle-v1__cta-band-body">{{ section.settings.body }}</div>
+          {% endif %}
+          {% if section.settings.supporting_note != blank %}
+            <p class="techora-listicle-v1__cta-band-note">{{ section.settings.supporting_note | escape }}</p>
+          {% endif %}
+        </div>
+        {% if has_cta %}
+          <div class="techora-listicle-v1__cta-band-action">
+            <a
+              class="techora-listicle-v1__cta-band-link{% if section.settings.button_style == 'button' %} techora-listicle-v1__button{% else %} techora-listicle-v1__cta-band-link--text{% endif %}"
+              href="{{ cta_url | escape }}"
+            >
+              {{ section.settings.cta_label | escape }}
+            </a>
+          </div>
+        {% endif %}
+      </div>
+      {% if request.design_mode %}
+        {% unless has_content %}
+          <p class="techora-listicle-v1__editor-note">Add a heading, body, or CTA to create an editorial transition. Empty sections are hidden on the storefront.</p>
+        {% endunless %}
+        {% if section.settings.cta_enabled and has_cta == false %}
+          <p class="techora-listicle-v1__editor-note">Choose a destination and enter CTA text to display the action.</p>
+        {% endif %}
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Techora CTA band",
+  "tag": "div",
+  "class": "techora-listicle-section-v1",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A considered next step" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Continue exploring what fits your routine" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Bring the details together and take the next step when it feels right for you.</p>" },
+    { "type": "text", "id": "supporting_note", "label": "Supporting note", "default": "Clear information, at your own pace." },
+    { "type": "header", "content": "CTA" },
+    { "type": "checkbox", "id": "cta_enabled", "label": "Show CTA", "default": true },
+    { "type": "text", "id": "cta_label", "label": "CTA text", "default": "Explore the details" },
+    { "type": "select", "id": "destination_mode", "label": "CTA destination", "default": "offer_anchor", "options": [
+      { "value": "offer_anchor", "label": "Primary offer anchor" },
+      { "value": "custom_url", "label": "Custom URL" },
+      { "value": "product", "label": "Selected product" }
+    ] },
+    { "type": "url", "id": "cta_url", "label": "CTA URL", "info": "Used when Custom URL is selected." },
+    { "type": "text", "id": "offer_key", "label": "Offer anchor key", "default": "primary", "info": "Used for the Primary offer anchor. Use a short, unique key such as primary." },
+    { "type": "product", "id": "product", "label": "Product", "info": "Used when Selected product is the CTA destination." },
+    { "type": "select", "id": "button_style", "label": "Button style", "default": "button", "options": [
+      { "value": "button", "label": "Filled button" },
+      { "value": "text", "label": "Underlined text link" }
+    ] },
+    { "type": "select", "id": "layout", "label": "Desktop layout", "default": "centered", "options": [
+      { "value": "centered", "label": "Centered" },
+      { "value": "inline", "label": "Text and CTA inline" }
+    ] },
+    { "type": "header", "content": "Typography and layout" },
+    { "type": "range", "id": "content_width", "label": "Maximum content width", "min": 640, "max": 1200, "step": 40, "unit": "px", "default": 800 },
+    { "type": "range", "id": "heading_scale", "label": "Heading size", "min": 80, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "body_scale", "label": "Body text size", "min": 90, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "select", "id": "text_alignment", "label": "Text alignment", "default": "center", "options": [
+      { "value": "left", "label": "Left" },
+      { "value": "center", "label": "Center" },
+      { "value": "right", "label": "Right" }
+    ] },
+    { "type": "range", "id": "corner_radius", "label": "Button corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 12 },
+    { "type": "header", "content": "Colors and spacing" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#E5ECE6" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#23312E" },
+    { "type": "color", "id": "accent_color", "label": "Eyebrow and links", "default": "#245C50" },
+    { "type": "color", "id": "border_color", "label": "Border", "default": "#D8DFDA" },
+    { "type": "color", "id": "button_color", "label": "Button background", "default": "#245C50" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#FFFFFF" },
+    { "type": "range", "id": "padding_top", "label": "Desktop top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Desktop bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile and tablet top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile and tablet bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 }
+  ],
+  "presets": [
+    {
+      "name": "Techora CTA band"
+    }
+  ]
+}
+{% endschema %}

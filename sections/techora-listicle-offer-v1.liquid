@@ -1,0 +1,235 @@
+{% comment %}
+  Techora Phase 3. Product offer visual foundation.
+  Product-link presentation only: no variant selector, product form, or JavaScript.
+{% endcomment %}
+
+{{ 'techora-listicle-v1.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign has_product = false
+  if section.settings.product != blank
+    assign has_product = true
+  endif
+  assign offer_anchor_key = section.settings.offer_key | default: 'primary' | handleize
+  assign offer_image = section.settings.product.featured_image
+  if section.settings.image_override != blank
+    assign offer_image = section.settings.image_override
+  endif
+  assign image_alt = section.settings.image_alt | strip
+  if image_alt == blank and offer_image != blank
+    assign image_alt = offer_image.alt | default: '' | strip
+  endif
+  if image_alt == blank and section.settings.product != blank
+    assign image_alt = section.settings.product.title | strip
+  endif
+  if section.settings.image_decorative
+    assign image_alt = ''
+  endif
+  assign has_compare_at = false
+  assign savings_amount = 0
+  if has_product and section.settings.product.compare_at_price_max > section.settings.product.price
+    assign has_compare_at = true
+    assign savings_amount = section.settings.product.compare_at_price_max | minus: section.settings.product.price
+  endif
+  assign cta_url = ''
+  case section.settings.destination_mode
+    when 'product'
+      if has_product
+        assign cta_url = section.settings.product.url
+      endif
+    when 'custom_url'
+      assign cta_url = section.settings.cta_url
+    when 'offer_anchor'
+      assign cta_url = '#techora-offer-' | append: offer_anchor_key
+  endcase
+  assign has_cta = false
+  if section.settings.cta_enabled and section.settings.cta_label != blank and cta_url != blank
+    assign has_cta = true
+  endif
+%}
+
+{% if has_product or request.design_mode %}
+  <section
+    id="techora-offer-{{ offer_anchor_key }}"
+    class="techora-listicle-v1 techora-listicle-v1--offer techora-listicle-v1--align-{{ section.settings.text_alignment }}"
+    {% if has_product %}aria-labelledby="techora-offer-title-{{ section.id }}"{% endif %}
+    style="
+      --techora-content-width: {{ section.settings.content_width }}px;
+      --techora-background: {{ section.settings.background_color }};
+      --techora-text: {{ section.settings.text_color }};
+      --techora-accent: {{ section.settings.accent_color }};
+      --techora-border: {{ section.settings.border_color }};
+      --techora-button: {{ section.settings.button_color }};
+      --techora-button-text: {{ section.settings.button_text_color }};
+      --techora-padding-top: {{ section.settings.padding_top }}px;
+      --techora-padding-bottom: {{ section.settings.padding_bottom }}px;
+      --techora-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
+      --techora-mobile-padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --techora-heading-scale: {{ section.settings.heading_scale | divided_by: 100.0 }};
+      --techora-body-scale: {{ section.settings.body_scale | divided_by: 100.0 }};
+      --techora-column-gap: {{ section.settings.column_gap }}px;
+      --techora-media-width: {{ section.settings.media_width }}%;
+      --techora-radius: {{ section.settings.image_radius }}px;
+      --techora-button-radius: {{ section.settings.button_radius }}px;
+      --techora-alignment: {{ section.settings.text_alignment }};
+      --techora-image-ratio: {{ section.settings.image_ratio }};
+      --techora-image-fit: {{ section.settings.image_fit }};
+    "
+  >
+    <div class="techora-listicle-v1__container">
+      {% if has_product %}
+        <div class="techora-listicle-v1__offer-layout{% if section.settings.media_side == 'right' %} techora-listicle-v1__offer-layout--right{% endif %}">
+          {% if offer_image != blank %}
+            <figure class="techora-listicle-v1__figure techora-listicle-v1__offer-figure">
+              {{
+                offer_image
+                | image_url: width: 1600
+                | image_tag: widths: '240, 360, 480, 640, 800, 1000, 1200, 1600', sizes: '(min-width: 900px) 360px, calc(100vw - 32px)', alt: image_alt, class: 'techora-listicle-v1__image techora-listicle-v1__offer-image', loading: 'lazy'
+              }}
+            </figure>
+          {% endif %}
+          <div class="techora-listicle-v1__offer-content">
+            {% if section.settings.eyebrow != blank %}
+              <p class="techora-listicle-v1__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+            {% endif %}
+            {% if section.settings.heading != blank %}
+              <h2 id="techora-offer-title-{{ section.id }}" class="techora-listicle-v1__heading techora-listicle-v1__offer-heading">{{ section.settings.heading }}</h2>
+            {% else %}
+              <h2 id="techora-offer-title-{{ section.id }}" class="techora-listicle-v1__heading techora-listicle-v1__offer-heading">{{ section.settings.product.title | escape }}</h2>
+            {% endif %}
+            {% if section.settings.show_vendor and section.settings.product.vendor != blank %}
+              <p class="techora-listicle-v1__offer-vendor">{{ section.settings.product.vendor | escape }}</p>
+            {% endif %}
+            {% if section.settings.body != blank %}
+              <div class="techora-listicle-v1__richtext techora-listicle-v1__offer-body">{{ section.settings.body }}</div>
+            {% endif %}
+            {% if section.settings.show_badge and section.settings.badge_text != blank %}
+              <p class="techora-listicle-v1__offer-badge">{{ section.settings.badge_text | escape }}</p>
+            {% endif %}
+            {% if section.settings.show_price %}
+              <div class="techora-listicle-v1__offer-price" aria-label="Price">
+                <span class="techora-listicle-v1__offer-price-current">{{ section.settings.product.price | money }}</span>
+                {% if section.settings.show_compare_at and has_compare_at %}
+                  <span class="techora-listicle-v1__offer-price-compare">{{ section.settings.product.compare_at_price_max | money }}</span>
+                {% endif %}
+              </div>
+              {% if section.settings.show_savings and has_compare_at %}
+                <p class="techora-listicle-v1__offer-savings">{{ section.settings.savings_label | default: 'Save' | escape }} {{ savings_amount | money }}</p>
+              {% endif %}
+            {% endif %}
+            {% if section.blocks.size > 0 %}
+              <ul class="techora-listicle-v1__offer-benefits" aria-label="Product details">
+                {% for block in section.blocks %}
+                  <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+            {% if has_cta %}
+              <a class="techora-listicle-v1__offer-cta techora-listicle-v1__button" href="{{ cta_url | escape }}">
+                {{ section.settings.cta_label | escape }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      {% elsif request.design_mode %}
+        <p class="techora-listicle-v1__editor-note">Select a product to display the offer foundation. The section is hidden on the storefront until a product is selected.</p>
+      {% endif %}
+      {% if request.design_mode and has_product and section.settings.cta_enabled and has_cta == false %}
+        <p class="techora-listicle-v1__editor-note">Choose a CTA destination and enter CTA text to display the offer action.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Techora product offer",
+  "tag": "div",
+  "class": "techora-listicle-section-v1",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "offer_key", "label": "Offer anchor key", "default": "primary", "info": "Use a short, unique key such as primary. CTAs can link to this offer anchor." },
+    { "type": "product", "id": "product", "label": "Product", "info": "Select the product whose title, image, and price should be shown." },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A thoughtful choice" },
+    { "type": "inline_richtext", "id": "heading", "label": "Custom heading", "info": "Leave blank to use the selected product title." },
+    { "type": "richtext", "id": "body", "label": "Description", "default": "<p>Bring the details together with a product chosen for the way you live, work, or create.</p>" },
+    { "type": "image_picker", "id": "image_override", "label": "Custom image override", "info": "Optional. When blank, the selected product's featured image is used." },
+    { "type": "text", "id": "image_alt", "label": "Image alternative text", "info": "If blank, the image library text or product title is used." },
+    { "type": "checkbox", "id": "image_decorative", "label": "Image is decorative", "default": false },
+    { "type": "select", "id": "media_side", "label": "Desktop image position", "default": "left", "options": [
+      { "value": "left", "label": "Left" },
+      { "value": "right", "label": "Right" }
+    ] },
+    { "type": "range", "id": "media_width", "label": "Desktop image width", "min": 30, "max": 55, "step": 5, "unit": "%", "default": 45 },
+    { "type": "select", "id": "image_ratio", "label": "Image aspect ratio", "default": "1 / 1", "options": [
+      { "value": "auto", "label": "Original" },
+      { "value": "1 / 1", "label": "Square" },
+      { "value": "4 / 5", "label": "Portrait" },
+      { "value": "4 / 3", "label": "Landscape" }
+    ] },
+    { "type": "select", "id": "image_fit", "label": "Image fit", "default": "cover", "options": [
+      { "value": "cover", "label": "Cover" },
+      { "value": "contain", "label": "Contain" }
+    ] },
+    { "type": "range", "id": "image_radius", "label": "Image corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 16 },
+    { "type": "header", "content": "Product details" },
+    { "type": "checkbox", "id": "show_vendor", "label": "Show vendor", "default": false },
+    { "type": "checkbox", "id": "show_price", "label": "Show current price", "default": true },
+    { "type": "checkbox", "id": "show_compare_at", "label": "Show compare-at price when available", "default": true },
+    { "type": "checkbox", "id": "show_savings", "label": "Show savings when compare-at price is higher", "default": false },
+    { "type": "text", "id": "savings_label", "label": "Savings label", "default": "Save" },
+    { "type": "checkbox", "id": "show_badge", "label": "Show badge", "default": false },
+    { "type": "text", "id": "badge_text", "label": "Badge text", "default": "Editor’s choice" },
+    { "type": "header", "content": "CTA" },
+    { "type": "checkbox", "id": "cta_enabled", "label": "Show CTA", "default": true },
+    { "type": "text", "id": "cta_label", "label": "CTA text", "default": "View product details" },
+    { "type": "select", "id": "destination_mode", "label": "CTA destination", "default": "product", "options": [
+      { "value": "product", "label": "Selected product" },
+      { "value": "custom_url", "label": "Custom URL" },
+      { "value": "offer_anchor", "label": "This offer anchor" }
+    ] },
+    { "type": "url", "id": "cta_url", "label": "CTA URL", "info": "Used when Custom URL is selected." },
+    { "type": "header", "content": "Typography and layout" },
+    { "type": "range", "id": "content_width", "label": "Maximum content width", "min": 640, "max": 1200, "step": 40, "unit": "px", "default": 800 },
+    { "type": "range", "id": "heading_scale", "label": "Heading size", "min": 80, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "body_scale", "label": "Body text size", "min": 90, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "select", "id": "text_alignment", "label": "Text alignment", "default": "left", "options": [
+      { "value": "left", "label": "Left" },
+      { "value": "center", "label": "Center" },
+      { "value": "right", "label": "Right" }
+    ] },
+    { "type": "range", "id": "column_gap", "label": "Desktop space between columns", "min": 16, "max": 80, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "button_radius", "label": "Button corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 12 },
+    { "type": "header", "content": "Colors and spacing" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#F3F5F1" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#23312E" },
+    { "type": "color", "id": "accent_color", "label": "Accent and links", "default": "#245C50" },
+    { "type": "color", "id": "border_color", "label": "Border", "default": "#D8DFDA" },
+    { "type": "color", "id": "button_color", "label": "Button background", "default": "#245C50" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#FFFFFF" },
+    { "type": "range", "id": "padding_top", "label": "Desktop top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "padding_bottom", "label": "Desktop bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile and tablet top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 36 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile and tablet bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 36 }
+  ],
+  "blocks": [
+    {
+      "type": "techora-offer-benefit",
+      "name": "Offer benefit",
+      "limit": 6,
+      "settings": [
+        { "type": "inline_richtext", "id": "text", "label": "Benefit", "default": "A useful detail to consider" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Techora product offer",
+      "blocks": [
+        { "type": "techora-offer-benefit", "settings": { "text": "Thoughtful details for everyday use" } },
+        { "type": "techora-offer-benefit", "settings": { "text": "Clear information before you choose" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
