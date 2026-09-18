@@ -1,0 +1,188 @@
+{% comment %}
+  Techora Phase 1. Standalone dependency: assets/techora-listicle-v1.css.
+  Dates are merchant-maintained; validation never substitutes today's date.
+{% endcomment %}
+
+{{ 'techora-listicle-v1.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign article_title = section.settings.title
+  if article_title == blank
+    assign article_title = page.title | escape
+  endif
+  assign heading_tag = 'h1'
+  if section.settings.heading_level == 'h2'
+    assign heading_tag = 'h2'
+  endif
+  assign has_author = false
+  if section.settings.show_author and section.settings.author_name != blank
+    assign has_author = true
+  endif
+
+  assign date_iso = section.settings.date_iso | strip
+  assign date_valid = false
+  assign date_parts = date_iso | split: '-'
+  assign date_digits = date_iso | remove: '-' | remove: '0' | remove: '1' | remove: '2' | remove: '3' | remove: '4' | remove: '5' | remove: '6' | remove: '7' | remove: '8' | remove: '9'
+  if date_iso.size == 10 and date_parts.size == 3 and date_digits == ''
+    if date_parts[0].size == 4 and date_parts[1].size == 2 and date_parts[2].size == 2
+      assign date_year = date_parts[0] | plus: 0
+      assign date_month = date_parts[1] | plus: 0
+      assign date_day = date_parts[2] | plus: 0
+      assign days_in_month = 31
+      case date_month
+        when 4, 6, 9, 11
+          assign days_in_month = 30
+        when 2
+          assign days_in_month = 28
+          assign year_mod_4 = date_year | modulo: 4
+          assign year_mod_100 = date_year | modulo: 100
+          assign year_mod_400 = date_year | modulo: 400
+          if year_mod_4 == 0 and year_mod_100 != 0 or year_mod_400 == 0
+            assign days_in_month = 29
+          endif
+      endcase
+      if date_year > 0 and date_month >= 1 and date_month <= 12 and date_day >= 1 and date_day <= days_in_month
+        assign date_valid = true
+      endif
+    endif
+  endif
+  assign has_date = false
+  if section.settings.show_date and date_valid
+    assign has_date = true
+  endif
+  assign avatar_loading = 'eager'
+  if section.index > 3
+    assign avatar_loading = 'lazy'
+  endif
+%}
+
+<section
+  class="techora-listicle-v1 techora-listicle-v1--align-{{ section.settings.text_alignment }}"
+  {% if article_title != blank %}aria-labelledby="techora-title-{{ section.id }}"{% endif %}
+  style="
+    --techora-content-width: {{ section.settings.content_width }}px;
+    --techora-background: {{ section.settings.background_color }};
+    --techora-text: {{ section.settings.text_color }};
+    --techora-accent: {{ section.settings.accent_color }};
+    --techora-border: {{ section.settings.border_color }};
+    --techora-padding-top: {{ section.settings.padding_top }}px;
+    --techora-padding-bottom: {{ section.settings.padding_bottom }}px;
+    --techora-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
+    --techora-mobile-padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    --techora-heading-scale: {{ section.settings.heading_scale | divided_by: 100.0 }};
+    --techora-body-scale: {{ section.settings.body_scale | divided_by: 100.0 }};
+    --techora-alignment: {{ section.settings.text_alignment }};
+  "
+>
+  <header class="techora-listicle-v1__container{% if section.settings.show_divider %} techora-listicle-v1__header--divider{% endif %}">
+    {% if section.settings.eyebrow != blank %}
+      <p class="techora-listicle-v1__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {% endif %}
+    {% if article_title != blank %}
+      <{{ heading_tag }} id="techora-title-{{ section.id }}" class="techora-listicle-v1__title">{{ article_title }}</{{ heading_tag }}>
+    {% elsif request.design_mode %}
+      <p class="techora-listicle-v1__editor-note">Enter a title or preview this section on a page with a title.</p>
+    {% endif %}
+    {% if section.settings.disclosure != blank %}
+      <p class="techora-listicle-v1__disclosure">{{ section.settings.disclosure | escape }}</p>
+    {% endif %}
+    {% if has_author or has_date %}
+      <div class="techora-listicle-v1__byline">
+        {% if has_author and section.settings.author_image != blank %}
+          {{
+            section.settings.author_image
+            | image_url: width: 144
+            | image_tag: widths: '48, 96, 144', sizes: '48px', alt: '', class: 'techora-listicle-v1__avatar', loading: avatar_loading
+          }}
+        {% endif %}
+        <div class="techora-listicle-v1__byline-text">
+          {% if has_author %}
+            <p class="techora-listicle-v1__author">
+              {% if section.settings.author_label != blank %}{{ section.settings.author_label | escape }} {% endif %}
+              {% if section.settings.author_link != blank %}
+                <a class="techora-listicle-v1__author-name" href="{{ section.settings.author_link | escape }}">{{ section.settings.author_name | escape }}</a>
+              {% else %}
+                <span class="techora-listicle-v1__author-name">{{ section.settings.author_name | escape }}</span>
+              {% endif %}
+            </p>
+            {% if section.settings.author_role != blank %}
+              <p class="techora-listicle-v1__author-role">{{ section.settings.author_role | escape }}</p>
+            {% endif %}
+          {% endif %}
+          {% if has_date %}
+            <p class="techora-listicle-v1__date">
+              {% if section.settings.date_label != blank %}{{ section.settings.date_label | escape }} {% endif %}
+              <time datetime="{{ date_iso | escape }}">{{ section.settings.date_display | default: date_iso | escape }}</time>
+            </p>
+          {% endif %}
+        </div>
+      </div>
+    {% endif %}
+    {% if section.settings.summary != blank %}
+      <div class="techora-listicle-v1__richtext techora-listicle-v1__summary">{{ section.settings.summary }}</div>
+    {% endif %}
+    {% if request.design_mode %}
+      {% if section.settings.show_date and date_valid == false %}
+        <p class="techora-listicle-v1__editor-note">Enter a real date in YYYY-MM-DD format to display the date. Dates never update automatically.</p>
+      {% endif %}
+      {% if section.settings.show_author and has_author == false %}
+        <p class="techora-listicle-v1__editor-note">Enter an author name to display the byline and optional portrait.</p>
+      {% endif %}
+    {% endif %}
+  </header>
+</section>
+
+{% schema %}
+{
+  "name": "Techora article header",
+  "tag": "div",
+  "class": "techora-listicle-section-v1",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "header", "content": "Article" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The everyday edit" },
+    { "type": "inline_richtext", "id": "title", "label": "Title", "info": "Leave blank to use the page title. Counts entered in this text are maintained manually." },
+    { "type": "select", "id": "heading_level", "label": "Heading level", "default": "h1", "info": "Use one H1 per page. Choose H2 if another section supplies the page's H1.", "options": [
+      { "value": "h1", "label": "H1 - page title" },
+      { "value": "h2", "label": "H2 - supporting heading" }
+    ] },
+    { "type": "text", "id": "disclosure", "label": "Editorial or sponsorship disclosure" },
+    { "type": "richtext", "id": "summary", "label": "Summary", "default": "<p>Thoughtful choices start with a closer look. Explore the details that matter, consider what fits your routine, and find your own way forward.</p>" },
+    { "type": "checkbox", "id": "show_divider", "label": "Show divider below header", "default": true },
+    { "type": "header", "content": "Author" },
+    { "type": "checkbox", "id": "show_author", "label": "Show author", "default": false },
+    { "type": "text", "id": "author_label", "label": "Byline label", "default": "By" },
+    { "type": "text", "id": "author_name", "label": "Author name" },
+    { "type": "text", "id": "author_role", "label": "Author role" },
+    { "type": "image_picker", "id": "author_image", "label": "Author portrait", "info": "The adjacent author name describes this image, so the portrait uses empty alternative text." },
+    { "type": "url", "id": "author_link", "label": "Author profile link" },
+    { "type": "header", "content": "Date" },
+    { "type": "checkbox", "id": "show_date", "label": "Show date", "default": false },
+    { "type": "text", "id": "date_label", "label": "Date label", "default": "Updated" },
+    { "type": "text", "id": "date_iso", "label": "Date (YYYY-MM-DD)", "info": "Enter the actual publication or revision date, for example 2026-09-18. Invalid dates are hidden." },
+    { "type": "text", "id": "date_display", "label": "Formatted date", "info": "Optional localized display of the same date. If blank, the YYYY-MM-DD date is shown." },
+    { "type": "header", "content": "Layout and typography" },
+    { "type": "range", "id": "content_width", "label": "Maximum content width", "min": 640, "max": 1200, "step": 40, "unit": "px", "default": 800 },
+    { "type": "range", "id": "heading_scale", "label": "Title size", "min": 80, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "body_scale", "label": "Body text size", "min": 90, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "select", "id": "text_alignment", "label": "Text alignment", "default": "left", "options": [
+      { "value": "left", "label": "Left" },
+      { "value": "center", "label": "Center" },
+      { "value": "right", "label": "Right" }
+    ] },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#FAF9F6" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#23312E" },
+    { "type": "color", "id": "accent_color", "label": "Eyebrow and links", "default": "#245C50" },
+    { "type": "color", "id": "border_color", "label": "Divider", "default": "#D8DFDA" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Desktop top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_bottom", "label": "Desktop bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile and tablet top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile and tablet bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 12 }
+  ],
+  "presets": [
+    { "name": "Techora article header", "settings": { "title": "Small details. More thoughtful everyday choices." } }
+  ]
+}
+{% endschema %}

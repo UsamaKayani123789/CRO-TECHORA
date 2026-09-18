@@ -1,0 +1,122 @@
+{% comment %}
+  Techora Phase 1. Standalone dependency: assets/techora-listicle-v1.css.
+  Future offer anchors and countdowns intentionally have no controls yet.
+{% endcomment %}
+
+{{ 'techora-listicle-v1.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign has_link = false
+  if section.settings.destination_mode == 'custom_url' and section.settings.link != blank and section.settings.link_label != blank
+    assign has_link = true
+  endif
+  assign has_content = false
+  if section.settings.message != blank or section.settings.supporting_text != blank or has_link
+    assign has_content = true
+  endif
+%}
+
+{% if section.settings.sticky_enabled and has_content %}
+  {% style %}
+    #shopify-section-{{ section.id }}.techora-listicle-section-v1 {
+      position: sticky;
+      top: {{ section.settings.sticky_top_offset }}px;
+      z-index: 20;
+    }
+    @media (max-height: 480px) {
+      #shopify-section-{{ section.id }}.techora-listicle-section-v1 {
+        position: relative;
+        top: auto;
+      }
+    }
+  {% endstyle %}
+{% endif %}
+
+{% if has_content or request.design_mode %}
+  <div
+    class="techora-listicle-v1 techora-listicle-v1--announcement techora-listicle-v1--align-{{ section.settings.text_alignment }}"
+    style="
+      --techora-content-width: {{ section.settings.content_width }}px;
+      --techora-background: {{ section.settings.background_color }};
+      --techora-text: {{ section.settings.text_color }};
+      --techora-accent: {{ section.settings.accent_color }};
+      --techora-padding-top: {{ section.settings.padding_top }}px;
+      --techora-padding-bottom: {{ section.settings.padding_bottom }}px;
+      --techora-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
+      --techora-mobile-padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --techora-column-gap: {{ section.settings.column_gap }}px;
+      --techora-body-scale: {{ section.settings.body_scale | divided_by: 100.0 }};
+      --techora-alignment: {{ section.settings.text_alignment }};
+    "
+  >
+    <div class="techora-listicle-v1__container">
+      <div class="techora-listicle-v1__announcement-row">
+        {% if section.settings.message != blank or section.settings.supporting_text != blank %}
+          <div class="techora-listicle-v1__announcement-copy">
+            {% if section.settings.message != blank %}
+              <p class="techora-listicle-v1__announcement-message">{{ section.settings.message }}</p>
+            {% endif %}
+            {% if section.settings.supporting_text != blank %}
+              <p class="techora-listicle-v1__announcement-support">{{ section.settings.supporting_text | escape }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+        {% if has_link %}
+          <a class="techora-listicle-v1__announcement-link" href="{{ section.settings.link | escape }}">
+            {{ section.settings.link_label | escape }}
+          </a>
+        {% endif %}
+      </div>
+      {% if request.design_mode %}
+        {% unless has_content %}
+          <p class="techora-listicle-v1__editor-note">Add an announcement message or a complete link. Empty announcements are hidden on the storefront.</p>
+        {% endunless %}
+        {% if section.settings.destination_mode == 'custom_url' and has_link == false %}
+          <p class="techora-listicle-v1__editor-note">Choose a link destination and enter its label to display the announcement link.</p>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Techora announcement",
+  "tag": "div",
+  "class": "techora-listicle-section-v1",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "header", "content": "Announcement" },
+    { "type": "inline_richtext", "id": "message", "label": "Message", "default": "A considered approach to everyday choices" },
+    { "type": "text", "id": "supporting_text", "label": "Supporting text" },
+    { "type": "select", "id": "destination_mode", "label": "Link destination", "default": "none", "options": [
+      { "value": "none", "label": "No link" },
+      { "value": "custom_url", "label": "Choose a URL" }
+    ] },
+    { "type": "text", "id": "link_label", "label": "Link label" },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "header", "content": "Position" },
+    { "type": "checkbox", "id": "sticky_enabled", "label": "Keep announcement at the top", "default": false, "info": "Optional. Check for overlap with your theme's header. Disabled in short viewports; some themes constrain sticky positioning." },
+    { "type": "range", "id": "sticky_top_offset", "label": "Space above sticky announcement", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 },
+    { "type": "header", "content": "Layout and typography" },
+    { "type": "range", "id": "content_width", "label": "Maximum content width", "min": 640, "max": 1200, "step": 40, "unit": "px", "default": 800 },
+    { "type": "range", "id": "column_gap", "label": "Space between message and link", "min": 8, "max": 64, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "body_scale", "label": "Text size", "min": 90, "max": 140, "step": 5, "unit": "%", "default": 100 },
+    { "type": "select", "id": "text_alignment", "label": "Text alignment", "default": "center", "options": [
+      { "value": "left", "label": "Left" },
+      { "value": "center", "label": "Center" },
+      { "value": "right", "label": "Right" }
+    ] },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#183F3A" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#FFFFFF" },
+    { "type": "color", "id": "accent_color", "label": "Links", "default": "#FFFFFF" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Desktop top spacing", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 12 },
+    { "type": "range", "id": "padding_bottom", "label": "Desktop bottom spacing", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 12 },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile and tablet top spacing", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 12 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile and tablet bottom spacing", "min": 0, "max": 80, "step": 4, "unit": "px", "default": 12 }
+  ],
+  "presets": [{ "name": "Techora announcement" }]
+}
+{% endschema %}

@@ -1,0 +1,207 @@
+{% comment %}
+  Techora Phase 1. Standalone dependency: assets/techora-listicle-v1.css.
+  Navigation only: no product form, offer component, or variant state.
+{% endcomment %}
+
+{{ 'techora-listicle-v1.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign has_image = false
+  if section.settings.layout != 'text' and section.settings.image != blank
+    assign has_image = true
+  endif
+  assign image_alt = section.settings.image_alt | strip
+  if image_alt == blank
+    assign image_alt = section.settings.image.alt | default: '' | strip
+  endif
+  if section.settings.image_decorative
+    assign image_alt = ''
+  endif
+  assign cta_url = ''
+  case section.settings.destination_mode
+    when 'custom_url'
+      assign cta_url = section.settings.link
+    when 'product'
+      assign cta_url = section.settings.product.url
+  endcase
+  assign has_cta = false
+  if section.settings.cta_label != blank and cta_url != blank
+    assign has_cta = true
+  endif
+  assign split_layout = false
+  if has_image and section.settings.layout == 'split'
+    if section.settings.heading != blank or section.settings.body != blank or has_cta
+      assign split_layout = true
+    endif
+  endif
+  assign has_content = false
+  if section.settings.heading != blank or section.settings.body != blank or has_image or has_cta
+    assign has_content = true
+  endif
+  assign image_loading = 'eager'
+  assign image_priority = 'auto'
+  if section.settings.image_loading == 'lazy'
+    assign image_loading = 'lazy'
+  elsif section.settings.image_loading == 'eager'
+    assign image_priority = 'high'
+  elsif section.index > 3
+    assign image_loading = 'lazy'
+  endif
+  assign image_max_width = section.settings.content_width | at_most: 760
+  assign image_breakpoint = image_max_width | plus: 32
+  assign split_image_width = section.settings.content_width | minus: section.settings.column_gap | divided_by: 2
+  assign content_breakpoint = section.settings.content_width | plus: 32 | at_least: 900
+  assign split_gutters = section.settings.column_gap | plus: 32
+%}
+
+{% capture image_sizes %}
+  {%- if split_layout -%}
+    (min-width: {{ content_breakpoint }}px) {{ split_image_width }}px, (min-width: 900px) calc((100vw - {{ split_gutters }}px) / 2),
+  {%- endif -%}
+  (min-width: {{ image_breakpoint }}px) {{ image_max_width }}px, calc(100vw - 32px)
+{% endcapture %}
+
+{% if has_content or request.design_mode %}
+  <section
+    class="techora-listicle-v1 techora-listicle-v1--align-{{ section.settings.text_alignment }}"
+    {% if section.settings.heading != blank %}aria-labelledby="techora-editorial-title-{{ section.id }}"{% endif %}
+    style="
+      --techora-content-width: {{ section.settings.content_width }}px;
+      --techora-background: {{ section.settings.background_color }};
+      --techora-text: {{ section.settings.text_color }};
+      --techora-accent: {{ section.settings.accent_color }};
+      --techora-button: {{ section.settings.button_color }};
+      --techora-button-text: {{ section.settings.button_text_color }};
+      --techora-padding-top: {{ section.settings.padding_top }}px;
+      --techora-padding-bottom: {{ section.settings.padding_bottom }}px;
+      --techora-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
+      --techora-mobile-padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --techora-heading-scale: {{ section.settings.heading_scale | divided_by: 100.0 }};
+      --techora-body-scale: {{ section.settings.body_scale | divided_by: 100.0 }};
+      --techora-column-gap: {{ section.settings.column_gap }}px;
+      --techora-radius: {{ section.settings.corner_radius }}px;
+      --techora-alignment: {{ section.settings.text_alignment }};
+      --techora-image-ratio: {{ section.settings.image_ratio }};
+      --techora-image-fit: {{ section.settings.image_fit }};
+    "
+  >
+    <div class="techora-listicle-v1__container">
+      <div class="techora-listicle-v1__editorial{% if split_layout %} techora-listicle-v1__editorial--split{% if section.settings.media_side == 'right' %} techora-listicle-v1__editorial--right{% endif %}{% endif %}{% if section.settings.heading == blank %} techora-listicle-v1__editorial--no-heading{% endif %}">
+        {% if section.settings.heading != blank %}
+          <h2 id="techora-editorial-title-{{ section.id }}" class="techora-listicle-v1__heading">{{ section.settings.heading }}</h2>
+        {% endif %}
+        {% if has_image %}
+          <figure class="techora-listicle-v1__figure">
+            {{
+              section.settings.image
+              | image_url: width: 1600
+              | image_tag: widths: '240, 360, 480, 640, 760, 960, 1200, 1600', sizes: image_sizes, alt: image_alt, class: 'techora-listicle-v1__image', loading: image_loading, fetchpriority: image_priority
+            }}
+            {% if section.settings.caption != blank %}
+              <figcaption class="techora-listicle-v1__caption">{{ section.settings.caption | escape }}</figcaption>
+            {% endif %}
+          </figure>
+        {% endif %}
+        {% if section.settings.body != blank or has_cta %}
+          <div class="techora-listicle-v1__editorial-content">
+            {% if section.settings.body != blank %}
+              <div class="techora-listicle-v1__richtext">{{ section.settings.body }}</div>
+            {% endif %}
+            {% if has_cta %}
+              <a class="techora-listicle-v1__button" href="{{ cta_url | escape }}">{{ section.settings.cta_label | escape }}</a>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+      {% if request.design_mode %}
+        {% unless has_content %}
+          <p class="techora-listicle-v1__editor-note">Add editorial text, an image, or a complete link. Empty sections are hidden on the storefront.</p>
+        {% endunless %}
+        {% if section.settings.layout != 'text' and has_image == false %}
+          <p class="techora-listicle-v1__editor-note">Choose an image to use the selected media layout. Without an image, content uses a single column.</p>
+        {% endif %}
+        {% if has_image and image_alt == blank and section.settings.image_decorative == false %}
+          <p class="techora-listicle-v1__editor-note">Describe this image in the alternative text setting or its media-library entry, or mark it as decorative.</p>
+        {% endif %}
+        {% if section.settings.destination_mode != 'none' and has_cta == false %}
+          <p class="techora-listicle-v1__editor-note">Enter a link label and select a URL or an available product to display the action.</p>
+        {% endif %}
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Techora editorial",
+  "tag": "div",
+  "class": "techora-listicle-section-v1",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "header", "content": "Editorial content" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Start with what matters to you" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>The best place to begin is your own routine. Consider the details you value, the questions you want answered, and the small changes that could make a difference.</p><p>Use this space to introduce your perspective and help readers make an informed choice.</p>" },
+    { "type": "select", "id": "layout", "label": "Layout", "default": "text", "options": [
+      { "value": "text", "label": "Text only" },
+      { "value": "stacked", "label": "Stacked image and text" },
+      { "value": "split", "label": "Image beside text on desktop" }
+    ] },
+    { "type": "select", "id": "media_side", "label": "Desktop image position", "default": "left", "options": [
+      { "value": "left", "label": "Left" },
+      { "value": "right", "label": "Right" }
+    ] },
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "image_alt", "label": "Image alternative text", "info": "Describe the image's meaning. If blank, its media-library alternative text is used." },
+    { "type": "checkbox", "id": "image_decorative", "label": "Image is decorative", "default": false, "info": "Uses empty alternative text. Only choose this when the image adds no information." },
+    { "type": "text", "id": "caption", "label": "Image caption" },
+    { "type": "select", "id": "image_ratio", "label": "Image aspect ratio", "default": "auto", "options": [
+      { "value": "auto", "label": "Original" },
+      { "value": "1 / 1", "label": "Square" },
+      { "value": "4 / 3", "label": "Landscape" },
+      { "value": "3 / 4", "label": "Portrait" }
+    ] },
+    { "type": "select", "id": "image_fit", "label": "Image fit", "default": "cover", "options": [
+      { "value": "cover", "label": "Fill (may crop)" },
+      { "value": "contain", "label": "Show entire image" }
+    ] },
+    { "type": "select", "id": "image_loading", "label": "Image loading", "default": "auto", "info": "Automatic loads images early in the first three sections. Choose Above the fold for the page's main visible image, or Below the fold for later content.", "options": [
+      { "value": "auto", "label": "Automatic" },
+      { "value": "eager", "label": "Above the fold (high priority)" },
+      { "value": "lazy", "label": "Below the fold (lazy)" }
+    ] },
+    { "type": "header", "content": "Optional action" },
+    { "type": "text", "id": "cta_label", "label": "Link label" },
+    { "type": "select", "id": "destination_mode", "label": "Link destination", "default": "none", "options": [
+      { "value": "none", "label": "No link" },
+      { "value": "custom_url", "label": "Choose a URL" },
+      { "value": "product", "label": "Selected product page" }
+    ] },
+    { "type": "url", "id": "link", "label": "Link" },
+    { "type": "product", "id": "product", "label": "Product", "info": "Links to the product page. Does not add a product to the cart." },
+    { "type": "header", "content": "Layout and typography" },
+    { "type": "range", "id": "content_width", "label": "Maximum content width", "min": 640, "max": 1200, "step": 40, "unit": "px", "default": 800 },
+    { "type": "range", "id": "column_gap", "label": "Desktop space between columns", "min": 16, "max": 80, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "heading_scale", "label": "Heading size", "min": 80, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "body_scale", "label": "Body text size", "min": 90, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "corner_radius", "label": "Image and button corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 12 },
+    { "type": "select", "id": "text_alignment", "label": "Text alignment", "default": "left", "options": [
+      { "value": "left", "label": "Left" },
+      { "value": "center", "label": "Center" },
+      { "value": "right", "label": "Right" }
+    ] },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#FAF9F6" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#23312E" },
+    { "type": "color", "id": "accent_color", "label": "Text links", "default": "#245C50" },
+    { "type": "color", "id": "button_color", "label": "Button background", "default": "#245C50" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#FFFFFF" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Desktop top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom", "label": "Desktop bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile and tablet top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile and tablet bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 }
+  ],
+  "presets": [{ "name": "Techora editorial" }]
+}
+{% endschema %}
