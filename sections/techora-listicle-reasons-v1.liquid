@@ -1,0 +1,323 @@
+{% comment %}
+  Techora Phase 2. Standalone dependency: assets/techora-listicle-v1.css.
+  One section-local block per reason. Order and numbering need no JavaScript.
+  Hiding a block's displayed number does not remove it from the list sequence.
+{% endcomment %}
+
+{{ 'techora-listicle-v1.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign list_tag = 'ul'
+  if section.settings.show_numbers
+    assign list_tag = 'ol'
+  endif
+  assign reason_heading_tag = 'h2'
+  if section.settings.heading != blank
+    assign reason_heading_tag = 'h3'
+  endif
+  assign first_image_rendered = false
+  assign desktop_image_width = section.settings.content_width | times: section.settings.media_column_width | divided_by: 100.0 | round
+  assign desktop_image_gutter = section.settings.media_column_width | times: 32 | divided_by: 100.0
+  assign content_breakpoint = section.settings.content_width | plus: 32 | at_least: 900
+%}
+
+{% capture image_sizes %}
+  (min-width: {{ content_breakpoint }}px) {{ desktop_image_width }}px,
+  (min-width: 900px) calc({{ section.settings.media_column_width }}vw - {{ desktop_image_gutter }}px),
+  (min-width: 592px) 560px, calc(100vw - 32px)
+{% endcapture %}
+
+{% if section.blocks.size > 0 or request.design_mode %}
+  <section
+    class="techora-listicle-v1 techora-listicle-v1--reasons techora-listicle-v1--align-{{ section.settings.text_alignment }}"
+    {% if section.settings.heading != blank %}aria-labelledby="techora-reasons-title-{{ section.id }}"{% endif %}
+    style="
+      --techora-content-width: {{ section.settings.content_width }}px;
+      --techora-background: {{ section.settings.background_color }};
+      --techora-text: {{ section.settings.text_color }};
+      --techora-accent: {{ section.settings.accent_color }};
+      --techora-border: {{ section.settings.border_color }};
+      --techora-button: {{ section.settings.button_color }};
+      --techora-button-text: {{ section.settings.button_text_color }};
+      --techora-number-color: {{ section.settings.number_color }};
+      --techora-caption-background: {{ section.settings.caption_background_color }};
+      --techora-caption-text: {{ section.settings.caption_text_color }};
+      --techora-padding-top: {{ section.settings.padding_top }}px;
+      --techora-padding-bottom: {{ section.settings.padding_bottom }}px;
+      --techora-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
+      --techora-mobile-padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --techora-heading-scale: {{ section.settings.heading_scale | divided_by: 100.0 }};
+      --techora-body-scale: {{ section.settings.body_scale | divided_by: 100.0 }};
+      --techora-column-gap: {{ section.settings.column_gap }}px;
+      --techora-reason-gap: {{ section.settings.row_gap }}px;
+      --techora-mobile-reason-gap: {{ section.settings.mobile_row_gap }}px;
+      --techora-media-width: {{ section.settings.media_column_width }}%;
+      --techora-radius: {{ section.settings.corner_radius }}px;
+      --techora-button-radius: {{ section.settings.button_radius }}px;
+      --techora-alignment: {{ section.settings.text_alignment }};
+      --techora-image-ratio: {{ section.settings.image_ratio }};
+      --techora-image-fit: {{ section.settings.image_fit }};
+    "
+  >
+    <div class="techora-listicle-v1__container">
+      {% if section.settings.heading != blank %}
+        <h2 id="techora-reasons-title-{{ section.id }}" class="techora-listicle-v1__heading techora-listicle-v1__reasons-title">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.blocks.size > 0 %}
+        <{{ list_tag }}
+          class="techora-listicle-v1__reasons{% if section.settings.show_dividers %} techora-listicle-v1__reasons--dividers{% endif %}"
+          role="list"
+          {% if section.settings.show_numbers %}start="{{ section.settings.start_number }}"{% endif %}
+        >
+          {% for block in section.blocks %}
+            {% liquid
+              assign reason_number = forloop.index0 | plus: section.settings.start_number
+              assign show_number = false
+              if section.settings.show_numbers and block.settings.show_number
+                assign show_number = true
+              endif
+              assign has_image = false
+              if block.settings.image != blank
+                assign has_image = true
+              endif
+              assign image_alt = block.settings.image_alt | strip
+              if image_alt == blank
+                assign image_alt = block.settings.image.alt | default: '' | strip
+              endif
+              if block.settings.image_decorative
+                assign image_alt = ''
+              endif
+              assign has_cta = false
+              if block.settings.cta_enabled and block.settings.cta_label != blank and block.settings.cta_url != blank
+                assign has_cta = true
+              endif
+              assign cta_style = block.settings.cta_style
+              if cta_style == 'inherit'
+                assign cta_style = section.settings.cta_style
+              endif
+              assign media_side = block.settings.media_side
+              if media_side == 'inherit'
+                assign media_side = section.settings.desktop_media_side
+                if media_side == 'alternate'
+                  assign row_parity = forloop.index | modulo: 2
+                  assign media_side = 'left'
+                  if row_parity == 0
+                    assign media_side = 'right'
+                  endif
+                endif
+              endif
+              assign has_heading_area = false
+              if block.settings.heading != blank or block.settings.eyebrow != blank or show_number
+                assign has_heading_area = true
+              endif
+              assign has_body_area = false
+              if block.settings.body != blank or has_cta
+                assign has_body_area = true
+              endif
+              assign split_layout = false
+              if has_image
+                if has_heading_area or has_body_area
+                  assign split_layout = true
+                endif
+              endif
+              assign image_loading = 'lazy'
+              assign image_priority = 'auto'
+              if block.settings.image_loading == 'eager'
+                assign image_loading = 'eager'
+                assign image_priority = 'high'
+              elsif block.settings.image_loading == 'auto' and first_image_rendered == false
+                if section.index == nil or section.index <= 3
+                  assign image_loading = 'eager'
+                endif
+              endif
+            %}
+            <li
+              id="techora-reason-{{ section.id }}-{{ block.id }}"
+              class="techora-listicle-v1__reason"
+              {{ block.shopify_attributes }}
+            >
+              <div class="techora-listicle-v1__reason-layout{% if split_layout %} techora-listicle-v1__reason-layout--split{% if media_side == 'right' %} techora-listicle-v1__reason-layout--right{% endif %}{% endif %}{% unless has_heading_area %} techora-listicle-v1__reason-layout--no-heading{% endunless %}{% unless has_body_area %} techora-listicle-v1__reason-layout--no-body{% endunless %}">
+                {% if has_heading_area %}
+                  <div class="techora-listicle-v1__reason-heading-group">
+                    {% if block.settings.eyebrow != blank %}
+                      <p class="techora-listicle-v1__eyebrow">{{ block.settings.eyebrow | escape }}</p>
+                    {% endif %}
+                    {% if block.settings.heading != blank %}
+                      <{{ reason_heading_tag }} id="techora-reason-title-{{ section.id }}-{{ block.id }}" class="techora-listicle-v1__heading techora-listicle-v1__reason-heading">
+                        {% if show_number %}<span class="techora-listicle-v1__reason-number" aria-hidden="true">{{ reason_number }}.</span> {% endif %}{{ block.settings.heading }}
+                      </{{ reason_heading_tag }}>
+                    {% elsif show_number %}
+                      <p class="techora-listicle-v1__reason-number techora-listicle-v1__reason-number--standalone" aria-hidden="true">{{ reason_number }}.</p>
+                    {% endif %}
+                  </div>
+                {% endif %}
+                {% if has_image %}
+                  {% liquid
+                    assign first_image_rendered = true
+                    assign reason_image_sizes = image_sizes
+                    unless split_layout
+                      assign reason_image_sizes = '(min-width: 592px) 560px, calc(100vw - 32px)'
+                    endunless
+                  %}
+                  <figure class="techora-listicle-v1__figure techora-listicle-v1__reason-figure{% if block.settings.caption != blank and block.settings.caption_style == 'emphasized' %} techora-listicle-v1__reason-figure--emphasized{% endif %}">
+                    {{
+                      block.settings.image
+                      | image_url: width: 1600
+                      | image_tag: widths: '240, 360, 480, 640, 800, 1000, 1200, 1600', sizes: reason_image_sizes, alt: image_alt, class: 'techora-listicle-v1__image', loading: image_loading, fetchpriority: image_priority
+                    }}
+                    {% if block.settings.caption != blank %}
+                      <figcaption class="techora-listicle-v1__caption">{{ block.settings.caption | escape }}</figcaption>
+                    {% endif %}
+                  </figure>
+                {% endif %}
+                {% if has_body_area %}
+                  <div class="techora-listicle-v1__reason-content">
+                    {% if block.settings.body != blank %}
+                      <div class="techora-listicle-v1__richtext">{{ block.settings.body }}</div>
+                    {% endif %}
+                    {% if has_cta %}
+                      <a class="techora-listicle-v1__reason-cta{% if cta_style == 'button' %} techora-listicle-v1__button{% else %} techora-listicle-v1__reason-cta--text{% endif %}" href="{{ block.settings.cta_url | escape }}">{{ block.settings.cta_label | escape }}</a>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
+              {% if request.design_mode %}
+                {% if block.settings.heading == blank %}
+                  <p class="techora-listicle-v1__editor-note">Add a heading for this reason. Its position in the list is preserved while you edit.</p>
+                {% endif %}
+                {% if has_image and image_alt == blank and block.settings.image_decorative == false %}
+                  <p class="techora-listicle-v1__editor-note">Describe this image in the alternative text setting or media library, or mark it as decorative.</p>
+                {% endif %}
+                {% if block.settings.cta_enabled and has_cta == false %}
+                  <p class="techora-listicle-v1__editor-note">Enter both the CTA text and URL to show this reason's link.</p>
+                {% endif %}
+              {% endif %}
+            </li>
+          {% endfor %}
+        </{{ list_tag }}>
+      {% elsif request.design_mode %}
+        <p class="techora-listicle-v1__editor-note">Add Reason blocks to build your listicle. Drag blocks to reorder them; numbering follows their order. An empty reasons section is hidden on the storefront.</p>
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Techora listicle reasons",
+  "tag": "div",
+  "class": "techora-listicle-section-v1",
+  "enabled_on": { "templates": ["page"] },
+  "max_blocks": 50,
+  "settings": [
+    { "type": "header", "content": "Listicle" },
+    { "type": "inline_richtext", "id": "heading", "label": "Optional section heading", "info": "When set, this is an H2 and reason headings are H3. Otherwise, each reason heading is H2." },
+    { "type": "checkbox", "id": "show_numbers", "label": "Show reason numbers", "default": true },
+    { "type": "range", "id": "start_number", "label": "Start numbering at", "min": 1, "max": 100, "step": 1, "default": 1, "info": "Numbers follow block order. When splitting an article across sections, update this starting number yourself." },
+    { "type": "checkbox", "id": "show_dividers", "label": "Show subtle dividers between reasons", "default": false },
+    { "type": "header", "content": "Layout and typography" },
+    { "type": "range", "id": "content_width", "label": "Maximum content width", "min": 640, "max": 1200, "step": 40, "unit": "px", "default": 800 },
+    { "type": "range", "id": "heading_scale", "label": "Heading size", "min": 80, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "body_scale", "label": "Body text size", "min": 90, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "select", "id": "text_alignment", "label": "Text alignment", "default": "left", "options": [
+      { "value": "left", "label": "Left" },
+      { "value": "center", "label": "Center" },
+      { "value": "right", "label": "Right" }
+    ] },
+    { "type": "select", "id": "desktop_media_side", "label": "Desktop image position", "default": "left", "options": [
+      { "value": "left", "label": "Left" },
+      { "value": "right", "label": "Right" },
+      { "value": "alternate", "label": "Alternate with each reason" }
+    ] },
+    { "type": "range", "id": "media_column_width", "label": "Desktop image column width", "min": 30, "max": 50, "step": 5, "unit": "%", "default": 40 },
+    { "type": "range", "id": "column_gap", "label": "Desktop space between columns", "min": 16, "max": 80, "step": 4, "unit": "px", "default": 40 },
+    { "type": "header", "content": "Images" },
+    { "type": "select", "id": "image_ratio", "label": "Image aspect ratio", "default": "1 / 1", "options": [
+      { "value": "auto", "label": "Original" },
+      { "value": "1 / 1", "label": "Square" },
+      { "value": "4 / 3", "label": "Landscape" },
+      { "value": "3 / 4", "label": "Portrait" }
+    ] },
+    { "type": "select", "id": "image_fit", "label": "Image fit", "default": "cover", "options": [
+      { "value": "cover", "label": "Fill (may crop)" },
+      { "value": "contain", "label": "Show entire image" }
+    ] },
+    { "type": "range", "id": "corner_radius", "label": "Image corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 12 },
+    { "type": "header", "content": "CTA appearance" },
+    { "type": "select", "id": "cta_style", "label": "Default CTA style", "default": "text", "options": [
+      { "value": "text", "label": "Underlined text link" },
+      { "value": "button", "label": "Button" }
+    ] },
+    { "type": "range", "id": "button_radius", "label": "Button corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 12 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Section background", "default": "#FAF9F6" },
+    { "type": "color", "id": "text_color", "label": "Headings and body text", "default": "#23312E" },
+    { "type": "color", "id": "accent_color", "label": "Eyebrows and text links", "default": "#245C50" },
+    { "type": "color", "id": "number_color", "label": "Reason numbers", "default": "#245C50" },
+    { "type": "color", "id": "border_color", "label": "Dividers", "default": "#D8DFDA" },
+    { "type": "color", "id": "button_color", "label": "Button background", "default": "#245C50" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#FFFFFF" },
+    { "type": "color", "id": "caption_background_color", "label": "Emphasized caption background", "default": "#E5ECE6" },
+    { "type": "color", "id": "caption_text_color", "label": "Emphasized caption text", "default": "#23312E" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "row_gap", "label": "Desktop space between reasons", "min": 24, "max": 120, "step": 4, "unit": "px", "default": 64 },
+    { "type": "range", "id": "mobile_row_gap", "label": "Mobile and tablet space between reasons", "min": 24, "max": 96, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "padding_top", "label": "Desktop top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom", "label": "Desktop bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile and tablet top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile and tablet bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 }
+  ],
+  "blocks": [
+    {
+      "type": "techora-reason",
+      "name": "Reason",
+      "settings": [
+        { "type": "checkbox", "id": "show_number", "label": "Show this reason's number", "default": true, "info": "Only affects the displayed number. This block still counts in the sequence; section numbering must also be enabled." },
+        { "type": "text", "id": "eyebrow", "label": "Optional eyebrow or subheading" },
+        { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "A detail worth considering" },
+        { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Describe one useful detail and explain why it matters. Keep the focus on what your reader can learn and how it relates to their everyday choices.</p>" },
+        { "type": "header", "content": "Image" },
+        { "type": "image_picker", "id": "image", "label": "Image", "info": "Optional. Without an image, this reason uses the article's reading width." },
+        { "type": "text", "id": "image_alt", "label": "Image alternative text", "info": "Describe the image's meaning. If blank, its media-library alternative text is used." },
+        { "type": "checkbox", "id": "image_decorative", "label": "Image is decorative", "default": false, "info": "Uses empty alternative text. Only choose this when the image adds no information." },
+        { "type": "text", "id": "caption", "label": "Image caption" },
+        { "type": "select", "id": "caption_style", "label": "Caption style", "default": "plain", "options": [
+          { "value": "plain", "label": "Plain text" },
+          { "value": "emphasized", "label": "Emphasized strip" }
+        ] },
+        { "type": "select", "id": "media_side", "label": "Desktop image position", "default": "inherit", "options": [
+          { "value": "inherit", "label": "Use section setting" },
+          { "value": "left", "label": "Left" },
+          { "value": "right", "label": "Right" }
+        ] },
+        { "type": "select", "id": "image_loading", "label": "Image loading", "default": "auto", "info": "Automatic loads only the first image early when this section is near the page top. Use high priority only for the main image visible on arrival.", "options": [
+          { "value": "auto", "label": "Automatic" },
+          { "value": "eager", "label": "Above the fold (high priority)" },
+          { "value": "lazy", "label": "Below the fold (lazy)" }
+        ] },
+        { "type": "header", "content": "Optional CTA" },
+        { "type": "checkbox", "id": "cta_enabled", "label": "Show CTA", "default": false },
+        { "type": "text", "id": "cta_label", "label": "CTA text" },
+        { "type": "url", "id": "cta_url", "label": "CTA URL" },
+        { "type": "select", "id": "cta_style", "label": "CTA style", "default": "inherit", "options": [
+          { "value": "inherit", "label": "Use section setting" },
+          { "value": "text", "label": "Underlined text link" },
+          { "value": "button", "label": "Button" }
+        ] }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Techora listicle reasons",
+      "blocks": [
+        { "type": "techora-reason", "settings": { "eyebrow": "Your starting point", "heading": "Begin with your everyday routine", "body": "<p>Think about the moments you want to make easier. A useful choice starts with understanding how you will use it, where it belongs, and what matters most to you.</p>" } },
+        { "type": "techora-reason", "settings": { "eyebrow": "A closer look", "heading": "Look closely at the details", "body": "<p>Materials, dimensions, and thoughtful features can help tell the full story. Take a moment to explore the details that are relevant to your needs.</p>" } },
+        { "type": "techora-reason", "settings": { "heading": "Consider how it fits your space", "body": "<p>Whether it belongs at home, at work, or on the move, context matters. Picture how this choice would fit into the places and routines you already know.</p>" } },
+        { "type": "techora-reason", "settings": { "heading": "Get answers to the practical questions", "body": "<p>Look for clear guidance on use, care, and what is included. Understanding these essentials can help you decide with more confidence.</p>" } },
+        { "type": "techora-reason", "settings": { "heading": "Choose what works for you", "body": "<p>Bring the details together and weigh them against your own priorities. The right next step is the one that makes sense for your needs.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
