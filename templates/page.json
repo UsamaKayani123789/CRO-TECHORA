@@ -268,12 +268,12 @@
         "body_scale": 100,
         "text_alignment": "center",
         "corner_radius": 12,
-        "background_color": "#E5ECE6",
-        "text_color": "#23312E",
-        "accent_color": "#245C50",
-        "border_color": "#D8DFDA",
-        "button_color": "#245C50",
-        "button_text_color": "#FFFFFF",
+        "background_color": "#e5ece6",
+        "text_color": "#23312e",
+        "accent_color": "#245c50",
+        "border_color": "#d8dfda",
+        "button_color": "#245c50",
+        "button_text_color": "#ffffff",
         "padding_top": 48,
         "padding_bottom": 48,
         "mobile_padding_top": 32,
@@ -331,16 +331,116 @@
         "text_alignment": "left",
         "column_gap": 48,
         "button_radius": 12,
-        "background_color": "#F3F5F1",
+        "background_color": "#f3f5f1",
+        "text_color": "#23312e",
+        "accent_color": "#245c50",
+        "border_color": "#d8dfda",
+        "button_color": "#245c50",
+        "button_text_color": "#ffffff",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 36
+      }
+    },
+    "techora_listicle_trust_v1_9Jq8pU": {
+      "type": "techora-listicle-trust-v1",
+      "blocks": {
+        "techora_trust_point_xDGLXw": {
+          "type": "techora-trust-point",
+          "settings": {
+            "icon": "check",
+            "image_alt": "",
+            "heading": "A useful detail",
+            "text": "Add a clear, merchant-provided detail here."
+          }
+        },
+        "techora_trust_point_WEr8ix": {
+          "type": "techora-trust-point",
+          "settings": {
+            "icon": "check",
+            "image_alt": "",
+            "heading": "A useful detail",
+            "text": "Add a clear, merchant-provided detail here."
+          }
+        },
+        "techora_trust_point_Kh8663": {
+          "type": "techora-trust-point",
+          "settings": {
+            "icon": "check",
+            "image_alt": "",
+            "heading": "A useful detail",
+            "text": "Add a clear, merchant-provided detail here."
+          }
+        }
+      },
+      "block_order": [
+        "techora_trust_point_xDGLXw",
+        "techora_trust_point_WEr8ix",
+        "techora_trust_point_Kh8663"
+      ],
+      "name": "Techora trust content",
+      "settings": {
+        "eyebrow": "Worth considering",
+        "heading": "Details that help you choose with confidence",
+        "body": "<p>Use this space for the practical service, care, or usage information your customers should know before choosing.</p>",
+        "image_alt": "",
+        "image_decorative": false,
+        "image_position": "left",
+        "image_width": 40,
+        "image_radius": 12,
+        "trust_badge": "Clear information, at your own pace.",
+        "supporting_note": "Share only terms and service details that apply to your store.",
+        "point_layout": "cards",
+        "content_width": 920,
+        "heading_scale": 100,
+        "body_scale": 100,
+        "text_alignment": "left",
+        "background_color": "#FAF9F6",
+        "text_color": "#23312E",
+        "accent_color": "#245C50",
+        "border_color": "#D8DFDA",
+        "padding_top": 24,
+        "padding_bottom": 48,
+        "mobile_padding_top": 16,
+        "mobile_padding_bottom": 32
+      }
+    },
+    "techora_listicle_conclusion_v1_3wg8fb": {
+      "type": "techora-listicle-conclusion-v1",
+      "name": "Techora conclusion",
+      "settings": {
+        "eyebrow": "A thoughtful next step",
+        "heading": "Take what is useful for your next step",
+        "body": "<p>Use this closing space to summarize the editorial perspective and invite readers to continue at their own pace.</p>",
+        "image_alt": "",
+        "image_decorative": false,
+        "image_position": "left",
+        "image_width": 40,
+        "image_radius": 12,
+        "cta_enabled": true,
+        "cta_label": "Continue to the product page",
+        "destination_mode": "product",
+        "cta_url": "",
+        "product": "",
+        "disclosure": "",
+        "author_note": "",
+        "last_updated": "",
+        "show_divider": true,
+        "content_width": 920,
+        "heading_scale": 100,
+        "body_scale": 100,
+        "text_alignment": "left",
+        "background_color": "#FAF9F6",
         "text_color": "#23312E",
         "accent_color": "#245C50",
         "border_color": "#D8DFDA",
         "button_color": "#245C50",
         "button_text_color": "#FFFFFF",
-        "padding_top": 56,
-        "padding_bottom": 56,
-        "mobile_padding_top": 36,
-        "mobile_padding_bottom": 36
+        "padding_top": 40,
+        "padding_bottom": 48,
+        "mobile_padding_top": 28,
+        "mobile_padding_bottom": 32
       }
     }
   },
@@ -351,6 +451,8 @@
     "techora_listicle_editorial_v1_btrMkF",
     "techora_listicle_reasons_v1_FtERdD",
     "techora_listicle_cta_v1_dkLXJB",
-    "techora_listicle_offer_v1_7RQYhU"
+    "techora_listicle_offer_v1_7RQYhU",
+    "techora_listicle_trust_v1_9Jq8pU",
+    "techora_listicle_conclusion_v1_3wg8fb"
   ]
 }
