@@ -400,15 +400,15 @@
         "techora_offer_reassurance_1": {
           "type": "techora-offer-reassurance",
           "settings": {
-            "label": "",
-            "text": "Satisfaction Guaranteed"
+            "label": "Sell-Out Risk:",
+            "text": "<span style=\"color: #c8202f;\">High</span>"
           }
         },
         "techora_offer_reassurance_2": {
           "type": "techora-offer-reassurance",
           "settings": {
             "label": "",
-            "text": "Free shipping"
+            "text": "FREE shipping"
           }
         }
       },

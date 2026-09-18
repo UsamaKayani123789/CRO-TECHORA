@@ -1185,7 +1185,7 @@
 
   .techora-listicle-v1 .techora-listicle-v1__offer-layout--card > .techora-listicle-v1__offer-content {
     padding-top: 20px;
-    padding-inline: 25px;
+    padding-inline: 15px;
   }
 }
 
@@ -1524,6 +1524,9 @@
 
   .techora-listicle-v1 .techora-listicle-v1__offer-disclosure {
     margin-top: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
   }
 
   .techora-listicle-v1 .techora-listicle-v1__reason + .techora-listicle-v1__reason {
