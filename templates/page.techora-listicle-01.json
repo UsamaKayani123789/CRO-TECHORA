@@ -29,13 +29,13 @@
         "column_gap": 24,
         "body_scale": 100,
         "text_alignment": "center",
-        "background_color": "#183f3a",
+        "background_color": "#40358c",
         "text_color": "#ffffff",
         "accent_color": "#ffffff",
-        "padding_top": 12,
-        "padding_bottom": 12,
-        "mobile_padding_top": 12,
-        "mobile_padding_bottom": 12
+        "padding_top": 8,
+        "padding_bottom": 8,
+        "mobile_padding_top": 8,
+        "mobile_padding_bottom": 8
       }
     },
     "techora_listicle_article_header_v1": {

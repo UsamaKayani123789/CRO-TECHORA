@@ -274,11 +274,16 @@
 }
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-message {
-  font-weight: 650;
+  font-size: 1.08em;
+  font-weight: 800;
+  line-height: 1.15;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-support {
   margin-top: 2px;
+  font-size: 0.95em;
+  font-weight: 700;
+  line-height: 1.15;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-link {
@@ -306,13 +311,23 @@
   }
 
   .techora-listicle-v1 .techora-listicle-v1__announcement-countdown {
-    width: min(100%, 152px);
-    min-width: 152px;
+    width: 120px;
+    min-width: 120px;
     justify-self: end;
+    padding: 4px 5px;
   }
 
   .techora-listicle-v1 .techora-listicle-v1__announcement-countdown-clock {
-    column-gap: 2px;
+    grid-template-columns: minmax(23px, 1fr) auto minmax(23px, 1fr) auto minmax(23px, 1fr);
+    column-gap: 1px;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__announcement-countdown-unit strong {
+    font-size: 1.12em;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__announcement-countdown-unit span {
+    font-size: 0.6em;
   }
 }
 
