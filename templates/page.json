@@ -77,41 +77,6 @@
         "mobile_padding_bottom": 12
       }
     },
-    "techora_listicle_editorial_v1_btrMkF": {
-      "type": "techora-listicle-editorial-v1",
-      "name": "Techora editorial",
-      "settings": {
-        "heading": "Start with what matters to you",
-        "body": "<p>The best place to begin is your own routine. Consider the details you value, the questions you want answered, and the small changes that could make a difference.</p><p>Use this space to introduce your perspective and help readers make an informed choice.</p>",
-        "layout": "text",
-        "media_side": "left",
-        "image_alt": "",
-        "image_decorative": false,
-        "caption": "",
-        "image_ratio": "auto",
-        "image_fit": "cover",
-        "image_loading": "auto",
-        "cta_label": "",
-        "destination_mode": "none",
-        "link": "",
-        "product": "",
-        "content_width": 800,
-        "column_gap": 40,
-        "heading_scale": 100,
-        "body_scale": 100,
-        "corner_radius": 12,
-        "text_alignment": "left",
-        "background_color": "#faf9f6",
-        "text_color": "#23312e",
-        "accent_color": "#245c50",
-        "button_color": "#245c50",
-        "button_text_color": "#ffffff",
-        "padding_top": 24,
-        "padding_bottom": 48,
-        "mobile_padding_top": 16,
-        "mobile_padding_bottom": 32
-      }
-    },
     "techora_listicle_reasons_v1_FtERdD": {
       "type": "techora-listicle-reasons-v1",
       "blocks": {
@@ -373,7 +338,6 @@
     "main",
     "techora_listicle_announcement_v1_iR67Y6",
     "techora_listicle_article_header_v1_7ayA4m",
-    "techora_listicle_editorial_v1_btrMkF",
     "techora_listicle_reasons_v1_FtERdD",
     "techora_listicle_cta_v1_dkLXJB",
     "techora_listicle_offer_v1_7RQYhU"
