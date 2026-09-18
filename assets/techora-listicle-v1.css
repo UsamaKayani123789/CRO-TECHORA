@@ -1370,25 +1370,6 @@
   .techora-listicle-v1 .techora-listicle-v1__reason-heading {
     max-width: 28ch;
   }
-
-  .techora-listicle-v1--offer {
-    text-align: center;
-  }
-
-  .techora-listicle-v1--offer .techora-listicle-v1__offer-content,
-  .techora-listicle-v1--offer .techora-listicle-v1__offer-heading,
-  .techora-listicle-v1--offer .techora-listicle-v1__offer-body,
-  .techora-listicle-v1--offer .techora-listicle-v1__offer-cta,
-  .techora-listicle-v1--offer .techora-listicle-v1__offer-badge,
-  .techora-listicle-v1--offer .techora-listicle-v1__offer-disclosure {
-    margin-inline: auto;
-  }
-
-  .techora-listicle-v1--offer .techora-listicle-v1__offer-price,
-  .techora-listicle-v1--offer .techora-listicle-v1__offer-countdown,
-  .techora-listicle-v1--offer .techora-listicle-v1__offer-reassurances {
-    justify-content: center;
-  }
 }
 
 @media (max-width: 599px) {

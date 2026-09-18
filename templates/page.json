@@ -440,7 +440,7 @@
         "content_width": 800,
         "heading_scale": 100,
         "body_scale": 100,
-        "text_alignment": "left",
+        "text_alignment": "center",
         "column_gap": 48,
         "button_radius": 12,
         "background_color": "#fdfde7",
