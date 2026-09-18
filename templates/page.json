@@ -436,7 +436,7 @@
         "media_width": 45,
         "image_ratio": "1 / 1",
         "image_fit": "cover",
-        "image_radius": 16,
+        "image_radius": 0,
         "show_vendor": false,
         "show_price": false,
         "show_compare_at": true,
