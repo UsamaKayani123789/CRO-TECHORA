@@ -19,7 +19,7 @@
       "name": "Techora announcement",
       "settings": {
         "message": "🍁 FALL SPECIAL ✨",
-        "supporting_text": "up to 58% OFF with FREE GIFTS",
+        "supporting_text": "up to <strong>58% OFF</strong> with <strong>FREE GIFTS</strong>",
         "countdown_enabled": true,
         "countdown_hours": 2,
         "countdown_minutes": 15,
