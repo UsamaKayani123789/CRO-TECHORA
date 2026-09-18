@@ -98,7 +98,7 @@
         <div class="techora-listicle-v1__byline-text">
           {% if has_author %}
             <p class="techora-listicle-v1__author">
-              {% if section.settings.author_label != blank %}{{ section.settings.author_label | escape }} {% endif %}
+              {% if section.settings.author_label != blank %}<span class="techora-listicle-v1__author-label">{{ section.settings.author_label | escape }}</span> {% endif %}
               {% if section.settings.author_link != blank %}
                 <a class="techora-listicle-v1__author-name" href="{{ section.settings.author_link | escape }}">{{ section.settings.author_name | escape }}</a>
               {% else %}
