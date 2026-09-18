@@ -192,10 +192,9 @@
 }
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-row {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: center;
   column-gap: var(--techora-column-gap, 24px);
   row-gap: 8px;
 }
@@ -203,6 +202,45 @@
 .techora-listicle-v1 .techora-listicle-v1__announcement-copy {
   min-width: 0;
   max-width: 100%;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__announcement-statuses {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(54px, 1fr));
+  min-width: 216px;
+  align-items: center;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__announcement-status {
+  display: grid;
+  min-width: 0;
+  padding-inline: 16px;
+  text-align: center;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__announcement-status + .techora-listicle-v1__announcement-status {
+  border-inline-start: 1px solid color-mix(in srgb, currentColor 42%, transparent);
+}
+
+.techora-listicle-v1 .techora-listicle-v1__announcement-status strong,
+.techora-listicle-v1 .techora-listicle-v1__announcement-status span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__announcement-status strong {
+  font-size: 0.88em;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__announcement-status span {
+  margin-top: 3px;
+  font-size: 0.72em;
+  font-weight: 600;
+  line-height: 1.15;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-message,
@@ -220,6 +258,8 @@
 }
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-link {
+  grid-column: 1 / -1;
+  justify-self: center;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -227,6 +267,28 @@
   max-width: 100%;
   padding: 6px 4px;
   font-weight: 650;
+}
+
+@media (max-width: 719px) {
+  .techora-listicle-v1 .techora-listicle-v1__announcement-row {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    row-gap: 12px;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__announcement-copy {
+    width: 100%;
+    text-align: center;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__announcement-statuses {
+    width: min(100%, 320px);
+    min-width: 0;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__announcement-status {
+    padding-inline: 8px;
+  }
 }
 
 /* Header: title, independent author/date visibility, then the summary. */

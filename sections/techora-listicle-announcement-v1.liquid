@@ -1,6 +1,6 @@
 {% comment %}
   Techora Phase 1. Standalone dependency: assets/techora-listicle-v1.css.
-  Future offer anchors and countdowns intentionally have no controls yet.
+  Future offer controls intentionally have no controls yet.
 {% endcomment %}
 
 {{ 'techora-listicle-v1.css' | asset_url | stylesheet_tag }}
@@ -11,7 +11,7 @@
     assign has_link = true
   endif
   assign has_content = false
-  if section.settings.message != blank or section.settings.supporting_text != blank or has_link
+  if section.settings.message != blank or section.settings.supporting_text != blank or has_link or section.settings.status_1_value != blank or section.settings.status_2_value != blank or section.settings.status_3_value != blank
     assign has_content = true
   endif
 %}
@@ -61,6 +61,26 @@
             {% endif %}
           </div>
         {% endif %}
+        <div class="techora-listicle-v1__announcement-statuses" aria-label="Highlights">
+          {% if section.settings.status_1_value != blank or section.settings.status_1_label != blank %}
+            <div class="techora-listicle-v1__announcement-status">
+              <strong>{{ section.settings.status_1_value | escape }}</strong>
+              <span>{{ section.settings.status_1_label | escape }}</span>
+            </div>
+          {% endif %}
+          {% if section.settings.status_2_value != blank or section.settings.status_2_label != blank %}
+            <div class="techora-listicle-v1__announcement-status">
+              <strong>{{ section.settings.status_2_value | escape }}</strong>
+              <span>{{ section.settings.status_2_label | escape }}</span>
+            </div>
+          {% endif %}
+          {% if section.settings.status_3_value != blank or section.settings.status_3_label != blank %}
+            <div class="techora-listicle-v1__announcement-status">
+              <strong>{{ section.settings.status_3_value | escape }}</strong>
+              <span>{{ section.settings.status_3_label | escape }}</span>
+            </div>
+          {% endif %}
+        </div>
         {% if has_link %}
           <a class="techora-listicle-v1__announcement-link" href="{{ section.settings.link | escape }}">
             {{ section.settings.link_label | escape }}
@@ -89,6 +109,13 @@
     { "type": "header", "content": "Announcement" },
     { "type": "inline_richtext", "id": "message", "label": "Message", "default": "A considered approach to everyday choices" },
     { "type": "text", "id": "supporting_text", "label": "Supporting text" },
+    { "type": "header", "content": "Static highlights" },
+    { "type": "text", "id": "status_1_value", "label": "First value", "default": "RICH" },
+    { "type": "text", "id": "status_1_label", "label": "First label", "default": "Taste" },
+    { "type": "text", "id": "status_2_value", "label": "Second value", "default": "QUICK" },
+    { "type": "text", "id": "status_2_label", "label": "Second label", "default": "Prep" },
+    { "type": "text", "id": "status_3_value", "label": "Third value", "default": "EASY" },
+    { "type": "text", "id": "status_3_label", "label": "Third label", "default": "Daily" },
     { "type": "select", "id": "destination_mode", "label": "Link destination", "default": "none", "options": [
       { "value": "none", "label": "No link" },
       { "value": "custom_url", "label": "Choose a URL" }
@@ -100,7 +127,7 @@
     { "type": "range", "id": "sticky_top_offset", "label": "Space above sticky announcement", "min": 0, "max": 200, "step": 4, "unit": "px", "default": 0 },
     { "type": "header", "content": "Layout and typography" },
     { "type": "range", "id": "content_width", "label": "Maximum content width", "min": 640, "max": 1200, "step": 40, "unit": "px", "default": 800 },
-    { "type": "range", "id": "column_gap", "label": "Space between message and link", "min": 8, "max": 64, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "column_gap", "label": "Space between promotional groups", "min": 8, "max": 64, "step": 4, "unit": "px", "default": 24 },
     { "type": "range", "id": "body_scale", "label": "Text size", "min": 90, "max": 140, "step": 5, "unit": "%", "default": 100 },
     { "type": "select", "id": "text_alignment", "label": "Text alignment", "default": "center", "options": [
       { "value": "left", "label": "Left" },
