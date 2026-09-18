@@ -193,7 +193,8 @@
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, max-content) auto;
+  justify-content: center;
   align-items: center;
   column-gap: var(--techora-column-gap, 24px);
   row-gap: 8px;
