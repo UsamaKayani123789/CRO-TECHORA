@@ -1289,26 +1289,6 @@
     line-height: 1.3;
   }
 
-  .techora-listicle-v1 .techora-listicle-v1__byline {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
-  .techora-listicle-v1--align-center .techora-listicle-v1__byline {
-    align-items: center;
-  }
-
-  .techora-listicle-v1--align-right .techora-listicle-v1__byline {
-    align-items: flex-end;
-  }
-
-  .techora-listicle-v1 .techora-listicle-v1__avatar {
-    flex: 0 0 40px;
-    width: 40px;
-    height: 40px;
-  }
-
   .techora-listicle-v1 .techora-listicle-v1__reason-heading {
     max-width: 24ch;
   }
