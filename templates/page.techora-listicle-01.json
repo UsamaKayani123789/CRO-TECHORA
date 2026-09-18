@@ -66,9 +66,9 @@
         "accent_color": "#245c50",
         "border_color": "#d8dfda",
         "padding_top": 48,
-        "padding_bottom": 16,
+        "padding_bottom": 8,
         "mobile_padding_top": 32,
-        "mobile_padding_bottom": 12
+        "mobile_padding_bottom": 8
       }
     },
     "techora_listicle_reasons_v1": {
