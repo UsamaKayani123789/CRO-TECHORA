@@ -528,6 +528,7 @@
   }
 
   .techora-listicle-v1 .techora-listicle-v1__offer-layout--card .techora-listicle-v1__offer-reassurances {
+    display: flex;
     flex-wrap: nowrap;
     gap: 8px;
     padding: 10px 12px;
@@ -869,7 +870,7 @@
 }
 
 @media (max-width: 599px) {
-  .techora-listicle-v1 .techora-listicle-v1__cta-band-body {
+  .techora-listicle-v1 .techora-listicle-v1__richtext.techora-listicle-v1__cta-band-body {
     max-width: 320px;
   }
 }
