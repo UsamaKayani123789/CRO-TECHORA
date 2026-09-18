@@ -531,13 +531,20 @@
   .techora-listicle-v1 .techora-listicle-v1__offer-layout--card .techora-listicle-v1__offer-reassurances {
     display: flex;
     flex-wrap: nowrap;
+    align-items: center;
     gap: 8px;
     padding: 10px 12px;
     font-size: 0.76em;
   }
 
+  .techora-listicle-v1 .techora-listicle-v1__offer-layout--card .techora-listicle-v1__offer-reassurances li {
+    white-space: nowrap;
+  }
+
   .techora-listicle-v1 .techora-listicle-v1__offer-layout--card .techora-listicle-v1__offer-reassurances li + li {
+    margin-top: 0;
     padding-inline-start: 8px;
+    border-inline-start: 1px solid var(--techora-border, #d8dfda);
   }
 }
 
