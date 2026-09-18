@@ -16,6 +16,7 @@
     assign reason_heading_tag = 'h3'
   endif
   assign first_image_rendered = false
+  assign reason_count = 0
   assign desktop_image_width = section.settings.content_width | times: section.settings.media_column_width | divided_by: 100.0 | round
   assign desktop_image_gutter = section.settings.media_column_width | times: 32 | divided_by: 100.0
   assign content_breakpoint = section.settings.content_width | plus: 32 | at_least: 900
@@ -70,8 +71,10 @@
           {% if section.settings.show_numbers %}start="{{ section.settings.start_number }}"{% endif %}
         >
           {% for block in section.blocks %}
+            {% if block.type == 'techora-reason' %}
             {% liquid
-              assign reason_number = forloop.index0 | plus: section.settings.start_number
+              assign reason_count = reason_count | plus: 1
+              assign reason_number = reason_count | plus: section.settings.start_number | minus: 1
               assign show_number = false
               if section.settings.show_numbers and block.settings.show_number
                 assign show_number = true
@@ -99,7 +102,7 @@
               if media_side == 'inherit'
                 assign media_side = section.settings.desktop_media_side
                 if media_side == 'alternate'
-                  assign row_parity = forloop.index | modulo: 2
+                  assign row_parity = reason_count | modulo: 2
                   assign media_side = 'left'
                   if row_parity == 0
                     assign media_side = 'right'
@@ -134,6 +137,7 @@
             <li
               id="techora-reason-{{ section.id }}-{{ block.id }}"
               class="techora-listicle-v1__reason"
+              style="--techora-reason-media-width: {{ block.settings.media_width }}%;"
               {{ block.shopify_attributes }}
             >
               <div class="techora-listicle-v1__reason-layout{% if split_layout %} techora-listicle-v1__reason-layout--split{% if media_side == 'right' %} techora-listicle-v1__reason-layout--right{% endif %}{% endif %}{% unless has_heading_area %} techora-listicle-v1__reason-layout--no-heading{% endunless %}{% unless has_body_area %} techora-listicle-v1__reason-layout--no-body{% endunless %}">
@@ -159,7 +163,7 @@
                       assign reason_image_sizes = '(min-width: 592px) 560px, calc(100vw - 32px)'
                     endunless
                   %}
-                  <figure class="techora-listicle-v1__figure techora-listicle-v1__reason-figure{% if block.settings.caption != blank and block.settings.caption_style == 'emphasized' %} techora-listicle-v1__reason-figure--emphasized{% endif %}">
+                  <figure class="techora-listicle-v1__figure techora-listicle-v1__reason-figure techora-listicle-v1__reason-figure--{{ block.settings.media_presentation }}{% if block.settings.caption != blank and block.settings.caption_style == 'emphasized' %} techora-listicle-v1__reason-figure--emphasized{% endif %}">
                     {{
                       block.settings.image
                       | image_url: width: 1600
@@ -193,6 +197,37 @@
                 {% endif %}
               {% endif %}
             </li>
+            {% elsif block.type == 'techora-promo' %}
+              {% liquid
+                assign promo_has_image = false
+                if block.settings.image != blank
+                  assign promo_has_image = true
+                endif
+                assign promo_image_alt = block.settings.image_alt | strip
+                if promo_image_alt == blank and promo_has_image
+                  assign promo_image_alt = block.settings.image.alt | default: '' | strip
+                endif
+                if block.settings.image_decorative
+                  assign promo_image_alt = ''
+                endif
+                assign promo_has_cta = false
+                if block.settings.cta_label != blank and block.settings.cta_url != blank
+                  assign promo_has_cta = true
+                endif
+              %}
+              <li class="techora-listicle-v1__promo techora-listicle-v1__promo--{{ block.settings.background_treatment }} techora-listicle-v1__promo--width-{{ block.settings.presentation_width }} techora-listicle-v1__promo--media-{{ block.settings.media_presentation }}" style="--techora-promo-padding-top: {{ block.settings.padding_top }}px; --techora-promo-padding-bottom: {{ block.settings.padding_bottom }}px; --techora-promo-mobile-padding-top: {{ block.settings.mobile_padding_top }}px; --techora-promo-mobile-padding-bottom: {{ block.settings.mobile_padding_bottom }}px;" {{ block.shopify_attributes }}>
+                {% if promo_has_image %}
+                  <figure class="techora-listicle-v1__promo-figure">
+                    {{ block.settings.image | image_url: width: 1800 | image_tag: widths: '320, 480, 640, 800, 1200, 1600, 1800', sizes: '(min-width: 900px) 760px, calc(100vw - 32px)', alt: promo_image_alt, class: 'techora-listicle-v1__image', loading: 'lazy' }}
+                    {% if block.settings.caption != blank %}<figcaption class="techora-listicle-v1__caption">{{ block.settings.caption | escape }}</figcaption>{% endif %}
+                  </figure>
+                {% endif %}
+                {% if block.settings.eyebrow != blank %}<p class="techora-listicle-v1__eyebrow">{{ block.settings.eyebrow | escape }}</p>{% endif %}
+                {% if block.settings.heading != blank %}<h3 class="techora-listicle-v1__heading">{{ block.settings.heading }}</h3>{% endif %}
+                {% if block.settings.body != blank %}<div class="techora-listicle-v1__richtext">{{ block.settings.body }}</div>{% endif %}
+                {% if promo_has_cta %}<a class="techora-listicle-v1__promo-cta" href="{{ block.settings.cta_url | escape }}">{{ block.settings.cta_label | escape }}</a>{% endif %}
+              </li>
+            {% endif %}
           {% endfor %}
         </{{ list_tag }}>
       {% elsif request.design_mode %}
@@ -290,6 +325,14 @@
           { "value": "left", "label": "Left" },
           { "value": "right", "label": "Right" }
         ] },
+        { "type": "select", "id": "media_presentation", "label": "Media presentation", "default": "natural", "options": [
+          { "value": "natural", "label": "Natural" },
+          { "value": "landscape", "label": "Landscape" },
+          { "value": "portrait", "label": "Portrait" },
+          { "value": "square", "label": "Square" },
+          { "value": "wide", "label": "Wide" }
+        ] },
+        { "type": "range", "id": "media_width", "label": "Desktop media width", "min": 30, "max": 55, "step": 5, "unit": "%", "default": 40 },
         { "type": "select", "id": "image_loading", "label": "Image loading", "default": "auto", "info": "Automatic loads only the first image early when this section is near the page top. Use high priority only for the main image visible on arrival.", "options": [
           { "value": "auto", "label": "Automatic" },
           { "value": "eager", "label": "Above the fold (high priority)" },
@@ -304,6 +347,28 @@
           { "value": "text", "label": "Underlined text link" },
           { "value": "button", "label": "Button" }
         ] }
+      ]
+    },
+    {
+      "type": "techora-promo",
+      "name": "Promotional media",
+      "settings": [
+        { "type": "text", "id": "eyebrow", "label": "Optional label" },
+        { "type": "inline_richtext", "id": "heading", "label": "Heading" },
+        { "type": "richtext", "id": "body", "label": "Body" },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "image_alt", "label": "Image alternative text" },
+        { "type": "checkbox", "id": "image_decorative", "label": "Image is decorative", "default": false },
+        { "type": "text", "id": "caption", "label": "Image caption" },
+        { "type": "text", "id": "cta_label", "label": "CTA text" },
+        { "type": "url", "id": "cta_url", "label": "CTA URL" },
+        { "type": "select", "id": "background_treatment", "label": "Background treatment", "default": "soft", "options": [{ "value": "none", "label": "None" }, { "value": "soft", "label": "Soft tint" }, { "value": "accent", "label": "Accent tint" }] },
+        { "type": "select", "id": "presentation_width", "label": "Content width", "default": "reading", "options": [{ "value": "reading", "label": "Reading width" }, { "value": "wide", "label": "Wide" }] },
+        { "type": "select", "id": "media_presentation", "label": "Media presentation", "default": "natural", "options": [{ "value": "natural", "label": "Natural" }, { "value": "landscape", "label": "Landscape" }, { "value": "portrait", "label": "Portrait" }, { "value": "square", "label": "Square" }, { "value": "wide", "label": "Wide" }] },
+        { "type": "range", "id": "padding_top", "label": "Desktop top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
+        { "type": "range", "id": "padding_bottom", "label": "Desktop bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
+        { "type": "range", "id": "mobile_padding_top", "label": "Mobile top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 20 },
+        { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 20 }
       ]
     }
   ],

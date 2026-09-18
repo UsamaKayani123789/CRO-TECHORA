@@ -46,6 +46,10 @@
   if section.settings.cta_enabled and section.settings.cta_label != blank and cta_url != blank
     assign has_cta = true
   endif
+  assign has_secondary_image = false
+  if section.settings.secondary_image != blank
+    assign has_secondary_image = true
+  endif
 %}
 
 {% if has_product or request.design_mode %}
@@ -79,14 +83,32 @@
     <div class="techora-listicle-v1__container">
       {% if has_product %}
         <div class="techora-listicle-v1__offer-layout{% if section.settings.media_side == 'right' %} techora-listicle-v1__offer-layout--right{% endif %}">
-          {% if offer_image != blank %}
-            <figure class="techora-listicle-v1__figure techora-listicle-v1__offer-figure">
-              {{
-                offer_image
-                | image_url: width: 1600
-                | image_tag: widths: '240, 360, 480, 640, 800, 1000, 1200, 1600', sizes: '(min-width: 900px) 360px, calc(100vw - 32px)', alt: image_alt, class: 'techora-listicle-v1__image techora-listicle-v1__offer-image', loading: 'lazy'
-              }}
-            </figure>
+          {% if offer_image != blank or has_secondary_image %}
+            <div class="techora-listicle-v1__offer-media">
+              {% if offer_image != blank %}
+                <figure class="techora-listicle-v1__figure techora-listicle-v1__offer-figure">
+                  {{
+                    offer_image
+                    | image_url: width: 1600
+                    | image_tag: widths: '240, 360, 480, 640, 800, 1000, 1200, 1600', sizes: '(min-width: 900px) 360px, calc(100vw - 32px)', alt: image_alt, class: 'techora-listicle-v1__image techora-listicle-v1__offer-image', loading: 'lazy'
+                  }}
+                </figure>
+              {% endif %}
+              {% if has_secondary_image %}
+                {% liquid
+                  assign secondary_alt = section.settings.secondary_image_alt | strip
+                  if secondary_alt == blank
+                    assign secondary_alt = section.settings.secondary_image.alt | default: '' | strip
+                  endif
+                  if section.settings.secondary_image_decorative
+                    assign secondary_alt = ''
+                  endif
+                %}
+                <figure class="techora-listicle-v1__figure techora-listicle-v1__offer-secondary-figure techora-listicle-v1__offer-secondary-figure--{{ section.settings.secondary_image_presentation }}">
+                  {{ section.settings.secondary_image | image_url: width: 1200 | image_tag: widths: '240, 360, 480, 640, 800, 1000, 1200', sizes: '(min-width: 900px) 360px, calc(100vw - 32px)', alt: secondary_alt, class: 'techora-listicle-v1__image', loading: 'lazy' }}
+                </figure>
+              {% endif %}
+            </div>
           {% endif %}
           <div class="techora-listicle-v1__offer-content">
             {% if section.settings.eyebrow != blank %}
@@ -117,10 +139,21 @@
                 <p class="techora-listicle-v1__offer-savings">{{ section.settings.savings_label | default: 'Save' | escape }} {{ savings_amount | money }}</p>
               {% endif %}
             {% endif %}
-            {% if section.blocks.size > 0 %}
+            {% assign has_benefits = false %}
+            {% for block in section.blocks %}{% if block.type == 'techora-offer-benefit' and block.settings.text != blank %}{% assign has_benefits = true %}{% endif %}{% endfor %}
+            {% if has_benefits %}
               <ul class="techora-listicle-v1__offer-benefits" aria-label="Product details">
                 {% for block in section.blocks %}
-                  <li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>
+                  {% if block.type == 'techora-offer-benefit' and block.settings.text != blank %}<li {{ block.shopify_attributes }}>{{ block.settings.text }}</li>{% endif %}
+                {% endfor %}
+              </ul>
+            {% endif %}
+            {% assign has_reassurances = false %}
+            {% for block in section.blocks %}{% if block.type == 'techora-offer-reassurance' and block.settings.text != blank %}{% assign has_reassurances = true %}{% endif %}{% endfor %}
+            {% if has_reassurances %}
+              <ul class="techora-listicle-v1__offer-reassurances" aria-label="Additional information">
+                {% for block in section.blocks %}
+                  {% if block.type == 'techora-offer-reassurance' and block.settings.text != blank %}<li {{ block.shopify_attributes }}><strong>{{ block.settings.label | escape }}</strong> <span>{{ block.settings.text }}</span></li>{% endif %}
                 {% endfor %}
               </ul>
             {% endif %}
@@ -154,6 +187,10 @@
     { "type": "inline_richtext", "id": "heading", "label": "Custom heading", "info": "Leave blank to use the selected product title." },
     { "type": "richtext", "id": "body", "label": "Description", "default": "<p>Bring the details together with a product chosen for the way you live, work, or create.</p>" },
     { "type": "image_picker", "id": "image_override", "label": "Custom image override", "info": "Optional. When blank, the selected product's featured image is used." },
+    { "type": "image_picker", "id": "secondary_image", "label": "Secondary promotional image" },
+    { "type": "text", "id": "secondary_image_alt", "label": "Secondary image alternative text" },
+    { "type": "checkbox", "id": "secondary_image_decorative", "label": "Secondary image is decorative", "default": false },
+    { "type": "select", "id": "secondary_image_presentation", "label": "Secondary media presentation", "default": "landscape", "options": [{ "value": "natural", "label": "Natural" }, { "value": "landscape", "label": "Landscape" }, { "value": "portrait", "label": "Portrait" }, { "value": "square", "label": "Square" }, { "value": "wide", "label": "Wide" }] },
     { "type": "text", "id": "image_alt", "label": "Image alternative text", "info": "If blank, the image library text or product title is used." },
     { "type": "checkbox", "id": "image_decorative", "label": "Image is decorative", "default": false },
     { "type": "select", "id": "media_side", "label": "Desktop image position", "default": "left", "options": [
@@ -219,6 +256,15 @@
       "limit": 6,
       "settings": [
         { "type": "inline_richtext", "id": "text", "label": "Benefit", "default": "A useful detail to consider" }
+      ]
+    },
+    {
+      "type": "techora-offer-reassurance",
+      "name": "Reassurance item",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "inline_richtext", "id": "text", "label": "Merchant-provided statement", "info": "Add only a statement the merchant can support, such as current shipping or returns information." }
       ]
     }
   ],

@@ -31,7 +31,7 @@
     assign has_cta = true
   endif
   assign has_content = false
-  if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.body != blank or has_image or has_cta or section.settings.disclosure != blank or section.settings.author_note != blank or section.settings.last_updated != blank
+  if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.body != blank or has_image or has_cta or section.settings.disclosure != blank or section.settings.author_note != blank or section.settings.last_updated != blank or section.blocks.size > 0
     assign has_content = true
   endif
 %}
@@ -76,6 +76,13 @@
           {% if section.settings.body != blank %}<div class="techora-listicle-v1__richtext">{{ section.settings.body }}</div>{% endif %}
           {% if has_cta %}<a class="techora-listicle-v1__button techora-listicle-v1__conclusion-cta" href="{{ cta_url | escape }}">{{ section.settings.cta_label | escape }}</a>{% endif %}
           {% if section.settings.disclosure != blank %}<div class="techora-listicle-v1__conclusion-disclosure">{{ section.settings.disclosure }}</div>{% endif %}
+          {% assign has_end_links = false %}
+          {% for block in section.blocks %}{% if block.settings.label != blank and block.settings.url != blank %}{% assign has_end_links = true %}{% endif %}{% endfor %}
+          {% if has_end_links %}
+            <nav class="techora-listicle-v1__conclusion-links" aria-label="Related information"><ul>
+              {% for block in section.blocks %}{% if block.settings.label != blank and block.settings.url != blank %}<li {{ block.shopify_attributes }}><a href="{{ block.settings.url | escape }}">{{ block.settings.label | escape }}</a></li>{% endif %}{% endfor %}
+            </ul></nav>
+          {% endif %}
           {% if section.settings.author_note != blank or section.settings.last_updated != blank %}
             <div class="techora-listicle-v1__conclusion-meta">
               {% if section.settings.author_note != blank %}<p>{{ section.settings.author_note | escape }}</p>{% endif %}
@@ -99,6 +106,7 @@
   "tag": "div",
   "class": "techora-listicle-section-v1",
   "enabled_on": { "templates": ["page"] },
+  "max_blocks": 8,
   "settings": [
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A thoughtful next step" },
     { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Take what is useful for your next step" },
@@ -139,6 +147,14 @@
     { "type": "range", "id": "mobile_padding_top", "label": "Mobile and tablet top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 28 },
     { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile and tablet bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 }
   ],
+  "blocks": [{
+    "type": "techora-end-link",
+    "name": "End link",
+    "settings": [
+      { "type": "text", "id": "label", "label": "Link label" },
+      { "type": "url", "id": "url", "label": "Link destination" }
+    ]
+  }],
   "presets": [{ "name": "Techora conclusion" }]
 }
 {% endschema %}

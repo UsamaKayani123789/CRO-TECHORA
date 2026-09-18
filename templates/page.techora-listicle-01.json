@@ -4,7 +4,7 @@
  *
  * This file may be updated by the Shopify admin theme editor
  * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
+ * made here may be overwritten.
  * ------------------------------------------------------------
  */
 {
@@ -20,7 +20,7 @@
         "link": "",
         "sticky_enabled": false,
         "sticky_top_offset": 0,
-        "content_width": 800,
+        "content_width": 760,
         "column_gap": 24,
         "body_scale": 100,
         "text_alignment": "center",
@@ -52,7 +52,7 @@
         "date_label": "Updated",
         "date_iso": "",
         "date_display": "",
-        "content_width": 800,
+        "content_width": 760,
         "heading_scale": 100,
         "body_scale": 100,
         "text_alignment": "left",
@@ -85,7 +85,9 @@
             "cta_enabled": false,
             "cta_label": "",
             "cta_url": "",
-            "cta_style": "inherit"
+            "cta_style": "inherit",
+            "media_presentation": "natural",
+            "media_width": 40
           }
         },
         "techora_reason_02": {
@@ -94,7 +96,7 @@
             "show_number": true,
             "eyebrow": "Look closer",
             "heading": "Notice the details that shape the experience",
-            "body": "<p>Materials, dimensions, and thoughtful features can help tell the full story. Take a moment to explore the details relevant to your needs.</p>",
+            "body": "<p>Materials, dimensions, and thoughtful features can help tell the full story.</p>",
             "image_alt": "",
             "image_decorative": false,
             "caption": "",
@@ -104,7 +106,29 @@
             "cta_enabled": false,
             "cta_label": "",
             "cta_url": "",
-            "cta_style": "inherit"
+            "cta_style": "inherit",
+            "media_presentation": "natural",
+            "media_width": 40
+          }
+        },
+        "techora_promo_2": {
+          "type": "techora-promo",
+          "settings": {
+            "eyebrow": "A useful pause",
+            "heading": "Bring the details into focus",
+            "body": "<p>Use this space for an image, a short editorial aside, or a link to supporting information.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "cta_label": "",
+            "cta_url": "",
+            "background_treatment": "soft",
+            "presentation_width": "reading",
+            "media_presentation": "landscape",
+            "padding_top": 24,
+            "padding_bottom": 24,
+            "mobile_padding_top": 20,
+            "mobile_padding_bottom": 20
           }
         },
         "techora_reason_03": {
@@ -113,7 +137,7 @@
             "show_number": true,
             "eyebrow": "Fit matters",
             "heading": "Consider how it fits your space",
-            "body": "<p>Whether it belongs at home, at work, or on the move, context matters. Picture how this choice would fit into the places and routines you already know.</p>",
+            "body": "<p>Context matters. Picture how this choice would fit into the places and routines you already know.</p>",
             "image_alt": "",
             "image_decorative": false,
             "caption": "",
@@ -123,7 +147,9 @@
             "cta_enabled": false,
             "cta_label": "",
             "cta_url": "",
-            "cta_style": "inherit"
+            "cta_style": "inherit",
+            "media_presentation": "natural",
+            "media_width": 40
           }
         },
         "techora_reason_04": {
@@ -132,7 +158,7 @@
             "show_number": true,
             "eyebrow": "Practical clarity",
             "heading": "Get answers to the questions that matter",
-            "body": "<p>Look for clear guidance on use, care, and what is included. Understanding the essentials can make the next step easier.</p>",
+            "body": "<p>Look for clear guidance on use, care, and what is included.</p>",
             "image_alt": "",
             "image_decorative": false,
             "caption": "",
@@ -142,16 +168,18 @@
             "cta_enabled": false,
             "cta_label": "",
             "cta_url": "",
-            "cta_style": "inherit"
+            "cta_style": "inherit",
+            "media_presentation": "natural",
+            "media_width": 40
           }
         },
         "techora_reason_05": {
           "type": "techora-reason",
           "settings": {
             "show_number": true,
-            "eyebrow": "Your next step",
-            "heading": "Choose what works for your own priorities",
-            "body": "<p>Bring the details together and weigh them against your routine. The right next step is the one that makes sense for you.</p>",
+            "eyebrow": "A steady rhythm",
+            "heading": "Choose details that work together",
+            "body": "<p>Small considerations can add up to a more comfortable everyday experience.</p>",
             "image_alt": "",
             "image_decorative": false,
             "caption": "",
@@ -161,16 +189,171 @@
             "cta_enabled": false,
             "cta_label": "",
             "cta_url": "",
-            "cta_style": "inherit"
+            "cta_style": "inherit",
+            "media_presentation": "natural",
+            "media_width": 40
+          }
+        },
+        "techora_promo_5": {
+          "type": "techora-promo",
+          "settings": {
+            "eyebrow": "A useful pause",
+            "heading": "Bring the details into focus",
+            "body": "<p>Use this space for an image, a short editorial aside, or a link to supporting information.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "cta_label": "",
+            "cta_url": "",
+            "background_treatment": "soft",
+            "presentation_width": "reading",
+            "media_presentation": "landscape",
+            "padding_top": 24,
+            "padding_bottom": 24,
+            "mobile_padding_top": 20,
+            "mobile_padding_bottom": 20
+          }
+        },
+        "techora_reason_06": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "Keep it useful",
+            "heading": "Focus on what earns its place",
+            "body": "<p>The most helpful features are the ones that support how you already live.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit",
+            "media_presentation": "natural",
+            "media_width": 40
+          }
+        },
+        "techora_reason_07": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "Make room for choice",
+            "heading": "Compare the details that matter",
+            "body": "<p>A clear comparison helps you choose with confidence and at your own pace.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit",
+            "media_presentation": "natural",
+            "media_width": 40
+          }
+        },
+        "techora_reason_08": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "Think ahead",
+            "heading": "Consider care and longevity",
+            "body": "<p>Good information helps you understand what ownership may look like over time.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit",
+            "media_presentation": "natural",
+            "media_width": 40
+          }
+        },
+        "techora_promo_8": {
+          "type": "techora-promo",
+          "settings": {
+            "eyebrow": "A useful pause",
+            "heading": "Bring the details into focus",
+            "body": "<p>Use this space for an image, a short editorial aside, or a link to supporting information.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "cta_label": "",
+            "cta_url": "",
+            "background_treatment": "soft",
+            "presentation_width": "reading",
+            "media_presentation": "landscape",
+            "padding_top": 24,
+            "padding_bottom": 24,
+            "mobile_padding_top": 20,
+            "mobile_padding_bottom": 20
+          }
+        },
+        "techora_reason_09": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "Return to your priorities",
+            "heading": "Let the useful details lead",
+            "body": "<p>Bring the details together and weigh them against your own priorities.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit",
+            "media_presentation": "natural",
+            "media_width": 40
+          }
+        },
+        "techora_reason_10": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "Your next step",
+            "heading": "Choose what works for you",
+            "body": "<p>The right next step is the one that makes sense for your routine.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit",
+            "media_presentation": "natural",
+            "media_width": 40
           }
         }
       },
       "block_order": [
         "techora_reason_01",
         "techora_reason_02",
+        "techora_promo_2",
         "techora_reason_03",
         "techora_reason_04",
-        "techora_reason_05"
+        "techora_reason_05",
+        "techora_promo_5",
+        "techora_reason_06",
+        "techora_reason_07",
+        "techora_reason_08",
+        "techora_promo_8",
+        "techora_reason_09",
+        "techora_reason_10"
       ],
       "name": "Techora listicle reasons",
       "settings": {
@@ -178,7 +361,7 @@
         "show_numbers": true,
         "start_number": 1,
         "show_dividers": false,
-        "content_width": 800,
+        "content_width": 760,
         "heading_scale": 100,
         "body_scale": 100,
         "text_alignment": "left",
@@ -223,7 +406,7 @@
         "product": "",
         "button_style": "button",
         "layout": "centered",
-        "content_width": 800,
+        "content_width": 760,
         "heading_scale": 100,
         "body_scale": 100,
         "text_alignment": "center",
@@ -237,7 +420,14 @@
         "padding_top": 48,
         "padding_bottom": 48,
         "mobile_padding_top": 32,
-        "mobile_padding_bottom": 32
+        "mobile_padding_bottom": 32,
+        "image": "",
+        "image_alt": "",
+        "image_decorative": false,
+        "image_position": "left",
+        "image_layout": "split",
+        "image_width": 40,
+        "image_presentation": "landscape"
       }
     },
     "techora_listicle_offer_v1": {
@@ -285,7 +475,7 @@
         "cta_label": "View product details",
         "destination_mode": "product",
         "cta_url": "",
-        "content_width": 800,
+        "content_width": 760,
         "heading_scale": 100,
         "body_scale": 100,
         "text_alignment": "left",
@@ -300,7 +490,11 @@
         "padding_top": 56,
         "padding_bottom": 56,
         "mobile_padding_top": 36,
-        "mobile_padding_bottom": 36
+        "mobile_padding_bottom": 36,
+        "secondary_image": "",
+        "secondary_image_alt": "",
+        "secondary_image_decorative": false,
+        "secondary_image_presentation": "landscape"
       }
     },
     "techora_listicle_conclusion_v1": {
@@ -324,7 +518,7 @@
         "author_note": "",
         "last_updated": "",
         "show_divider": true,
-        "content_width": 920,
+        "content_width": 760,
         "heading_scale": 100,
         "body_scale": 100,
         "text_alignment": "left",

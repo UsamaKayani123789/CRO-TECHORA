@@ -21,7 +21,7 @@
     assign has_cta = true
   endif
   assign has_content = false
-  if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.body != blank or has_cta or section.settings.supporting_note != blank
+  if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.body != blank or has_cta or section.settings.supporting_note != blank or section.settings.image != blank
     assign has_content = true
   endif
 %}
@@ -31,6 +31,7 @@
     class="techora-listicle-v1 techora-listicle-v1--cta-band techora-listicle-v1--align-{{ section.settings.text_alignment }}"
     {% if section.settings.heading != blank %}aria-labelledby="techora-cta-title-{{ section.id }}"{% endif %}
     style="
+      --techora-cta-image-width: {{ section.settings.image_width }}%;
       --techora-content-width: {{ section.settings.content_width }}px;
       --techora-background: {{ section.settings.background_color }};
       --techora-text: {{ section.settings.text_color }};
@@ -49,7 +50,21 @@
     "
   >
     <div class="techora-listicle-v1__container">
-      <div class="techora-listicle-v1__cta-band-inner{% if section.settings.layout == 'inline' %} techora-listicle-v1__cta-band-inner--inline{% endif %}">
+      <div class="techora-listicle-v1__cta-band-inner{% if section.settings.layout == 'inline' %} techora-listicle-v1__cta-band-inner--inline{% endif %}{% if section.settings.image != blank %} techora-listicle-v1__cta-band-inner--has-image techora-listicle-v1__cta-band-inner--image-{{ section.settings.image_position }} techora-listicle-v1__cta-band-inner--image-layout-{{ section.settings.image_layout }}{% endif %}">
+        {% if section.settings.image != blank %}
+          {% liquid
+            assign cta_image_alt = section.settings.image_alt | strip
+            if cta_image_alt == blank
+              assign cta_image_alt = section.settings.image.alt | default: '' | strip
+            endif
+            if section.settings.image_decorative
+              assign cta_image_alt = ''
+            endif
+          %}
+          <figure class="techora-listicle-v1__cta-band-figure techora-listicle-v1__cta-band-figure--{{ section.settings.image_presentation }}">
+            {{ section.settings.image | image_url: width: 1600 | image_tag: widths: '320, 480, 640, 800, 1200, 1600', sizes: '(min-width: 900px) 360px, calc(100vw - 32px)', alt: cta_image_alt, class: 'techora-listicle-v1__image', loading: 'lazy' }}
+          </figure>
+        {% endif %}
         <div class="techora-listicle-v1__cta-band-copy">
           {% if section.settings.eyebrow != blank %}
             <p class="techora-listicle-v1__eyebrow">{{ section.settings.eyebrow | escape }}</p>
@@ -98,6 +113,14 @@
     { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Continue exploring what fits your routine" },
     { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Bring the details together and take the next step when it feels right for you.</p>" },
     { "type": "text", "id": "supporting_note", "label": "Supporting note", "default": "Clear information, at your own pace." },
+    { "type": "header", "content": "Optional transition media" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "image_alt", "label": "Image alternative text" },
+    { "type": "checkbox", "id": "image_decorative", "label": "Image is decorative", "default": false },
+    { "type": "select", "id": "image_position", "label": "Desktop image position", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }] },
+    { "type": "select", "id": "image_layout", "label": "Media layout", "default": "split", "options": [{ "value": "split", "label": "Split with copy" }, { "value": "stacked", "label": "Stack above copy" }] },
+    { "type": "range", "id": "image_width", "label": "Desktop image width", "min": 30, "max": 55, "step": 5, "unit": "%", "default": 40 },
+    { "type": "select", "id": "image_presentation", "label": "Media presentation", "default": "landscape", "options": [{ "value": "natural", "label": "Natural" }, { "value": "landscape", "label": "Landscape" }, { "value": "portrait", "label": "Portrait" }, { "value": "square", "label": "Square" }, { "value": "wide", "label": "Wide" }] },
     { "type": "header", "content": "CTA" },
     { "type": "checkbox", "id": "cta_enabled", "label": "Show CTA", "default": true },
     { "type": "text", "id": "cta_label", "label": "CTA text", "default": "Explore the details" },
