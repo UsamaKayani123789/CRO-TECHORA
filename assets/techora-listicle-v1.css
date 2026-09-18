@@ -526,6 +526,17 @@
   .techora-listicle-v1 .techora-listicle-v1__button {
     width: 100%;
   }
+
+  .techora-listicle-v1 .techora-listicle-v1__offer-layout--card .techora-listicle-v1__offer-reassurances {
+    flex-wrap: nowrap;
+    gap: 8px;
+    padding: 10px 12px;
+    font-size: 0.76em;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__offer-layout--card .techora-listicle-v1__offer-reassurances li + li {
+    padding-inline-start: 8px;
+  }
 }
 
 /* Page-wide Techora typography adjustment. */
