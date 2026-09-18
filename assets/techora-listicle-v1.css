@@ -1,4 +1,6 @@
 /* Techora listicle foundation v1. Only Techora-owned wrappers and content. */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap");
+
 .techora-listicle-section-v1[class] {
   display: block;
   position: relative;
@@ -237,8 +239,8 @@
 }
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-countdown-unit strong {
-  font-size: 1.45em;
-  font-weight: 800;
+  font-size: 1.55em;
+  font-weight: 900;
   letter-spacing: 0.02em;
   line-height: 1;
   font-variant-numeric: tabular-nums;
@@ -246,8 +248,8 @@
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-countdown-unit span {
   margin-top: 3px;
-  font-size: 0.68em;
-  font-weight: 600;
+  font-size: 0.78em;
+  font-weight: 700;
   line-height: 1.15;
   text-transform: uppercase;
 }
@@ -255,8 +257,8 @@
 .techora-listicle-v1 .techora-listicle-v1__announcement-countdown-separator {
   align-self: start;
   padding-top: 2px;
-  font-size: 1.15em;
-  font-weight: 700;
+  font-size: 1.2em;
+  font-weight: 800;
   line-height: 1;
 }
 
@@ -275,15 +277,15 @@
 }
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-message {
-  font-size: 1.08em;
-  font-weight: 800;
+  font-size: 1.3em;
+  font-weight: 900;
   line-height: 1.15;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-support {
   margin-top: 2px;
-  font-size: 0.95em;
-  font-weight: 700;
+  font-size: 1.15em;
+  font-weight: 800;
   line-height: 1.15;
 }
 
@@ -325,11 +327,11 @@
   }
 
   .techora-listicle-v1 .techora-listicle-v1__announcement-countdown-unit strong {
-    font-size: 1.45em;
+    font-size: 1.5em;
   }
 
   .techora-listicle-v1 .techora-listicle-v1__announcement-countdown-unit span {
-    font-size: 0.6em;
+    font-size: 0.68em;
   }
 }
 
