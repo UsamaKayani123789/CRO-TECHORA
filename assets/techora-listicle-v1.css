@@ -29,19 +29,20 @@
   background: var(--techora-background, #faf9f6);
   color: var(--techora-text, #23312e);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: calc(18px * var(--techora-body-scale, 1));
+  font-size: calc(17px * var(--techora-body-scale, 1));
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.7;
   letter-spacing: normal;
   text-align: var(--techora-alignment, left);
   text-transform: none;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-break: normal;
   -webkit-text-size-adjust: 100%;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__container {
   width: 100%;
-  max-width: var(--techora-content-width, 800px);
+  max-width: min(var(--techora-content-width, 800px), 820px);
   min-width: 0;
   margin-inline: auto;
 }
@@ -74,18 +75,21 @@
   letter-spacing: -0.025em;
   text-align: inherit;
   text-transform: none;
-  text-wrap: pretty;
-  overflow-wrap: anywhere;
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  word-break: normal;
+  hyphens: auto;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__title {
-  font-size: calc(clamp(30px, 3.4vw, 44px) * var(--techora-heading-scale, 1));
-  line-height: 1.15;
+  max-width: 30ch;
+  font-size: calc(clamp(30px, 3.15vw, 42px) * var(--techora-heading-scale, 1));
+  line-height: 1.08;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__heading {
-  font-size: calc(clamp(24px, 2.5vw, 30px) * var(--techora-heading-scale, 1));
-  line-height: 1.25;
+  font-size: calc(clamp(23px, 2.2vw, 30px) * var(--techora-heading-scale, 1));
+  line-height: 1.18;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__eyebrow {
@@ -100,7 +104,7 @@
 
 .techora-listicle-v1 .techora-listicle-v1__richtext {
   min-width: 0;
-  max-width: 72ch;
+  max-width: 68ch;
   font: inherit;
   text-align: inherit;
 }
@@ -227,7 +231,7 @@
 
 /* Header: title, independent author/date visibility, then the summary. */
 .techora-listicle-v1 .techora-listicle-v1__disclosure {
-  margin: 16px 0 0;
+  margin: 12px 0 0;
   font-size: 0.82em;
   line-height: 1.55;
 }
@@ -236,7 +240,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-top: 24px;
+  margin-top: 20px;
   font-size: 0.82em;
   line-height: 1.5;
 }
@@ -268,12 +272,13 @@
 }
 
 .techora-listicle-v1 .techora-listicle-v1__summary {
-  margin-top: 24px;
+  max-width: 68ch;
+  margin-top: 20px;
   margin-inline: 0;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__header--divider {
-  padding-bottom: 32px;
+  padding-bottom: 24px;
   border-bottom: 1px solid var(--techora-border, #d8dfda);
 }
 
@@ -297,7 +302,7 @@
 .techora-listicle-v1 .techora-listicle-v1__editorial {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 24px;
+  gap: 20px;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__figure {
@@ -329,7 +334,7 @@
 
 .techora-listicle-v1 .techora-listicle-v1__editorial-content {
   min-width: 0;
-  max-width: 72ch;
+  max-width: 68ch;
   width: 100%;
   margin-inline: 0;
 }
@@ -392,7 +397,8 @@
 
 /* Reasons: continuous editorial rows, without card backgrounds or shadows. */
 .techora-listicle-v1 .techora-listicle-v1__reasons-title {
-  margin-bottom: 32px;
+  max-width: 24ch;
+  margin-bottom: 28px;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__reasons {
@@ -429,7 +435,7 @@
 .techora-listicle-v1 .techora-listicle-v1__reason-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 20px;
+  gap: 18px;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__reason-heading-group {
@@ -437,20 +443,28 @@
 }
 
 .techora-listicle-v1 .techora-listicle-v1__reason-heading {
-  font-size: calc(clamp(24px, 2.4vw, 28px) * var(--techora-heading-scale, 1));
-  line-height: 1.3;
+  max-width: 23ch;
+  font-size: calc(clamp(22px, 2.15vw, 29px) * var(--techora-heading-scale, 1));
+  line-height: 1.18;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__reason-number {
+  display: inline-block;
+  margin-inline-end: 0.16em;
   color: var(--techora-number-color, #245c50);
   font-variant-numeric: tabular-nums;
+  font-size: 0.72em;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  vertical-align: 0.08em;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__reason-number--standalone {
   margin: 0;
-  font-size: calc(24px * var(--techora-heading-scale, 1));
+  font-size: calc(clamp(28px, 3vw, 38px) * var(--techora-heading-scale, 1));
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__reason-figure {
@@ -474,7 +488,7 @@
 .techora-listicle-v1 .techora-listicle-v1__reason-content {
   min-width: 0;
   width: 100%;
-  max-width: 72ch;
+  max-width: 68ch;
 }
 
 .techora-listicle-v1--align-center .techora-listicle-v1__reason-content {
@@ -524,7 +538,7 @@
     grid-template-columns: minmax(0, var(--techora-media-width, 40%)) minmax(0, 1fr);
     grid-template-rows: auto 1fr;
     grid-template-areas: "media heading" "media content";
-    column-gap: var(--techora-column-gap, 40px);
+    column-gap: clamp(28px, var(--techora-column-gap, 40px), 48px);
     align-items: start;
   }
 
@@ -562,5 +576,48 @@
 
   .techora-listicle-v1 .techora-listicle-v1__reason-layout--split > .techora-listicle-v1__reason-content {
     grid-area: content;
+  }
+}
+
+@media (max-width: 899px) {
+  .techora-listicle-v1 .techora-listicle-v1__title {
+    max-width: 26ch;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__reason-heading {
+    max-width: 28ch;
+  }
+}
+
+@media (max-width: 599px) {
+  .techora-listicle-v1 {
+    padding-inline: 16px;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__title {
+    max-width: 24ch;
+    font-size: calc(clamp(29px, 8vw, 35px) * var(--techora-heading-scale, 1));
+    line-height: 1.08;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__heading {
+    font-size: calc(clamp(22px, 6.5vw, 27px) * var(--techora-heading-scale, 1));
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__richtext {
+    max-width: 66ch;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__reason-heading {
+    max-width: 24ch;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__reason + .techora-listicle-v1__reason {
+    margin-top: max(36px, var(--techora-mobile-reason-gap, 48px));
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__reasons--dividers > .techora-listicle-v1__reason + .techora-listicle-v1__reason {
+    margin-top: max(24px, calc(var(--techora-mobile-reason-gap, 48px) / 2));
+    padding-top: max(24px, calc(var(--techora-mobile-reason-gap, 48px) / 2));
   }
 }

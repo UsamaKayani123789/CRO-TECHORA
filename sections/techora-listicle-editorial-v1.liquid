@@ -63,7 +63,7 @@
 
 {% if has_content or request.design_mode %}
   <section
-    class="techora-listicle-v1 techora-listicle-v1--align-{{ section.settings.text_alignment }}"
+    class="techora-listicle-v1 techora-listicle-v1--editorial techora-listicle-v1--align-{{ section.settings.text_alignment }}"
     {% if section.settings.heading != blank %}aria-labelledby="techora-editorial-title-{{ section.id }}"{% endif %}
     style="
       --techora-content-width: {{ section.settings.content_width }}px;
