@@ -43,6 +43,7 @@
       --techora-number-color: {{ section.settings.number_color }};
       --techora-caption-background: {{ section.settings.caption_background_color }};
       --techora-caption-text: {{ section.settings.caption_text_color }};
+      --techora-caption-size: {{ section.settings.caption_scale }}px;
       --techora-padding-top: {{ section.settings.padding_top }}px;
       --techora-padding-bottom: {{ section.settings.padding_bottom }}px;
       --techora-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
@@ -306,6 +307,7 @@
     { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#FFFFFF" },
     { "type": "color", "id": "caption_background_color", "label": "Emphasized caption background", "default": "#E5ECE6" },
     { "type": "color", "id": "caption_text_color", "label": "Emphasized caption text", "default": "#23312E" },
+    { "type": "range", "id": "caption_scale", "label": "Emphasized caption text size", "min": 10, "max": 20, "step": 1, "unit": "px", "default": 14 },
     { "type": "header", "content": "Spacing" },
     { "type": "range", "id": "row_gap", "label": "Desktop space between reasons", "min": 24, "max": 120, "step": 4, "unit": "px", "default": 64 },
     { "type": "range", "id": "mobile_row_gap", "label": "Mobile and tablet space between reasons", "min": 24, "max": 96, "step": 4, "unit": "px", "default": 48 },

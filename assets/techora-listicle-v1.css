@@ -1172,6 +1172,7 @@
   border-radius: 0 0 var(--techora-radius, 12px) var(--techora-radius, 12px);
   background: var(--techora-caption-background, #e5ece6);
   color: var(--techora-caption-text, #23312e);
+  font-size: var(--techora-caption-size, 14px);
   font-weight: 650;
 }
 

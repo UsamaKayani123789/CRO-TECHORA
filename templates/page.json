@@ -330,6 +330,7 @@
         "button_text_color": "#ffffff",
         "caption_background_color": "#e5ece6",
         "caption_text_color": "#23312e",
+        "caption_scale": 14,
         "row_gap": 64,
         "mobile_row_gap": 48,
         "padding_top": 24,
