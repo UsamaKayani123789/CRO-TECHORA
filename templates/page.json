@@ -18,8 +18,8 @@
       "type": "techora-listicle-announcement-v1",
       "name": "Techora announcement",
       "settings": {
-        "message": "<strong>☕ NOVA BREW DAILY EDIT ✨</strong>",
-        "supporting_text": "PREMIUM COFFEE MADE SIMPLE",
+        "message": "🍁 FALL SPECIAL ✨",
+        "supporting_text": "up to 58% OFF with FREE GIFTS",
         "countdown_enabled": true,
         "countdown_hours": 2,
         "countdown_minutes": 15,
