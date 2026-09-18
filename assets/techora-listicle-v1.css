@@ -1144,15 +1144,12 @@
 }
 
 .techora-listicle-v1 .techora-listicle-v1__reason-number {
-  display: inline-block;
   margin-inline-end: 0.16em;
   color: var(--techora-number-color, #245c50);
   font-variant-numeric: tabular-nums;
   font-size: var(--techora-reason-heading-size, 29px);
   font-weight: 800;
   letter-spacing: 0.02em;
-  line-height: 1;
-  vertical-align: 0.08em;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__reason-number--standalone {
