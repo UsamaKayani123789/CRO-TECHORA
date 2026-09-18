@@ -395,6 +395,14 @@
   object-fit: cover;
 }
 
+.techora-listicle-v1 .techora-listicle-v1__avatar--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--techora-border, #d8dfda);
+  color: var(--techora-background, #faf9f6);
+}
+
 .techora-listicle-v1 .techora-listicle-v1__byline-text {
   min-width: 0;
 }

@@ -94,6 +94,10 @@
             | image_url: width: 144
             | image_tag: widths: '48, 96, 144', sizes: '48px', alt: '', class: 'techora-listicle-v1__avatar', loading: avatar_loading
           }}
+        {% elsif has_author %}
+          <span class="techora-listicle-v1__avatar techora-listicle-v1__avatar--placeholder" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" focusable="false"><path d="M12 12c2.7 0 4.9-2.2 4.9-4.9S14.7 2.2 12 2.2 7.1 4.4 7.1 7.1 9.3 12 12 12Zm0 2.5c-3.6 0-9 1.8-9 5.4v1.7h18v-1.7c0-3.6-5.4-5.4-9-5.4Z"/></svg>
+          </span>
         {% endif %}
         <div class="techora-listicle-v1__byline-text">
           {% if has_author %}
