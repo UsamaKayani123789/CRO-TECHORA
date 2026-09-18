@@ -1,0 +1,144 @@
+{% comment %}
+  Techora Phase 4. Editorial conclusion, disclosure, and final navigation CTA.
+  Navigation only: no product form, cart integration, or JavaScript dependency.
+{% endcomment %}
+
+{{ 'techora-listicle-v1.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign has_image = false
+  if section.settings.image != blank
+    assign has_image = true
+  endif
+  assign image_alt = section.settings.image_alt | strip
+  if image_alt == blank and section.settings.image != blank
+    assign image_alt = section.settings.image.alt | default: '' | strip
+  endif
+  if section.settings.image_decorative
+    assign image_alt = ''
+  endif
+  assign cta_url = ''
+  if section.settings.cta_enabled
+    case section.settings.destination_mode
+      when 'custom_url'
+        assign cta_url = section.settings.cta_url
+      when 'product'
+        assign cta_url = section.settings.product.url
+    endcase
+  endif
+  assign has_cta = false
+  if section.settings.cta_label != blank and cta_url != blank
+    assign has_cta = true
+  endif
+  assign has_content = false
+  if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.body != blank or has_image or has_cta or section.settings.disclosure != blank or section.settings.author_note != blank or section.settings.last_updated != blank
+    assign has_content = true
+  endif
+%}
+
+{% if has_content or request.design_mode %}
+  <section
+    class="techora-listicle-v1 techora-listicle-v1--conclusion{% if section.settings.show_divider %} techora-listicle-v1--conclusion-divider{% endif %} techora-listicle-v1--align-{{ section.settings.text_alignment }}"
+    {% if section.settings.heading != blank %}aria-labelledby="techora-conclusion-title-{{ section.id }}"{% endif %}
+    style="
+      --techora-content-width: {{ section.settings.content_width }}px;
+      --techora-background: {{ section.settings.background_color }};
+      --techora-text: {{ section.settings.text_color }};
+      --techora-accent: {{ section.settings.accent_color }};
+      --techora-border: {{ section.settings.border_color }};
+      --techora-button: {{ section.settings.button_color }};
+      --techora-button-text: {{ section.settings.button_text_color }};
+      --techora-conclusion-image-width: {{ section.settings.image_width }}%;
+      --techora-radius: {{ section.settings.image_radius }}px;
+      --techora-padding-top: {{ section.settings.padding_top }}px;
+      --techora-padding-bottom: {{ section.settings.padding_bottom }}px;
+      --techora-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
+      --techora-mobile-padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --techora-heading-scale: {{ section.settings.heading_scale | divided_by: 100.0 }};
+      --techora-body-scale: {{ section.settings.body_scale | divided_by: 100.0 }};
+      --techora-alignment: {{ section.settings.text_alignment }};
+    "
+  >
+    <div class="techora-listicle-v1__container">
+      <div class="techora-listicle-v1__conclusion-layout techora-listicle-v1__conclusion-layout--{{ section.settings.image_position }}{% unless has_image %} techora-listicle-v1__conclusion-layout--no-image{% endunless %}">
+        {% if has_image %}
+          <figure class="techora-listicle-v1__conclusion-figure">
+            {{
+              section.settings.image
+              | image_url: width: 1600
+              | image_tag: widths: '240, 360, 480, 640, 800, 1200, 1600', sizes: '(min-width: 900px) var(--techora-conclusion-image-width), calc(100vw - 32px)', alt: image_alt, class: 'techora-listicle-v1__image', loading: 'lazy'
+            }}
+          </figure>
+        {% endif %}
+        <div class="techora-listicle-v1__conclusion-content">
+          {% if section.settings.eyebrow != blank %}<p class="techora-listicle-v1__eyebrow">{{ section.settings.eyebrow | escape }}</p>{% endif %}
+          {% if section.settings.heading != blank %}<h2 id="techora-conclusion-title-{{ section.id }}" class="techora-listicle-v1__heading">{{ section.settings.heading }}</h2>{% endif %}
+          {% if section.settings.body != blank %}<div class="techora-listicle-v1__richtext">{{ section.settings.body }}</div>{% endif %}
+          {% if has_cta %}<a class="techora-listicle-v1__button techora-listicle-v1__conclusion-cta" href="{{ cta_url | escape }}">{{ section.settings.cta_label | escape }}</a>{% endif %}
+          {% if section.settings.disclosure != blank %}<div class="techora-listicle-v1__conclusion-disclosure">{{ section.settings.disclosure }}</div>{% endif %}
+          {% if section.settings.author_note != blank or section.settings.last_updated != blank %}
+            <div class="techora-listicle-v1__conclusion-meta">
+              {% if section.settings.author_note != blank %}<p>{{ section.settings.author_note | escape }}</p>{% endif %}
+              {% if section.settings.last_updated != blank %}<p>{{ section.settings.last_updated | escape }}</p>{% endif %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+      {% if request.design_mode %}
+        {% unless has_content %}<p class="techora-listicle-v1__editor-note">Add conclusion content or a CTA. Empty sections are hidden on the storefront.</p>{% endunless %}
+        {% if has_image and image_alt == blank and section.settings.image_decorative == false %}<p class="techora-listicle-v1__editor-note">Describe the conclusion image or mark it as decorative.</p>{% endif %}
+        {% if section.settings.cta_enabled and has_cta == false %}<p class="techora-listicle-v1__editor-note">Choose a CTA destination and enter CTA text to display the action.</p>{% endif %}
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Techora conclusion",
+  "tag": "div",
+  "class": "techora-listicle-section-v1",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "A thoughtful next step" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Take what is useful for your next step" },
+    { "type": "richtext", "id": "body", "label": "Conclusion", "default": "<p>Use this closing space to summarize the editorial perspective and invite readers to continue at their own pace.</p>" },
+    { "type": "header", "content": "Optional media" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "image_alt", "label": "Image alternative text" },
+    { "type": "checkbox", "id": "image_decorative", "label": "Image is decorative", "default": false },
+    { "type": "select", "id": "image_position", "label": "Desktop image position", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }] },
+    { "type": "range", "id": "image_width", "label": "Desktop image width", "min": 25, "max": 50, "step": 5, "unit": "%", "default": 40 },
+    { "type": "range", "id": "image_radius", "label": "Image corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 12 },
+    { "type": "header", "content": "Final CTA" },
+    { "type": "checkbox", "id": "cta_enabled", "label": "Show final CTA", "default": true },
+    { "type": "text", "id": "cta_label", "label": "CTA text", "default": "Continue to the product page" },
+    { "type": "select", "id": "destination_mode", "label": "CTA destination", "default": "product", "options": [{ "value": "product", "label": "Selected product page" }, { "value": "custom_url", "label": "Custom URL" }, { "value": "none", "label": "No destination" }] },
+    { "type": "url", "id": "cta_url", "label": "CTA URL", "info": "Used when Custom URL is selected." },
+    { "type": "product", "id": "product", "label": "Product", "info": "Links to the selected product page. Does not add a product to the cart." },
+    { "type": "header", "content": "Disclosure and editorial note" },
+    { "type": "richtext", "id": "disclosure", "label": "Disclosure" },
+    { "type": "text", "id": "author_note", "label": "Author or editorial note" },
+    { "type": "text", "id": "last_updated", "label": "Last updated text" },
+    { "type": "checkbox", "id": "show_divider", "label": "Show top divider", "default": true },
+    { "type": "header", "content": "Typography and layout" },
+    { "type": "range", "id": "content_width", "label": "Maximum content width", "min": 640, "max": 1200, "step": 40, "unit": "px", "default": 920 },
+    { "type": "range", "id": "heading_scale", "label": "Heading size", "min": 80, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "body_scale", "label": "Body text size", "min": 90, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "select", "id": "text_alignment", "label": "Text alignment", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" }] },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#FAF9F6" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#23312E" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#245C50" },
+    { "type": "color", "id": "border_color", "label": "Divider", "default": "#D8DFDA" },
+    { "type": "color", "id": "button_color", "label": "Button background", "default": "#245C50" },
+    { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#FFFFFF" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Desktop top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Desktop bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile and tablet top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 28 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile and tablet bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 }
+  ],
+  "presets": [{ "name": "Techora conclusion" }]
+}
+{% endschema %}

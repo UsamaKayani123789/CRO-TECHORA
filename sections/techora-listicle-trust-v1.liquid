@@ -1,0 +1,168 @@
+{% comment %}
+  Techora Phase 4. Reusable trust and service-information section.
+  Editorial content only: no reviews service, purchase flow, or JavaScript dependency.
+{% endcomment %}
+
+{{ 'techora-listicle-v1.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign has_image = false
+  if section.settings.image != blank
+    assign has_image = true
+  endif
+  assign image_alt = section.settings.image_alt | strip
+  if image_alt == blank and section.settings.image != blank
+    assign image_alt = section.settings.image.alt | default: '' | strip
+  endif
+  if section.settings.image_decorative
+    assign image_alt = ''
+  endif
+  assign has_points = false
+  if section.blocks.size > 0
+    assign has_points = true
+  endif
+  assign has_content = false
+  if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.body != blank or has_image or section.settings.trust_badge != blank or section.settings.supporting_note != blank or has_points
+    assign has_content = true
+  endif
+%}
+
+{% if has_content or request.design_mode %}
+  <section
+    class="techora-listicle-v1 techora-listicle-v1--trust techora-listicle-v1--align-{{ section.settings.text_alignment }}"
+    {% if section.settings.heading != blank %}aria-labelledby="techora-trust-title-{{ section.id }}"{% endif %}
+    style="
+      --techora-content-width: {{ section.settings.content_width }}px;
+      --techora-background: {{ section.settings.background_color }};
+      --techora-text: {{ section.settings.text_color }};
+      --techora-accent: {{ section.settings.accent_color }};
+      --techora-border: {{ section.settings.border_color }};
+      --techora-trust-image-width: {{ section.settings.image_width }}%;
+      --techora-radius: {{ section.settings.image_radius }}px;
+      --techora-padding-top: {{ section.settings.padding_top }}px;
+      --techora-padding-bottom: {{ section.settings.padding_bottom }}px;
+      --techora-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
+      --techora-mobile-padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --techora-heading-scale: {{ section.settings.heading_scale | divided_by: 100.0 }};
+      --techora-body-scale: {{ section.settings.body_scale | divided_by: 100.0 }};
+      --techora-alignment: {{ section.settings.text_alignment }};
+    "
+  >
+    <div class="techora-listicle-v1__container">
+      <div class="techora-listicle-v1__trust-layout techora-listicle-v1__trust-layout--{{ section.settings.image_position }}{% unless has_image %} techora-listicle-v1__trust-layout--no-image{% endunless %}">
+        {% if has_image %}
+          <figure class="techora-listicle-v1__trust-figure">
+            {{
+              section.settings.image
+              | image_url: width: 1600
+              | image_tag: widths: '240, 360, 480, 640, 800, 1200, 1600', sizes: '(min-width: 900px) var(--techora-trust-image-width), calc(100vw - 32px)', alt: image_alt, class: 'techora-listicle-v1__image', loading: 'lazy'
+            }}
+          </figure>
+        {% endif %}
+        <div class="techora-listicle-v1__trust-content">
+          {% if section.settings.eyebrow != blank %}
+            <p class="techora-listicle-v1__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+          {% endif %}
+          {% if section.settings.heading != blank %}
+            <h2 id="techora-trust-title-{{ section.id }}" class="techora-listicle-v1__heading">{{ section.settings.heading }}</h2>
+          {% endif %}
+          {% if section.settings.body != blank %}
+            <div class="techora-listicle-v1__richtext">{{ section.settings.body }}</div>
+          {% endif %}
+          {% if section.settings.trust_badge != blank %}
+            <p class="techora-listicle-v1__trust-badge">{{ section.settings.trust_badge | escape }}</p>
+          {% endif %}
+          {% if has_points %}
+            <ul class="techora-listicle-v1__trust-points techora-listicle-v1__trust-points--{{ section.settings.point_layout }}">
+              {% for block in section.blocks %}
+                {% assign point_image_alt = block.settings.image_alt | strip %}
+                {% if point_image_alt == blank and block.settings.image != blank %}
+                  {% assign point_image_alt = block.settings.image.alt | default: '' | strip %}
+                {% endif %}
+                {% if block.settings.icon != 'none' or block.settings.image != blank or block.settings.heading != blank or block.settings.text != blank %}
+                  <li class="techora-listicle-v1__trust-point" {{ block.shopify_attributes }}>
+                    {% if block.settings.image != blank %}
+                      {{
+                        block.settings.image
+                        | image_url: width: 160
+                        | image_tag: widths: '48, 80, 120, 160', sizes: '48px', alt: point_image_alt, class: 'techora-listicle-v1__trust-point-image', loading: 'lazy'
+                      }}
+                    {% elsif block.settings.icon != 'none' %}
+                      <span class="techora-listicle-v1__trust-point-icon" aria-hidden="true" data-techora-icon="{{ block.settings.icon }}"></span>
+                    {% endif %}
+                    <span class="techora-listicle-v1__trust-point-copy">
+                      {% if block.settings.heading != blank %}<strong>{{ block.settings.heading | escape }}</strong>{% endif %}
+                      {% if block.settings.text != blank %}<span>{{ block.settings.text | escape }}</span>{% endif %}
+                    </span>
+                  </li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% if section.settings.supporting_note != blank %}
+            <p class="techora-listicle-v1__trust-note">{{ section.settings.supporting_note | escape }}</p>
+          {% endif %}
+        </div>
+      </div>
+      {% if request.design_mode %}
+        {% unless has_content %}<p class="techora-listicle-v1__editor-note">Add trust content or trust points. Empty sections are hidden on the storefront.</p>{% endunless %}
+        {% if has_image and image_alt == blank and section.settings.image_decorative == false %}<p class="techora-listicle-v1__editor-note">Describe the trust image or mark it as decorative.</p>{% endif %}
+      {% endif %}
+    </div>
+  </section>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Techora trust content",
+  "tag": "div",
+  "class": "techora-listicle-section-v1",
+  "enabled_on": { "templates": ["page"] },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Worth considering" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "Details that help you choose with confidence" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>Use this space for the practical service, care, or usage information your customers should know before choosing.</p>" },
+    { "type": "header", "content": "Optional media" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "image_alt", "label": "Image alternative text", "info": "Describe the image's meaning. If blank, its media-library alternative text is used." },
+    { "type": "checkbox", "id": "image_decorative", "label": "Image is decorative", "default": false },
+    { "type": "select", "id": "image_position", "label": "Desktop image position", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "right", "label": "Right" }] },
+    { "type": "range", "id": "image_width", "label": "Desktop image width", "min": 25, "max": 50, "step": 5, "unit": "%", "default": 40 },
+    { "type": "range", "id": "image_radius", "label": "Image corner radius", "min": 0, "max": 32, "step": 2, "unit": "px", "default": 12 },
+    { "type": "header", "content": "Trust content" },
+    { "type": "text", "id": "trust_badge", "label": "Trust badge", "default": "Clear information, at your own pace." },
+    { "type": "text", "id": "supporting_note", "label": "Supporting note", "default": "Share only terms and service details that apply to your store." },
+    { "type": "select", "id": "point_layout", "label": "Trust point layout", "default": "cards", "options": [{ "value": "cards", "label": "Soft cards" }, { "value": "lines", "label": "Simple rows" }] },
+    { "type": "header", "content": "Typography and layout" },
+    { "type": "range", "id": "content_width", "label": "Maximum content width", "min": 640, "max": 1200, "step": 40, "unit": "px", "default": 920 },
+    { "type": "range", "id": "heading_scale", "label": "Heading size", "min": 80, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "range", "id": "body_scale", "label": "Body text size", "min": 90, "max": 130, "step": 5, "unit": "%", "default": 100 },
+    { "type": "select", "id": "text_alignment", "label": "Text alignment", "default": "left", "options": [{ "value": "left", "label": "Left" }, { "value": "center", "label": "Center" }, { "value": "right", "label": "Right" }] },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "background_color", "label": "Background", "default": "#FAF9F6" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#23312E" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#245C50" },
+    { "type": "color", "id": "border_color", "label": "Borders", "default": "#D8DFDA" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "padding_top", "label": "Desktop top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 24 },
+    { "type": "range", "id": "padding_bottom", "label": "Desktop bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "mobile_padding_top", "label": "Mobile and tablet top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 16 },
+    { "type": "range", "id": "mobile_padding_bottom", "label": "Mobile and tablet bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 32 }
+  ],
+  "blocks": [
+    {
+      "type": "techora-trust-point",
+      "name": "Trust point",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "check", "options": [{ "value": "none", "label": "None" }, { "value": "check", "label": "Check" }, { "value": "spark", "label": "Spark" }, { "value": "shield", "label": "Shield" }] },
+        { "type": "image_picker", "id": "image", "label": "Icon image" },
+        { "type": "text", "id": "image_alt", "label": "Icon image alternative text" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "A useful detail" },
+        { "type": "textarea", "id": "text", "label": "Short text", "default": "Add a clear, merchant-provided detail here." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [{ "name": "Techora trust content", "blocks": [{ "type": "techora-trust-point" }, { "type": "techora-trust-point" }, { "type": "techora-trust-point" }] }]
+}
+{% endschema %}
