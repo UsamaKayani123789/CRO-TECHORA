@@ -1139,6 +1139,16 @@
   margin-top: 28px;
 }
 
+@media (max-width: 899px) {
+  .techora-listicle-v1 .techora-listicle-v1__offer-media--placeholder {
+    display: none;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__offer-layout--card > .techora-listicle-v1__offer-content {
+    padding-top: 20px;
+  }
+}
+
 @media (min-width: 900px) {
   .techora-listicle-v1 .techora-listicle-v1__cta-band-inner--inline {
     grid-template-columns: minmax(0, 1fr) minmax(180px, 300px);
@@ -1450,6 +1460,10 @@
 
   .techora-listicle-v1 .techora-listicle-v1__reason-heading {
     max-width: 24ch;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__heading.techora-listicle-v1__offer-heading {
+    font-size: calc(30px * var(--techora-heading-scale, 1));
   }
 
   .techora-listicle-v1 .techora-listicle-v1__reason + .techora-listicle-v1__reason {

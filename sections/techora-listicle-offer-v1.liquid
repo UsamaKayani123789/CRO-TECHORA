@@ -112,7 +112,7 @@
             {% endif %}
         {% endif %}
         <div class="techora-listicle-v1__offer-layout{% if section.settings.media_side == 'right' %} techora-listicle-v1__offer-layout--right{% endif %}{% if section.settings.show_card %} techora-listicle-v1__offer-layout--card{% endif %}">
-          <div class="techora-listicle-v1__offer-media">
+          <div class="techora-listicle-v1__offer-media{% unless has_image %} techora-listicle-v1__offer-media--placeholder{% endunless %}">
               {% if has_image %}
                 <figure class="techora-listicle-v1__figure techora-listicle-v1__offer-figure">
                   {{
