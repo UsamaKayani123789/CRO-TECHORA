@@ -76,13 +76,44 @@
           {% if section.settings.body != blank %}<div class="techora-listicle-v1__richtext">{{ section.settings.body }}</div>{% endif %}
           {% if has_cta %}<a class="techora-listicle-v1__button techora-listicle-v1__conclusion-cta" href="{{ cta_url | escape }}">{{ section.settings.cta_label | escape }}</a>{% endif %}
           {% if section.settings.disclosure != blank %}<div class="techora-listicle-v1__conclusion-disclosure">{{ section.settings.disclosure }}</div>{% endif %}
-          {% assign has_end_links = false %}
-          {% for block in section.blocks %}{% if block.settings.label != blank and block.settings.url != blank %}{% assign has_end_links = true %}{% endif %}{% endfor %}
-          {% if has_end_links %}
-            <nav class="techora-listicle-v1__conclusion-links" aria-label="Related information"><ul>
-              {% for block in section.blocks %}{% if block.settings.label != blank and block.settings.url != blank %}<li {{ block.shopify_attributes }}><a href="{{ block.settings.url | escape }}">{{ block.settings.label | escape }}</a></li>{% endif %}{% endfor %}
-            </ul></nav>
-          {% endif %}
+          {% capture end_links_html %}
+            {% for block in section.blocks %}
+              {% if block.type == 'techora-end-link' %}
+                {% liquid
+                  assign link_url = block.settings.url
+                  assign link_label = block.settings.label
+                  case block.settings.policy_source
+                    when 'terms_of_service'
+                      assign link_url = shop.terms_of_service.url
+                      if link_label == blank
+                        assign link_label = shop.terms_of_service.title
+                      endif
+                    when 'privacy_policy'
+                      assign link_url = shop.privacy_policy.url
+                      if link_label == blank
+                        assign link_label = shop.privacy_policy.title
+                      endif
+                    when 'refund_policy'
+                      assign link_url = shop.refund_policy.url
+                      if link_label == blank
+                        assign link_label = shop.refund_policy.title
+                      endif
+                    when 'shipping_policy'
+                      assign link_url = shop.shipping_policy.url
+                      if link_label == blank
+                        assign link_label = shop.shipping_policy.title
+                      endif
+                  endcase
+                %}
+                {% if link_label != blank and link_url != blank %}
+                  <li {{ block.shopify_attributes }}><a href="{{ link_url | escape }}">{{ link_label | escape }}</a></li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+          {% endcapture %}
+          {% unless end_links_html == blank %}
+            <nav class="techora-listicle-v1__conclusion-links" aria-label="Related information"><ul>{{ end_links_html }}</ul></nav>
+          {% endunless %}
           {% if section.settings.author_note != blank or section.settings.last_updated != blank %}
             <div class="techora-listicle-v1__conclusion-meta">
               {% if section.settings.author_note != blank %}<p>{{ section.settings.author_note | escape }}</p>{% endif %}
@@ -151,8 +182,15 @@
     "type": "techora-end-link",
     "name": "End link",
     "settings": [
-      { "type": "text", "id": "label", "label": "Link label" },
-      { "type": "url", "id": "url", "label": "Link destination" }
+      { "type": "select", "id": "policy_source", "label": "Link destination", "default": "custom", "options": [
+        { "value": "custom", "label": "Custom URL" },
+        { "value": "terms_of_service", "label": "Terms of service" },
+        { "value": "privacy_policy", "label": "Privacy policy" },
+        { "value": "refund_policy", "label": "Refund policy" },
+        { "value": "shipping_policy", "label": "Shipping policy" }
+      ] },
+      { "type": "text", "id": "label", "label": "Link label", "info": "Leave blank to use the selected policy's own title." },
+      { "type": "url", "id": "url", "label": "Custom URL", "info": "Used when Custom URL is selected above." }
     ]
   }],
   "presets": [{ "name": "Techora conclusion" }]

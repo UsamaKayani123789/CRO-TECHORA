@@ -483,14 +483,16 @@
         "techora_end_link_1": {
           "type": "techora-end-link",
           "settings": {
-            "label": "Terms of Service",
+            "policy_source": "terms_of_service",
+            "label": "",
             "url": ""
           }
         },
         "techora_end_link_2": {
           "type": "techora-end-link",
           "settings": {
-            "label": "Privacy Policy",
+            "policy_source": "privacy_policy",
+            "label": "",
             "url": ""
           }
         }
