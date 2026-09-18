@@ -972,13 +972,15 @@
   left: 50%;
   z-index: 1;
   transform: translate(-50%, -50%);
+  max-width: calc(100% - 32px);
   padding: 8px 18px;
   border-radius: 999px;
   background: var(--techora-button, #245c50);
   color: var(--techora-button-text, #ffffff);
   font-size: 0.85em;
   font-weight: 700;
-  white-space: nowrap;
+  text-align: center;
+  overflow-wrap: break-word;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__offer-layout--card {
