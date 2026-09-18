@@ -59,6 +59,10 @@
   if section.settings.cta_enabled and section.settings.cta_label != blank and cta_url != blank
     assign has_cta = true
   endif
+  assign needs_product_selection = false
+  if section.settings.cta_enabled and section.settings.destination_mode == 'product' and has_product == false
+    assign needs_product_selection = true
+  endif
   assign has_secondary_image = false
   if section.settings.secondary_image != blank
     assign has_secondary_image = true
@@ -225,7 +229,11 @@
         <p class="techora-listicle-v1__editor-note">Select a product, or enter a custom heading or image, to display the offer foundation. Without any of these, the section is hidden on the storefront.</p>
       {% endif %}
       {% if request.design_mode and has_offer_content and section.settings.cta_enabled and has_cta == false %}
-        <p class="techora-listicle-v1__editor-note">Choose a CTA destination and enter CTA text to display the offer action.</p>
+        {% if needs_product_selection %}
+          <p class="techora-listicle-v1__editor-note">Select a product to display the product CTA.</p>
+        {% else %}
+          <p class="techora-listicle-v1__editor-note">Choose a CTA destination and enter CTA text to display the offer action.</p>
+        {% endif %}
       {% endif %}
     </div>
   </section>

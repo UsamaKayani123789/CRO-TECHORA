@@ -95,6 +95,7 @@
 
 .techora-listicle-v1 .techora-listicle-v1__title,
 .techora-listicle-v1 .techora-listicle-v1__heading {
+  display: block;
   min-width: 0;
   margin: 0;
   padding: 0;
@@ -621,64 +622,92 @@
 }
 
 /* Trust and conclusion: editorial conversion support without commerce state. */
-.techora-listicle-v1--trust,
-.techora-listicle-v1--conclusion {
+.techora-listicle-v1--trust {
   border-color: var(--techora-border, #d8dfda);
 }
 
-.techora-listicle-v1__trust-layout,
-.techora-listicle-v1__conclusion-layout {
+.techora-listicle-v1.techora-listicle-v1--conclusion {
+  border-color: var(--techora-border, #d8dfda);
+}
+
+.techora-listicle-v1__trust-layout {
   display: grid;
   grid-template-columns: minmax(0, var(--techora-trust-image-width, 40%)) minmax(0, 1fr);
   gap: clamp(24px, var(--techora-column-gap, 40px), 56px);
   align-items: start;
 }
 
-.techora-listicle-v1__conclusion-layout {
+.techora-listicle-v1 .techora-listicle-v1__conclusion-layout {
+  display: grid;
   grid-template-columns: minmax(0, var(--techora-conclusion-image-width, 40%)) minmax(0, 1fr);
+  gap: clamp(24px, var(--techora-column-gap, 40px), 56px);
+  align-items: start;
 }
 
-.techora-listicle-v1__trust-layout--right,
-.techora-listicle-v1__conclusion-layout--right {
+.techora-listicle-v1__trust-layout--right {
   grid-template-columns: minmax(0, 1fr) minmax(0, var(--techora-trust-image-width, 40%));
 }
 
-.techora-listicle-v1__conclusion-layout--right {
+.techora-listicle-v1 .techora-listicle-v1__conclusion-layout--right {
   grid-template-columns: minmax(0, 1fr) minmax(0, var(--techora-conclusion-image-width, 40%));
 }
 
-.techora-listicle-v1__trust-layout--right > .techora-listicle-v1__trust-figure,
-.techora-listicle-v1__conclusion-layout--right > .techora-listicle-v1__conclusion-figure {
+.techora-listicle-v1__trust-layout--right > .techora-listicle-v1__trust-figure {
   grid-column: 2;
   grid-row: 1;
 }
 
-.techora-listicle-v1__trust-layout--right > .techora-listicle-v1__trust-content,
-.techora-listicle-v1__conclusion-layout--right > .techora-listicle-v1__conclusion-content {
+.techora-listicle-v1 .techora-listicle-v1__conclusion-layout--right > .techora-listicle-v1__conclusion-figure {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.techora-listicle-v1__trust-layout--right > .techora-listicle-v1__trust-content {
   grid-column: 1;
   grid-row: 1;
 }
 
-.techora-listicle-v1__trust-layout--no-image,
-.techora-listicle-v1__conclusion-layout--no-image {
+.techora-listicle-v1 .techora-listicle-v1__conclusion-layout--right > .techora-listicle-v1__conclusion-content {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.techora-listicle-v1__trust-layout--no-image {
   display: block;
   max-width: 760px;
   margin-inline: auto;
 }
 
-.techora-listicle-v1__trust-figure,
-.techora-listicle-v1__conclusion-figure {
+.techora-listicle-v1 .techora-listicle-v1__conclusion-layout--no-image {
+  display: block;
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.techora-listicle-v1__trust-figure {
   min-width: 0;
   margin: 0;
 }
 
-.techora-listicle-v1__trust-figure .techora-listicle-v1__image,
-.techora-listicle-v1__conclusion-figure .techora-listicle-v1__image {
+.techora-listicle-v1 .techora-listicle-v1__conclusion-figure {
+  min-width: 0;
+  margin: 0;
+}
+
+.techora-listicle-v1__trust-figure .techora-listicle-v1__image {
   border-radius: var(--techora-radius, 12px);
 }
 
-.techora-listicle-v1__trust-content,
-.techora-listicle-v1__conclusion-content {
+.techora-listicle-v1 .techora-listicle-v1__conclusion-figure .techora-listicle-v1__image {
+  border-radius: var(--techora-radius, 12px);
+}
+
+.techora-listicle-v1__trust-content {
+  min-width: 0;
+  max-width: 68ch;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__conclusion-content {
   min-width: 0;
   max-width: 68ch;
 }
@@ -790,26 +819,26 @@
   line-height: 1.5;
 }
 
-.techora-listicle-v1--conclusion-divider {
+.techora-listicle-v1.techora-listicle-v1--conclusion-divider {
   border-top: 1px solid var(--techora-border, #d8dfda);
 }
 
-.techora-listicle-v1__conclusion-cta {
+.techora-listicle-v1 .techora-listicle-v1__conclusion-cta {
   margin-top: 24px;
 }
 
-.techora-listicle-v1__conclusion-disclosure {
+.techora-listicle-v1 .techora-listicle-v1__conclusion-disclosure {
   margin-top: 28px;
   color: inherit;
   font-size: 10.4px;
   line-height: 1.5;
 }
 
-.techora-listicle-v1__conclusion-content > .techora-listicle-v1__conclusion-disclosure:first-child {
+.techora-listicle-v1 .techora-listicle-v1__conclusion-content > .techora-listicle-v1__conclusion-disclosure:first-child {
   margin-top: 0;
 }
 
-.techora-listicle-v1__conclusion-meta {
+.techora-listicle-v1 .techora-listicle-v1__conclusion-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 8px 20px;
@@ -819,28 +848,38 @@
   line-height: 1.5;
 }
 
-.techora-listicle-v1__conclusion-meta p {
+.techora-listicle-v1 .techora-listicle-v1__conclusion-meta p {
   margin: 0;
 }
 
 @media (max-width: 899px) {
   .techora-listicle-v1__trust-layout,
-  .techora-listicle-v1__conclusion-layout,
-  .techora-listicle-v1__trust-layout--right,
-  .techora-listicle-v1__conclusion-layout--right {
+  .techora-listicle-v1__trust-layout--right {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__conclusion-layout,
+  .techora-listicle-v1 .techora-listicle-v1__conclusion-layout--right {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .techora-listicle-v1__trust-layout--right > .techora-listicle-v1__trust-figure,
-  .techora-listicle-v1__conclusion-layout--right > .techora-listicle-v1__conclusion-figure,
-  .techora-listicle-v1__trust-layout--right > .techora-listicle-v1__trust-content,
-  .techora-listicle-v1__conclusion-layout--right > .techora-listicle-v1__conclusion-content {
+  .techora-listicle-v1__trust-layout--right > .techora-listicle-v1__trust-content {
     grid-column: auto;
     grid-row: auto;
   }
 
-  .techora-listicle-v1__trust-figure,
-  .techora-listicle-v1__conclusion-figure {
+  .techora-listicle-v1 .techora-listicle-v1__conclusion-layout--right > .techora-listicle-v1__conclusion-figure,
+  .techora-listicle-v1 .techora-listicle-v1__conclusion-layout--right > .techora-listicle-v1__conclusion-content {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .techora-listicle-v1__trust-figure {
+    max-width: 720px;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__conclusion-figure {
     max-width: 720px;
   }
 }

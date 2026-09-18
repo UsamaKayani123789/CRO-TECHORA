@@ -245,19 +245,29 @@
                 if block.settings.cta_label != blank and block.settings.cta_url != blank
                   assign promo_has_cta = true
                 endif
+                assign promo_has_content = false
+                if promo_has_image or block.settings.eyebrow != blank or block.settings.heading != blank or block.settings.body != blank or promo_has_cta
+                  assign promo_has_content = true
+                endif
               %}
-              <li class="techora-listicle-v1__promo techora-listicle-v1__promo--{{ block.settings.background_treatment }} techora-listicle-v1__promo--width-{{ block.settings.presentation_width }} techora-listicle-v1__promo--media-{{ block.settings.media_presentation }}" style="--techora-promo-padding-top: {{ block.settings.padding_top }}px; --techora-promo-padding-bottom: {{ block.settings.padding_bottom }}px; --techora-promo-mobile-padding-top: {{ block.settings.mobile_padding_top }}px; --techora-promo-mobile-padding-bottom: {{ block.settings.mobile_padding_bottom }}px;" {{ block.shopify_attributes }}>
-                {% if promo_has_image %}
-                  <figure class="techora-listicle-v1__promo-figure">
-                    {{ block.settings.image | image_url: width: 1800 | image_tag: widths: '320, 480, 640, 800, 1200, 1600, 1800', sizes: '(min-width: 900px) 760px, calc(100vw - 32px)', alt: promo_image_alt, class: 'techora-listicle-v1__image', loading: 'lazy' }}
-                    {% if block.settings.caption != blank %}<figcaption class="techora-listicle-v1__caption">{{ block.settings.caption | escape }}</figcaption>{% endif %}
-                  </figure>
-                {% endif %}
-                {% if block.settings.eyebrow != blank %}<p class="techora-listicle-v1__eyebrow">{{ block.settings.eyebrow | escape }}</p>{% endif %}
-                {% if block.settings.heading != blank %}<h3 class="techora-listicle-v1__heading">{{ block.settings.heading }}</h3>{% endif %}
-                {% if block.settings.body != blank %}<div class="techora-listicle-v1__richtext">{{ block.settings.body }}</div>{% endif %}
-                {% if promo_has_cta %}<a class="techora-listicle-v1__promo-cta" href="{{ block.settings.cta_url | escape }}">{{ block.settings.cta_label | escape }}</a>{% endif %}
-              </li>
+              {% if promo_has_content %}
+                <li class="techora-listicle-v1__promo techora-listicle-v1__promo--{{ block.settings.background_treatment }} techora-listicle-v1__promo--width-{{ block.settings.presentation_width }} techora-listicle-v1__promo--media-{{ block.settings.media_presentation }}" style="--techora-promo-padding-top: {{ block.settings.padding_top }}px; --techora-promo-padding-bottom: {{ block.settings.padding_bottom }}px; --techora-promo-mobile-padding-top: {{ block.settings.mobile_padding_top }}px; --techora-promo-mobile-padding-bottom: {{ block.settings.mobile_padding_bottom }}px;" {{ block.shopify_attributes }}>
+                  {% if promo_has_image %}
+                    <figure class="techora-listicle-v1__promo-figure">
+                      {{ block.settings.image | image_url: width: 1800 | image_tag: widths: '320, 480, 640, 800, 1200, 1600, 1800', sizes: '(min-width: 900px) 760px, calc(100vw - 32px)', alt: promo_image_alt, class: 'techora-listicle-v1__image', loading: 'lazy' }}
+                      {% if block.settings.caption != blank %}<figcaption class="techora-listicle-v1__caption">{{ block.settings.caption | escape }}</figcaption>{% endif %}
+                    </figure>
+                  {% endif %}
+                  {% if block.settings.eyebrow != blank %}<p class="techora-listicle-v1__eyebrow">{{ block.settings.eyebrow | escape }}</p>{% endif %}
+                  {% if block.settings.heading != blank %}<h3 class="techora-listicle-v1__heading">{{ block.settings.heading }}</h3>{% endif %}
+                  {% if block.settings.body != blank %}<div class="techora-listicle-v1__richtext">{{ block.settings.body }}</div>{% endif %}
+                  {% if promo_has_cta %}<a class="techora-listicle-v1__promo-cta" href="{{ block.settings.cta_url | escape }}">{{ block.settings.cta_label | escape }}</a>{% endif %}
+                </li>
+              {% elsif request.design_mode %}
+                <li class="techora-listicle-v1__promo-empty" {{ block.shopify_attributes }}>
+                  <p class="techora-listicle-v1__editor-note">Add an image, eyebrow, heading, body text, or link to this promo block. Empty promo blocks are hidden on the storefront.</p>
+                </li>
+              {% endif %}
             {% endif %}
           {% endfor %}
         </{{ list_tag }}>

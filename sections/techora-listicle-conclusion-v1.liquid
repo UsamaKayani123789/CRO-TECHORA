@@ -30,6 +30,10 @@
   if section.settings.cta_label != blank and cta_url != blank
     assign has_cta = true
   endif
+  assign needs_product_selection = false
+  if section.settings.cta_enabled and section.settings.destination_mode == 'product' and section.settings.product == blank
+    assign needs_product_selection = true
+  endif
   assign has_content = false
   if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.body != blank or has_image or has_cta or section.settings.disclosure != blank or section.settings.author_note != blank or section.settings.last_updated != blank or section.blocks.size > 0
     assign has_content = true
@@ -125,7 +129,13 @@
       {% if request.design_mode %}
         {% unless has_content %}<p class="techora-listicle-v1__editor-note">Add conclusion content or a CTA. Empty sections are hidden on the storefront.</p>{% endunless %}
         {% if has_image and image_alt == blank and section.settings.image_decorative == false %}<p class="techora-listicle-v1__editor-note">Describe the conclusion image or mark it as decorative.</p>{% endif %}
-        {% if section.settings.cta_enabled and has_cta == false %}<p class="techora-listicle-v1__editor-note">Choose a CTA destination and enter CTA text to display the action.</p>{% endif %}
+        {% if section.settings.cta_enabled and has_cta == false %}
+          {% if needs_product_selection %}
+            <p class="techora-listicle-v1__editor-note">Select a product to display the product CTA.</p>
+          {% else %}
+            <p class="techora-listicle-v1__editor-note">Choose a CTA destination and enter CTA text to display the action.</p>
+          {% endif %}
+        {% endif %}
       {% endif %}
     </div>
   </section>
