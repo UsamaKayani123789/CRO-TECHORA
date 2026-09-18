@@ -821,10 +821,6 @@
 }
 
 /* CTA band: a compact editorial transition with a clear navigation action. */
-.techora-listicle-v1--cta-band {
-  border-block: 1px solid var(--techora-border, #d8dfda);
-}
-
 .techora-listicle-v1 .techora-listicle-v1__cta-band-inner {
   display: grid;
   gap: 24px;
@@ -978,8 +974,26 @@
   max-width: 58ch;
 }
 
+.techora-listicle-v1--align-center .techora-listicle-v1__offer-content {
+  margin-inline: auto;
+}
+
 .techora-listicle-v1 .techora-listicle-v1__offer-heading {
   max-width: 20ch;
+}
+
+.techora-listicle-v1--align-center .techora-listicle-v1__offer-heading,
+.techora-listicle-v1--align-center .techora-listicle-v1__offer-body,
+.techora-listicle-v1--align-center .techora-listicle-v1__offer-cta,
+.techora-listicle-v1--align-center .techora-listicle-v1__offer-badge,
+.techora-listicle-v1--align-center .techora-listicle-v1__offer-disclosure {
+  margin-inline: auto;
+}
+
+.techora-listicle-v1--align-center .techora-listicle-v1__offer-price,
+.techora-listicle-v1--align-center .techora-listicle-v1__offer-countdown,
+.techora-listicle-v1--align-center .techora-listicle-v1__offer-reassurances {
+  justify-content: center;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__offer-vendor {
@@ -1355,6 +1369,25 @@
 @media (max-width: 899px) {
   .techora-listicle-v1 .techora-listicle-v1__reason-heading {
     max-width: 28ch;
+  }
+
+  .techora-listicle-v1--offer {
+    text-align: center;
+  }
+
+  .techora-listicle-v1--offer .techora-listicle-v1__offer-content,
+  .techora-listicle-v1--offer .techora-listicle-v1__offer-heading,
+  .techora-listicle-v1--offer .techora-listicle-v1__offer-body,
+  .techora-listicle-v1--offer .techora-listicle-v1__offer-cta,
+  .techora-listicle-v1--offer .techora-listicle-v1__offer-badge,
+  .techora-listicle-v1--offer .techora-listicle-v1__offer-disclosure {
+    margin-inline: auto;
+  }
+
+  .techora-listicle-v1--offer .techora-listicle-v1__offer-price,
+  .techora-listicle-v1--offer .techora-listicle-v1__offer-countdown,
+  .techora-listicle-v1--offer .techora-listicle-v1__offer-reassurances {
+    justify-content: center;
   }
 }
 
