@@ -570,6 +570,18 @@
 .techora-listicle-v1 .techora-listicle-v1__offer-reassurances { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 20px 0 0; padding: 0; list-style: none; font-size: .9em; }
 .techora-listicle-v1 .techora-listicle-v1__offer-reassurances li { min-width: 0; }
 .techora-listicle-v1 .techora-listicle-v1__offer-reassurances span { margin-inline-start: 4px; }
+
+.techora-listicle-v1 .techora-listicle-v1__offer-layout--card .techora-listicle-v1__offer-reassurances {
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: var(--techora-radius, 16px);
+  background: var(--techora-offer-reassurance-background, #f3f5f1);
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-layout--card .techora-listicle-v1__offer-reassurances li + li {
+  padding-inline-start: 16px;
+  border-inline-start: 1px solid var(--techora-border, #d8dfda);
+}
 .techora-listicle-v1 .techora-listicle-v1__conclusion-links ul { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 20px 0 0; padding: 0; list-style: none; }
 .techora-listicle-v1 .techora-listicle-v1__conclusion-links a { text-decoration: underline; }
 @media (max-width: 899px) {
@@ -948,6 +960,12 @@
   display: grid;
   gap: 20px;
   min-width: 0;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__offer-layout--card > .techora-listicle-v1__offer-media {
+  padding: 20px;
+  border-radius: var(--techora-radius, 16px);
+  background: var(--techora-offer-card-media-background, #f3f5f1);
 }
 
 .techora-listicle-v1 .techora-listicle-v1__offer-image {

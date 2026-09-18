@@ -74,6 +74,8 @@
       --techora-border: {{ section.settings.border_color }};
       --techora-button: {{ section.settings.button_color }};
       --techora-button-text: {{ section.settings.button_text_color }};
+      --techora-offer-card-media-background: {{ section.settings.card_media_background_color }};
+      --techora-offer-reassurance-background: {{ section.settings.reassurance_background_color }};
       --techora-padding-top: {{ section.settings.padding_top }}px;
       --techora-padding-bottom: {{ section.settings.padding_bottom }}px;
       --techora-mobile-padding-top: {{ section.settings.mobile_padding_top }}px;
@@ -294,6 +296,8 @@
     { "type": "color", "id": "border_color", "label": "Border", "default": "#D8DFDA" },
     { "type": "color", "id": "button_color", "label": "Button background", "default": "#245C50" },
     { "type": "color", "id": "button_text_color", "label": "Button text", "default": "#FFFFFF" },
+    { "type": "color", "id": "card_media_background_color", "label": "Card image area background", "default": "#F3F5F1", "info": "Used behind the product image when the promotional card is shown." },
+    { "type": "color", "id": "reassurance_background_color", "label": "Reassurance row background", "default": "#F3F5F1" },
     { "type": "range", "id": "padding_top", "label": "Desktop top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 },
     { "type": "range", "id": "padding_bottom", "label": "Desktop bottom spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 56 },
     { "type": "range", "id": "mobile_padding_top", "label": "Mobile and tablet top spacing", "min": 0, "max": 120, "step": 4, "unit": "px", "default": 36 },
