@@ -66,7 +66,7 @@
               <p class="techora-listicle-v1__announcement-message">{{ section.settings.message }}</p>
             {% endif %}
             {% if section.settings.supporting_text != blank %}
-              <p class="techora-listicle-v1__announcement-support">{{ section.settings.supporting_text | escape }}</p>
+              <p class="techora-listicle-v1__announcement-support">{{ section.settings.supporting_text }}</p>
             {% endif %}
           </div>
         {% endif %}
@@ -116,7 +116,7 @@
   "settings": [
     { "type": "header", "content": "Announcement" },
     { "type": "inline_richtext", "id": "message", "label": "Message", "default": "A considered approach to everyday choices" },
-    { "type": "text", "id": "supporting_text", "label": "Supporting text" },
+    { "type": "inline_richtext", "id": "supporting_text", "label": "Supporting text", "info": "Select part of the text and choose bold to emphasize specific words." },
     { "type": "header", "content": "Countdown" },
     { "type": "checkbox", "id": "countdown_enabled", "label": "Enable countdown", "default": false },
     { "type": "range", "id": "countdown_hours", "label": "Countdown hours", "min": 0, "max": 99, "step": 1, "default": 2 },

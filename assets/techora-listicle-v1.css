@@ -285,8 +285,12 @@
 .techora-listicle-v1 .techora-listicle-v1__announcement-support {
   margin-top: 2px;
   font-size: 1.15em;
-  font-weight: 800;
+  font-weight: 500;
   line-height: 1.15;
+}
+
+.techora-listicle-v1 .techora-listicle-v1__announcement-support strong {
+  font-weight: 800;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__announcement-link {
