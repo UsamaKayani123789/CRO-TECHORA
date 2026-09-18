@@ -81,6 +81,10 @@
   endif
 %}
 
+{% if show_sticky_cta %}
+  <script src="{{ 'techora-listicle-sticky-cta-v1.js' | asset_url }}" defer></script>
+{% endif %}
+
 {% if has_offer_content or request.design_mode %}
   <section
     id="techora-offer-{{ offer_anchor_key }}"
@@ -241,7 +245,15 @@
       {% endif %}
     </div>
     {% if show_sticky_cta %}
-      <div class="techora-listicle-v1__offer-sticky-cta">
+      <div
+        class="techora-listicle-v1__offer-sticky-cta"
+        data-techora-sticky-cta
+        data-techora-sticky-cta-offset="{{ section.settings.sticky_cta_reveal_offset }}"
+        style="
+          --techora-sticky-cta-button: {{ section.settings.sticky_cta_button_color | default: section.settings.button_color }};
+          --techora-sticky-cta-button-text: {{ section.settings.sticky_cta_button_text_color | default: section.settings.button_text_color }};
+        "
+      >
         <a class="techora-listicle-v1__offer-sticky-cta-button" href="{{ cta_url | escape }}">
           <span>{{ section.settings.sticky_cta_label | escape }}</span>
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -313,6 +325,9 @@
     { "type": "checkbox", "id": "sticky_cta_enabled", "label": "Show sticky bar on mobile", "default": false, "info": "Adds a bar fixed to the bottom of the screen on mobile only, using the same CTA destination configured above. Hidden on desktop." },
     { "type": "text", "id": "sticky_cta_label", "label": "Sticky bar button text", "default": "Yes, get my discount" },
     { "type": "text", "id": "sticky_cta_note", "label": "Sticky bar supporting text", "info": "Optional small line shown under the button, such as a promotion name." },
+    { "type": "range", "id": "sticky_cta_reveal_offset", "label": "Reveal after scrolling", "min": 0, "max": 3000, "step": 100, "unit": "px", "default": 1000, "info": "The sticky bar stays hidden until the visitor scrolls down this many pixels." },
+    { "type": "color", "id": "sticky_cta_button_color", "label": "Sticky bar button color", "info": "Leave blank to match the main CTA button color above." },
+    { "type": "color", "id": "sticky_cta_button_text_color", "label": "Sticky bar button text color", "info": "Leave blank to match the main CTA button text color above." },
     { "type": "header", "content": "Promotional card" },
     { "type": "checkbox", "id": "show_card", "label": "Show bordered promotional card", "default": false, "info": "Wraps the offer in a dashed card with an optional badge and countdown, for time-limited promotions." },
     { "type": "text", "id": "card_badge_text", "label": "Card badge text", "info": "Optional small pill shown above the card, such as a campaign name." },
