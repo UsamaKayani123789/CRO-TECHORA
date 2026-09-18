@@ -1146,6 +1146,7 @@
 
   .techora-listicle-v1 .techora-listicle-v1__offer-layout--card > .techora-listicle-v1__offer-content {
     padding-top: 20px;
+    padding-inline: 25px;
   }
 }
 
@@ -1464,6 +1465,22 @@
 
   .techora-listicle-v1 .techora-listicle-v1__heading.techora-listicle-v1__offer-heading {
     font-size: calc(30px * var(--techora-heading-scale, 1));
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__offer-cta {
+    margin-top: 16px;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__offer-countdown {
+    margin-top: 6px;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__offer-reassurances {
+    margin-top: 6px;
+  }
+
+  .techora-listicle-v1 .techora-listicle-v1__offer-disclosure {
+    margin-top: 8px;
   }
 
   .techora-listicle-v1 .techora-listicle-v1__reason + .techora-listicle-v1__reason {
