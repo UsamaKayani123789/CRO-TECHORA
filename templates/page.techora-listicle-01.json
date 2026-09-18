@@ -1,0 +1,343 @@
+{
+  "sections": {
+    "techora_listicle_announcement_v1": {
+      "type": "techora-listicle-announcement-v1",
+      "name": "Techora announcement",
+      "settings": {
+        "message": "A considered approach to everyday choices",
+        "supporting_text": "Explore the details at your own pace.",
+        "destination_mode": "none",
+        "link_label": "",
+        "link": "",
+        "sticky_enabled": false,
+        "sticky_top_offset": 0,
+        "content_width": 800,
+        "column_gap": 24,
+        "body_scale": 100,
+        "text_alignment": "center",
+        "background_color": "#183f3a",
+        "text_color": "#ffffff",
+        "accent_color": "#ffffff",
+        "padding_top": 12,
+        "padding_bottom": 12,
+        "mobile_padding_top": 12,
+        "mobile_padding_bottom": 12
+      }
+    },
+    "techora_listicle_article_header_v1": {
+      "type": "techora-listicle-article-header-v1",
+      "name": "Techora article header",
+      "settings": {
+        "eyebrow": "The everyday edit",
+        "title": "Small details. More thoughtful everyday choices.",
+        "heading_level": "h1",
+        "disclosure": "",
+        "summary": "<p>Thoughtful choices start with a closer look. Explore the details that matter, consider what fits your routine, and find your own way forward.</p>",
+        "show_divider": true,
+        "show_author": false,
+        "author_label": "By",
+        "author_name": "",
+        "author_role": "",
+        "author_link": "",
+        "show_date": false,
+        "date_label": "Updated",
+        "date_iso": "",
+        "date_display": "",
+        "content_width": 800,
+        "heading_scale": 100,
+        "body_scale": 100,
+        "text_alignment": "left",
+        "background_color": "#faf9f6",
+        "text_color": "#23312e",
+        "accent_color": "#245c50",
+        "border_color": "#d8dfda",
+        "padding_top": 48,
+        "padding_bottom": 16,
+        "mobile_padding_top": 32,
+        "mobile_padding_bottom": 12
+      }
+    },
+    "techora_listicle_reasons_v1": {
+      "type": "techora-listicle-reasons-v1",
+      "blocks": {
+        "techora_reason_01": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "Start with your routine",
+            "heading": "Begin with the moments you want to make easier",
+            "body": "<p>A useful choice starts with understanding how you will use it, where it belongs, and what matters most to you.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit"
+          }
+        },
+        "techora_reason_02": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "Look closer",
+            "heading": "Notice the details that shape the experience",
+            "body": "<p>Materials, dimensions, and thoughtful features can help tell the full story. Take a moment to explore the details relevant to your needs.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit"
+          }
+        },
+        "techora_reason_03": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "Fit matters",
+            "heading": "Consider how it fits your space",
+            "body": "<p>Whether it belongs at home, at work, or on the move, context matters. Picture how this choice would fit into the places and routines you already know.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit"
+          }
+        },
+        "techora_reason_04": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "Practical clarity",
+            "heading": "Get answers to the questions that matter",
+            "body": "<p>Look for clear guidance on use, care, and what is included. Understanding the essentials can make the next step easier.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit"
+          }
+        },
+        "techora_reason_05": {
+          "type": "techora-reason",
+          "settings": {
+            "show_number": true,
+            "eyebrow": "Your next step",
+            "heading": "Choose what works for your own priorities",
+            "body": "<p>Bring the details together and weigh them against your routine. The right next step is the one that makes sense for you.</p>",
+            "image_alt": "",
+            "image_decorative": false,
+            "caption": "",
+            "caption_style": "plain",
+            "media_side": "inherit",
+            "image_loading": "auto",
+            "cta_enabled": false,
+            "cta_label": "",
+            "cta_url": "",
+            "cta_style": "inherit"
+          }
+        }
+      },
+      "block_order": [
+        "techora_reason_01",
+        "techora_reason_02",
+        "techora_reason_03",
+        "techora_reason_04",
+        "techora_reason_05"
+      ],
+      "name": "Techora listicle reasons",
+      "settings": {
+        "heading": "",
+        "show_numbers": true,
+        "start_number": 1,
+        "show_dividers": false,
+        "content_width": 800,
+        "heading_scale": 100,
+        "body_scale": 100,
+        "text_alignment": "left",
+        "desktop_media_side": "left",
+        "media_column_width": 40,
+        "column_gap": 40,
+        "image_ratio": "1 / 1",
+        "image_fit": "cover",
+        "corner_radius": 12,
+        "cta_style": "text",
+        "button_radius": 12,
+        "background_color": "#faf9f6",
+        "text_color": "#23312e",
+        "accent_color": "#245c50",
+        "number_color": "#245c50",
+        "border_color": "#d8dfda",
+        "button_color": "#245c50",
+        "button_text_color": "#ffffff",
+        "caption_background_color": "#e5ece6",
+        "caption_text_color": "#23312e",
+        "row_gap": 64,
+        "mobile_row_gap": 48,
+        "padding_top": 24,
+        "padding_bottom": 48,
+        "mobile_padding_top": 16,
+        "mobile_padding_bottom": 32
+      }
+    },
+    "techora_listicle_cta_v1": {
+      "type": "techora-listicle-cta-v1",
+      "name": "Techora CTA band",
+      "settings": {
+        "eyebrow": "A considered next step",
+        "heading": "Bring the details together",
+        "body": "<p>When you are ready, continue to the selected product page to explore the full details and purchasing options.</p>",
+        "supporting_note": "Clear information, at your own pace.",
+        "cta_enabled": true,
+        "cta_label": "Explore the product",
+        "destination_mode": "offer_anchor",
+        "cta_url": "",
+        "offer_key": "primary",
+        "product": "",
+        "button_style": "button",
+        "layout": "centered",
+        "content_width": 800,
+        "heading_scale": 100,
+        "body_scale": 100,
+        "text_alignment": "center",
+        "corner_radius": 12,
+        "background_color": "#e5ece6",
+        "text_color": "#23312e",
+        "accent_color": "#245c50",
+        "border_color": "#d8dfda",
+        "button_color": "#245c50",
+        "button_text_color": "#ffffff",
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "mobile_padding_top": 32,
+        "mobile_padding_bottom": 32
+      }
+    },
+    "techora_listicle_offer_v1": {
+      "type": "techora-listicle-offer-v1",
+      "blocks": {
+        "techora_offer_benefit_01": {
+          "type": "techora-offer-benefit",
+          "settings": {
+            "text": "Thoughtful details for everyday use"
+          }
+        },
+        "techora_offer_benefit_02": {
+          "type": "techora-offer-benefit",
+          "settings": {
+            "text": "Clear information before you choose"
+          }
+        }
+      },
+      "block_order": [
+        "techora_offer_benefit_01",
+        "techora_offer_benefit_02"
+      ],
+      "name": "Techora product offer",
+      "settings": {
+        "offer_key": "primary",
+        "product": "",
+        "eyebrow": "A thoughtful choice",
+        "heading": "Explore the selected product",
+        "body": "<p>Use this section to introduce the product that best matches the editorial story. The action links to its existing Shopify product page.</p>",
+        "image_alt": "",
+        "image_decorative": false,
+        "media_side": "left",
+        "media_width": 45,
+        "image_ratio": "1 / 1",
+        "image_fit": "cover",
+        "image_radius": 16,
+        "show_vendor": false,
+        "show_price": true,
+        "show_compare_at": true,
+        "show_savings": false,
+        "savings_label": "Save",
+        "show_badge": false,
+        "badge_text": "Editor's choice",
+        "cta_enabled": true,
+        "cta_label": "View product details",
+        "destination_mode": "product",
+        "cta_url": "",
+        "content_width": 800,
+        "heading_scale": 100,
+        "body_scale": 100,
+        "text_alignment": "left",
+        "column_gap": 48,
+        "button_radius": 12,
+        "background_color": "#f3f5f1",
+        "text_color": "#23312e",
+        "accent_color": "#245c50",
+        "border_color": "#d8dfda",
+        "button_color": "#245c50",
+        "button_text_color": "#ffffff",
+        "padding_top": 56,
+        "padding_bottom": 56,
+        "mobile_padding_top": 36,
+        "mobile_padding_bottom": 36
+      }
+    },
+    "techora_listicle_conclusion_v1": {
+      "type": "techora-listicle-conclusion-v1",
+      "name": "Techora conclusion",
+      "settings": {
+        "eyebrow": "A thoughtful next step",
+        "heading": "Continue with the details that matter to you",
+        "body": "<p>Use this closing space for a concise editorial conclusion and any information a shopper should have before visiting the product page.</p>",
+        "image_alt": "",
+        "image_decorative": false,
+        "image_position": "left",
+        "image_width": 40,
+        "image_radius": 12,
+        "cta_enabled": true,
+        "cta_label": "Continue to the product page",
+        "destination_mode": "product",
+        "cta_url": "",
+        "product": "",
+        "disclosure": "<p>Product availability, pricing, shipping, and purchasing terms are provided on the merchant's product page.</p>",
+        "author_note": "",
+        "last_updated": "",
+        "show_divider": true,
+        "content_width": 920,
+        "heading_scale": 100,
+        "body_scale": 100,
+        "text_alignment": "left",
+        "background_color": "#faf9f6",
+        "text_color": "#23312e",
+        "accent_color": "#245c50",
+        "border_color": "#d8dfda",
+        "button_color": "#245c50",
+        "button_text_color": "#ffffff",
+        "padding_top": 40,
+        "padding_bottom": 48,
+        "mobile_padding_top": 28,
+        "mobile_padding_bottom": 32
+      }
+    }
+  },
+  "order": [
+    "techora_listicle_announcement_v1",
+    "techora_listicle_article_header_v1",
+    "techora_listicle_reasons_v1",
+    "techora_listicle_cta_v1",
+    "techora_listicle_offer_v1",
+    "techora_listicle_conclusion_v1"
+  ]
+}
