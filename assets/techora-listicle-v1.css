@@ -857,6 +857,12 @@
   line-height: 1.4;
 }
 
+@media (max-width: 599px) {
+  .techora-listicle-v1 .techora-listicle-v1__cta-band-body {
+    max-width: 320px;
+  }
+}
+
 .techora-listicle-v1 .techora-listicle-v1__cta-band-note {
   margin: 16px 0 0;
   color: color-mix(in srgb, var(--techora-text, #23312e) 72%, transparent);
