@@ -28,7 +28,7 @@
   padding: var(--techora-mobile-padding-top, 24px) 16px var(--techora-mobile-padding-bottom, 24px);
   background: var(--techora-background, #faf9f6);
   color: var(--techora-text, #23312e);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: calc(17px * var(--techora-body-scale, 1));
   font-weight: 400;
   line-height: 1.7;
