@@ -75,6 +75,7 @@
   if section.settings.countdown_enabled and countdown_duration_seconds > 0
     assign has_countdown = true
   endif
+  assign sticky_cta_href = section.settings.sticky_cta_url | default: cta_url
   assign show_sticky_cta = false
   if section.settings.sticky_cta_enabled and has_cta
     assign show_sticky_cta = true
@@ -254,7 +255,7 @@
           --techora-sticky-cta-button-text: {{ section.settings.sticky_cta_button_text_color | default: section.settings.button_text_color }};
         "
       >
-        <a class="techora-listicle-v1__offer-sticky-cta-button" href="{{ cta_url | escape }}">
+        <a class="techora-listicle-v1__offer-sticky-cta-button" href="{{ sticky_cta_href | escape }}">
           <span>{{ section.settings.sticky_cta_label | escape }}</span>
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
@@ -324,6 +325,7 @@
     { "type": "header", "content": "Mobile sticky bar" },
     { "type": "checkbox", "id": "sticky_cta_enabled", "label": "Show sticky bar on mobile", "default": false, "info": "Adds a bar fixed to the bottom of the screen on mobile only, using the same CTA destination configured above. Hidden on desktop." },
     { "type": "text", "id": "sticky_cta_label", "label": "Sticky bar button text", "default": "Yes, get my discount" },
+    { "type": "url", "id": "sticky_cta_url", "label": "Sticky bar button link", "info": "Optional. Leave blank to use the same destination as the CTA button above." },
     { "type": "text", "id": "sticky_cta_note", "label": "Sticky bar supporting text", "info": "Optional small line shown under the button, such as a promotion name." },
     { "type": "range", "id": "sticky_cta_reveal_offset", "label": "Reveal after scrolling", "min": 0, "max": 3000, "step": 100, "unit": "px", "default": 1000, "info": "The sticky bar stays hidden until the visitor scrolls down this many pixels." },
     { "type": "color", "id": "sticky_cta_button_color", "label": "Sticky bar button color", "info": "Leave blank to match the main CTA button color above." },
