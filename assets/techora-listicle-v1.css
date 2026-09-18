@@ -1127,14 +1127,12 @@
 }
 
 .techora-listicle-v1 .techora-listicle-v1__reason-text {
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  gap: 18px;
+  display: contents;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__reason-heading-group {
   min-width: 0;
+  order: -1;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__reason-heading {
@@ -1181,6 +1179,7 @@
   min-width: 0;
   width: 100%;
   max-width: 68ch;
+  order: 1;
 }
 
 .techora-listicle-v1 .techora-listicle-v1__reason-content > .techora-listicle-v1__richtext {
@@ -1244,9 +1243,13 @@
   }
 
   .techora-listicle-v1 .techora-listicle-v1__reason-layout--split > .techora-listicle-v1__reason-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    gap: 18px;
     grid-column: 2;
     grid-row: 1;
-    justify-content: center;
   }
 
   .techora-listicle-v1 .techora-listicle-v1__reason-layout--right {
