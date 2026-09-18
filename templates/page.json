@@ -18,8 +18,8 @@
       "type": "techora-listicle-announcement-v1",
       "name": "Techora announcement",
       "settings": {
-        "message": "A considered approach to everyday choices",
-        "supporting_text": "",
+        "message": "<strong>☕ NOVA BREW DAILY EDIT ✨</strong>",
+        "supporting_text": "PREMIUM COFFEE MADE SIMPLE",
         "countdown_enabled": true,
         "countdown_hours": 2,
         "countdown_minutes": 15,
