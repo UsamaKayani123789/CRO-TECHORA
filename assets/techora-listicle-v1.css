@@ -307,7 +307,7 @@
 
 @media (max-width: 719px) {
   .techora-listicle-v1 .techora-listicle-v1__announcement-row {
-    grid-template-columns: minmax(0, 158px) 120px;
+    grid-template-columns: minmax(0, 1fr) 120px;
     justify-content: center;
     column-gap: 9px;
     row-gap: 8px;
